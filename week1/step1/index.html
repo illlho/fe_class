@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>1주차 HTML 기초</title>
+    <link rel="stylesheet" href="index.css">
+</head>
+
+<body>
+    <div id="tabs"></div>
+
+    <div class="container">
+        <!-- 소스코드 에디터 탭 -->
+        <div class="editor">
+            <textarea id="code-area" class="editor-area">
+&lt;!DOCTYPE html&gt;
+&lt;html lang="en"&gt;
+&lt;head&gt;
+    &lt;meta charset="UTF-8"&gt;
+    &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+    &lt;title&gt;HTML 기초&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;h1&gt;HTML 기초 학습&lt;/h1&gt;
+    &lt;p&gt;이 문서는 HTML의 기본 태그를 설명합니다.&lt;/p&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+            </textarea>
+            <!-- <button id="preview-btn">Preview</button> -->
+        </div>
+
+        <!-- 구현 화면 탭 (웹뷰로 표시) -->
+        <div class="preview">
+            <iframe id="preview-frame" class="preview-frame"></iframe>
+        </div>
+    </div>
+
+    
+</body>
+
+</html>
+
+<script src="../common.js"></script>
+<script type="text/javascript">
+    // 코드 에디터에서 작성된 내용을 'preview-frame' iframe에 동적으로 삽입
+    function updatePreview() {
+        const codeArea = document.getElementById('code-area').value;
+        const iframe = document.getElementById('preview-frame');
+        const doc = iframe.contentDocument || iframe.contentWindow.document;
+
+        doc.open();
+        doc.write(codeArea);  // 작성된 코드를 iframe에 넣음
+        doc.close();
+    }
+
+    // 코드가 변경될 때마다 preview를 업데이트
+    // document.getElementById('preview-btn').addEventListener('click', updatePreview);
+    document.getElementById('code-area').addEventListener('input', updatePreview);
+
+    // 페이지가 로드되면 처음에 preview를 업데이트
+    updatePreview();
+</script>
