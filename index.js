@@ -28,7 +28,8 @@ document.getElementById('showMoreBtn').addEventListener('click', function () {
 document.getElementById('weekList').addEventListener('click', function (event) {
     if (event.target.closest('.card')) {
         const week = event.target.closest('.card').getAttribute('data-week');
-        alert(`${week}주차로 이동합니다.`);  // 실제로 이동을 추가하려면 location.href 등을 활용할 수 있음
+        // alert(`${week}주차로 이동합니다.`);  // 실제로 이동을 추가하려면 location.href 등을 활용할 수 있음
+        location.href = `week${week}/index.html`;  // 해당 주차로 이동
     }
 });
 

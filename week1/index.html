@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>1주차 HTML 기초</title>
+    <link rel="stylesheet" href="index.css">
+</head>
+
+<body>
+    <header>
+        <nav>
+            <button id="homeBtn" onclick="window.location.href='../index.html'">메인으로</button>
+        </nav>
+        <h1>1주차 HTML 기초</h1>
+    </header>
+
+    <div class="tabs">
+        <div class="tab active" onclick="showTab('basicTags', event)">기본 태그</div>
+        <div class="tab" onclick="showTab('textTags', event)">텍스트 태그</div>
+        <div class="tab" onclick="showTab('listTags', event)">목록 태그</div>
+    </div>
+
+    <div id="tab-content">
+        <div id="basicTags" class="tab-content active"></div>
+        <div id="textTags" class="tab-content"></div>
+        <div id="listTags" class="tab-content"></div>
+    </div>
+
+    <script>
+        function showTab(tabName, event) {
+            // 모든 탭 내용 숨기기
+            var contents = document.querySelectorAll('.tab-content');
+            contents.forEach(function (content) {
+                content.classList.remove('active');
+            });
+
+            // 모든 탭 버튼 비활성화
+            var tabs = document.querySelectorAll('.tab');
+            tabs.forEach(function (tab) {
+                tab.classList.remove('active');
+            });
+
+            // 클릭한 탭 활성화
+            document.getElementById(tabName).classList.add('active');
+            event.target.classList.add('active');
+
+            // 각 카테고리 html 파일 불러오기
+            loadTabContent(tabName);
+        }
+
+        function loadOuterHTML(el, pagePath) {
+            var xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function () {
+                if (this.readyState == 4 && this.status == 200) {
+                    el.outerHTML = this.responseText;
+                }
+            };
+            xhttp.open('GET', pagePath, true);
+            xhttp.send();
+        }
+
+        function loadTabContent(tabName) {
+            var tabContent = document.getElementById(tabName);
+            if (tabName === 'basicTags' && !tabContent.innerHTML) {
+                loadOuterHTML(tabContent, '1_basicTags.html');
+            } else if (tabName === 'textTags' && !tabContent.innerHTML) {
+                loadOuterHTML(tabContent, '2_textTags.html');
+            } else if (tabName === 'listTags' && !tabContent.innerHTML) {
+                loadOuterHTML(tabContent, '3_listTags.html');
+            }
+        }
+    </script>
+</body>
+
+</html>
