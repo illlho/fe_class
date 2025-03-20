@@ -37,6 +37,6 @@ document.getElementById('weekList').addEventListener('click', function (event) {
 });
 
 // 메인 화면으로 돌아가는 버튼
-document.getElementById('homeBtn').addEventListener('click', function () {
-    location.href = 'index.html';  // 메인 페이지로 이동
-});
+// document.getElementById('homeBtn').addEventListener('click', function () {
+//     location.href = 'index.html';  // 메인 페이지로 이동
+// });
