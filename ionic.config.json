@@ -1,0 +1,7 @@
+{
+  "name": "fe_class",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
