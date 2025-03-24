@@ -1,4 +1,6 @@
 import { Component, ViewChild, Renderer2 } from '@angular/core';
+import { GlobalService } from './services/global.service';
+
 @Component({
   selector: 'app-root',
   templateUrl: 'app.component.html',
@@ -8,7 +10,16 @@ import { Component, ViewChild, Renderer2 } from '@angular/core';
 export class AppComponent {
   @ViewChild('menuRef') ionMenu!: any;
   menuFlag: boolean = true;
-  
+
+  constructor(private globalService: GlobalService, private renderer: Renderer2) { }
+
+  ngAfterViewInit() {
+    // 전역 변수 값 구독 (값이 변경될 때마다 자동 업데이트됨)
+    this.globalService.menuFlag$.subscribe(flag => {
+      flag == true ? this.renderer.addClass(this.ionMenu.el, 'menu-pane-visible') : this.renderer.removeClass(this.ionMenu.el, 'menu-pane-visible');
+    });
+  }
+
   public appPages = [
     { title: 'Inbox', url: '/folder/inbox', icon: 'mail' },
     { title: 'Outbox', url: '/folder/outbox', icon: 'paper-plane' },
@@ -18,13 +29,8 @@ export class AppComponent {
     { title: 'Spam', url: '/folder/spam', icon: 'warning' },
   ];
   public labels = ['Family', 'Friends', 'Notes', 'Work', 'Travel', 'Reminders'];
-  constructor(private renderer: Renderer2) {}
 
-  closeTab() {
-    console.log("탭 닫기 실행!");
-  }
   setMenuClose() {
-    this.menuFlag = !this.menuFlag
-    this.menuFlag == true ? this.renderer.addClass(this.ionMenu.el, 'menu-pane-visible') : this.renderer.removeClass(this.ionMenu.el, 'menu-pane-visible');
+    this.globalService.setMenuStatus(!this.globalService.getMenuStatus());
   }
 }
