@@ -9,8 +9,8 @@ export class GlobalService {
   menuFlag$ = this.menuFlag.asObservable(); // 다른 컴포넌트에서 subscribe 가능
 
   // 전역 변수 값 변경 함수
-  setMenuStatus(flag: boolean) {
-    this.menuFlag.next(flag);
+  changeMenuStatus() {
+    this.menuFlag.next(!this.menuFlag.value);
   }
 
   // 전역 변수 직접 가져오는 함수

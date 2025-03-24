@@ -31,6 +31,6 @@ export class AppComponent {
   public labels = ['Family', 'Friends', 'Notes', 'Work', 'Travel', 'Reminders'];
 
   setMenuClose() {
-    this.globalService.setMenuStatus(!this.globalService.getMenuStatus());
+    this.globalService.changeMenuStatus();
   }
 }
