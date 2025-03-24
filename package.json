@@ -10,7 +10,7 @@
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "lint": "ng lint",
-    "deploy": "ng build --output-path docs --base-href /fe_class/"
+    "deploy": "ng build --output-path docs --base-href https://illlho.github.io/fe_class/"
   },
   "private": true,
   "dependencies": {
