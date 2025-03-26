@@ -1,21 +1,17 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
-import { HTMLPage } from './html.page';
+import { Step1Page } from './step1.page';
 
 const routes: Routes = [
   {
     path: '',
-    component: HTMLPage
-  },
-  {
-    path: 'step1',
-    loadChildren: () => import('./step1/step1.module').then( m => m.Step1PageModule)
-  },
+    component: Step1Page
+  }
 ];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
 })
-export class HTMLPageRoutingModule {}
+export class Step1PageRoutingModule {}

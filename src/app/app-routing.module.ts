@@ -2,19 +2,9 @@ import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 
 const routes: Routes = [
-  {
-    path: '',
-    redirectTo: '',
-    pathMatch: 'full'
-  },
-  {
-    path: 'folder/:id',
-    loadChildren: () => import('./folder/folder.module').then( m => m.FolderPageModule)
-  },
-  {
-    path: 'html',
-    loadChildren: () => import('./html/html.module').then( m => m.HTMLPageModule)
-  },
+  { path: '', redirectTo: '', pathMatch: 'full' },
+  { path: 'folder/:id', loadChildren: () => import('./folder/folder.module').then(m => m.FolderPageModule) },
+  { path: 'html', loadChildren: () => import('./html/html.module').then(m => m.HTMLPageModule) },
 ];
 
 @NgModule({
@@ -23,4 +13,4 @@ const routes: Routes = [
   ],
   exports: [RouterModule]
 })
-export class AppRoutingModule {}
+export class AppRoutingModule { }
