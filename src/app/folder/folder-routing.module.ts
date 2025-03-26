@@ -8,10 +8,6 @@ const routes: Routes = [
     path: '',
     component: FolderPage
   },
-  {
-    path: 'html',
-    loadChildren: () => import('../html/html.module').then( m => m.HTMLPageModule)
-  }
 ];
 
 @NgModule({
