@@ -17,7 +17,7 @@
           }
         </ion-list>
 
-        <ion-list id="labels-list">
+        <ion-list id="labels-list" *ngIf="labels.length > 0">
           <ion-list-header>Labels</ion-list-header>
 
           @for (label of labels; track label) {
