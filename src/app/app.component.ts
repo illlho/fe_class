@@ -28,12 +28,10 @@ export class AppComponent {
   }
 
   public appPages = [
-    { title: 'HTML', url: '/html', icon: 'code-slash' },
-    { title: 'CSS', url: '/folder/CSS', icon: 'brush' },
-    { title: 'Javascript', url: '/folder/JS', icon: 'build' },
+    { title: 'HTML', url: '/html', icon: 'logo-html5' },
+    { title: 'CSS', url: '/folder/CSS', icon: 'logo-css3' },
+    { title: 'Javascript', url: '/folder/JS', icon: 'logo-javascript' },
   ];
-  public labels = [];
-  // public labels = ['Family', 'Friends', 'Notes', 'Work', 'Travel', 'Reminders'];
 
   setMenuClose() {
     this.globalService.changeMenuStatus();
