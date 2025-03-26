@@ -3,10 +3,6 @@
 
     <!-- 사이드 메뉴 확대 -->
     <ion-menu #menuRef contentId="main-content" type="overlay">
-      <!-- 사이드 메뉴 닫기 버튼 -->
-      <ion-toolbar (click)="setMenuClose()">
-        <ion-icon class="close-menu-btn" name="caret-back-outline"></ion-icon>
-      </ion-toolbar>
 
       <ion-content>
         <ion-list id="inbox-list">
@@ -38,9 +34,10 @@
     </ion-menu>
 
     <!-- 사이드 메뉴 축소 -->
-    <div class="menu-small invisible" #menuSmallRef>
+    <div class="menu-small" #menuSmallRef>
       <ion-toolbar (click)="setMenuClose()">
-        <ion-icon name="caret-forward-outline"></ion-icon>
+        <ion-icon *ngIf="menuFlag == true" name="caret-back-outline"></ion-icon>
+        <ion-icon *ngIf="menuFlag == false" name="caret-forward-outline"></ion-icon>
       </ion-toolbar>
     </div>
     <ion-router-outlet id="main-content"></ion-router-outlet>
