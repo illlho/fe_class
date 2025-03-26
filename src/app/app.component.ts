@@ -9,6 +9,7 @@ import { GlobalService } from './services/global.service';
 })
 export class AppComponent {
   @ViewChild('menuRef') ionMenu!: any;
+  @ViewChild('menuSmallRef') ionMenuSmall!: any;
   menuFlag: boolean = true;
 
   constructor(private globalService: GlobalService, private renderer: Renderer2) { }
@@ -16,7 +17,14 @@ export class AppComponent {
   ngAfterViewInit() {
     // 전역 변수 값 구독 (값이 변경될 때마다 자동 업데이트됨)
     this.globalService.menuFlag$.subscribe(flag => {
-      flag == true ? this.renderer.addClass(this.ionMenu.el, 'menu-pane-visible') : this.renderer.removeClass(this.ionMenu.el, 'menu-pane-visible');
+      if (flag == true) {
+        this.renderer.addClass(this.ionMenu.el, 'menu-pane-visible')
+        this.renderer.addClass(this.ionMenuSmall.nativeElement, 'invisible')
+      } else {
+        this.renderer.removeClass(this.ionMenu.el, 'menu-pane-visible');
+        this.renderer.removeClass(this.ionMenuSmall.nativeElement, 'invisible');
+      }
+
     });
   }
 

@@ -129,3 +129,17 @@ ion-item.selected {
   padding-left: 10px;
   cursor: pointer;
 }
+
+.menu-small.invisible {
+  display: none;
+}
+.menu-small {
+  width: 15px;
+  display: flex;
+}
+.menu-small ion-toolbar {
+  display: flex;
+}
+.menu-small .toolbar-container {
+  background: #ddd !important
+}

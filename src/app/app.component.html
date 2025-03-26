@@ -1,7 +1,9 @@
 <ion-app>
   <ion-split-pane contentId="main-content">
+
+    <!-- 사이드 메뉴 확대 -->
     <ion-menu #menuRef contentId="main-content" type="overlay">
-      <!-- 메뉴 헤더 추가 -->
+      <!-- 사이드 메뉴 닫기 버튼 -->
       <ion-toolbar (click)="setMenuClose()">
         <ion-icon class="close-menu-btn" name="caret-back-outline"></ion-icon>
       </ion-toolbar>
@@ -13,7 +15,8 @@
 
           @for (p of appPages; track p; let i = $index) {
           <ion-menu-toggle auto-hide="false">
-            <ion-item routerDirection="root" [routerLink]="[p.url]" lines="none" detail="false" routerLinkActive="selected">
+            <ion-item routerDirection="root" [routerLink]="[p.url]" lines="none" detail="false"
+              routerLinkActive="selected">
               <ion-icon aria-hidden="true" slot="start" [ios]="p.icon + '-outline'" [md]="p.icon + '-sharp'"></ion-icon>
               <ion-label>{{ p.title }}</ion-label>
             </ion-item>
@@ -33,6 +36,13 @@
         </ion-list>
       </ion-content>
     </ion-menu>
+
+    <!-- 사이드 메뉴 축소 -->
+    <div class="menu-small invisible" #menuSmallRef>
+      <ion-toolbar (click)="setMenuClose()">
+        <ion-icon name="caret-forward-outline"></ion-icon>
+      </ion-toolbar>
+    </div>
     <ion-router-outlet id="main-content"></ion-router-outlet>
   </ion-split-pane>
 </ion-app>
