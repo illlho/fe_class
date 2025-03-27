@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <title>HTML & CSS 학습 프로젝트</title>
+    <style>
+        /* 초급 단계: 기본 레이아웃과 선택자 */
+        body {
+            font-family: 'Arial', sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+            background-color: #f4f4f4;
+        }
+
+        /* 고급 단계: 복합 레이아웃과 반응형 디자인 */
+        .advanced-section {
+            display: grid;
+            grid-template-columns: 250px 1fr;
+            gap: 20px;
+        }
+
+        .sidebar {
+            background-color: white;
+            border: 1px solid #ddd;
+            padding: 20px;
+        }
+
+        .content {
+            background-color: white;
+            border: 1px solid #ddd;
+            padding: 20px;
+        }
+
+        .menu-item {
+            padding: 10px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .widget {
+            background-color: #f9f9f9;
+            padding: 15px;
+            margin-bottom: 15px;
+        }
+
+        /* 반응형 디자인 미디어 쿼리 */
+        @media screen and (max-width: 768px) {
+            .intermediate-section {
+                flex-direction: column;
+            }
+
+            .card {
+                width: 100%;
+                margin-bottom: 15px;
+            }
+
+            .advanced-section {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <h1>HTML & CSS 학습 프로젝트</h1>
+
+    <!-- 고급 단계: 복합 레이아웃과 반응형 디자인 -->
+    <div class="advanced-section">
+        <div class="sidebar">
+            <h2>메뉴</h2>
+            <div class="menu-item">대시보드</div>
+            <div class="menu-item">프로필</div>
+            <div class="menu-item">설정</div>
+        </div>
+        <div class="content">
+            <h2>대시보드</h2>
+            <div class="widget">
+                <h3>최근 활동</h3>
+                <p>Grid 레이아웃과 반응형 디자인 학습</p>
+            </div>
+            <div class="widget">
+                <h3>통계</h3>
+                <p>미디어 쿼리를 통한 반응형 적용</p>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

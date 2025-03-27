@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <title>HTML & CSS 학습 프로젝트</title>
+    <style>
+        /* 초급 단계: 기본 레이아웃과 선택자 */
+        body {
+            font-family: 'Arial', sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+            background-color: #f4f4f4;
+        }
+
+        /* 중급 단계: 박스 모델과 레이아웃 */
+        .intermediate-section {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+
+        .card {
+            width: 30%;
+            background-color: white;
+            border: 1px solid #ddd;
+            padding: 15px;
+            box-sizing: border-box;
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+
+        .card:hover {
+            transform: scale(1.05);
+        }
+
+        .card img {
+            max-width: 100%;
+            height: auto;
+        }
+
+
+        /* 반응형 디자인 미디어 쿼리 */
+        @media screen and (max-width: 768px) {
+            .intermediate-section {
+                flex-direction: column;
+            }
+
+            .card {
+                width: 100%;
+                margin-bottom: 15px;
+            }
+
+        }
+    </style>
+</head>
+
+<body>
+    <h1>HTML & CSS 학습 프로젝트</h1>
+
+    <!-- 중급 단계: 박스 모델과 레이아웃 -->
+    <div class="intermediate-section">
+        <div class="card">
+            <h3>웹 디자인</h3>
+            <img src="https://placehold.co/300x200" alt="웹 디자인">
+            <p>반응형 레이아웃 학습</p>
+        </div>
+        <div class="card">
+            <h3>CSS 레이아웃</h3>
+            <img src="https://placehold.co/300x200" alt="CSS 레이아웃">
+            <p>플렉스박스 활용</p>
+        </div>
+        <div class="card">
+            <h3>박스 모델</h3>
+            <img src="https://placehold.co/300x200" alt="박스 모델">
+            <p>마진, 패딩, 보더 이해하기</p>
+        </div>
+    </div>
+
+</body>
+
+</html>
