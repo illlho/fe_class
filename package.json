@@ -6,7 +6,7 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "build": "ng build && mv www docs",
+    "build": "ng build && rm -r docs && mv www docs",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "lint": "ng lint",
