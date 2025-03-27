@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>간단한 UI 컴포넌트</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 400px;
+            text-align: center;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+            margin-top: 20px;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        button {
+            margin: 5px;
+            padding: 10px 15px;
+            border: none;
+            background: #007bff;
+            color: white;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+
+        button:hover {
+            background: #0056b3;
+        }
+
+        .nav {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="nav">
+        <button onclick="showComponent('login')">로그인</button>
+        <button onclick="showComponent('signup')">회원가입</button>
+        <button onclick="showComponent('profile')">프로필</button>
+        <button onclick="showComponent('nav')">네비게이션</button>
+        <button onclick="showComponent('footer')">푸터</button>
+    </div>
+
+    <div id="login" class="container">
+        <h2>로그인</h2>
+        <input type="text" placeholder="아이디" /><br><br>
+        <input type="password" placeholder="비밀번호" /><br><br>
+        <button>로그인</button>
+    </div>
+
+    <div id="signup" class="container hidden">
+        <h2>회원가입</h2>
+        <input type="text" placeholder="이름" /><br><br>
+        <input type="email" placeholder="이메일" /><br><br>
+        <input type="password" placeholder="비밀번호" /><br><br>
+        <button>가입하기</button>
+    </div>
+
+    <div id="profile" class="container hidden">
+        <h2>프로필</h2>
+        <img src="https://via.placeholder.com/100" alt="Profile Image" style="border-radius: 50%;"><br><br>
+        <p>사용자 이름</p>
+        <p>이메일@example.com</p>
+    </div>
+
+    <div id="nav" class="container hidden">
+        <h2>네비게이션 바</h2>
+        <nav>
+            <a href="#">홈</a> | <a href="#">서비스</a> | <a href="#">문의</a>
+        </nav>
+    </div>
+
+    <div id="footer" class="container hidden">
+        <h2>푸터</h2>
+        <p>&copy; 2025 My Website</p>
+    </div>
+
+    <script>
+        function showComponent(id) {
+            document.querySelectorAll('.container').forEach(el => el.classList.add('hidden'));
+            document.getElementById(id).classList.remove('hidden');
+        }
+    </script>
+</body>
+
+</html>

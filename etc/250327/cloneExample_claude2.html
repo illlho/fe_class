@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Glassmorphism 웹 컴포넌트</title>
+    <style>
+        :root {
+            --bg-color: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --glass-bg: rgba(255, 255, 255, 0.1);
+            --glass-border: rgba(255, 255, 255, 0.18);
+            --text-color: #ffffff;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            padding: 20px;
+            gap: 20px;
+        }
+
+        .glass-component {
+            background: var(--glass-bg);
+            backdrop-filter: blur(10px);
+            border-radius: 16px;
+            border: 1px solid var(--glass-border);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            padding: 25px;
+            width: 100%;
+            max-width: 350px;
+            transition: transform 0.3s ease;
+        }
+
+        .glass-component:hover {
+            transform: scale(1.05);
+        }
+
+        /* 로그인 폼 스타일 */
+        .login-form input {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 15px;
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            border-radius: 10px;
+            color: white;
+            outline: none;
+        }
+
+        .login-form input::placeholder {
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .login-form button {
+            width: 100%;
+            padding: 12px;
+            background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+            border: none;
+            border-radius: 10px;
+            color: white;
+            cursor: pointer;
+            transition: opacity 0.3s ease;
+        }
+
+        .login-form button:hover {
+            opacity: 0.9;
+        }
+
+        /* 카드 스타일 */
+        .card-container {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .card {
+            background: var(--glass-bg);
+            backdrop-filter: blur(10px);
+            border-radius: 16px;
+            padding: 15px;
+            width: calc(50% - 7.5px);
+            text-align: center;
+        }
+
+        .card img {
+            max-width: 100%;
+            border-radius: 10px;
+            margin-bottom: 15px;
+        }
+
+        .card button {
+            background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+            border: none;
+            color: white;
+            padding: 10px;
+            border-radius: 8px;
+            margin-top: 10px;
+            cursor: pointer;
+        }
+
+        /* 네비게이션 메뉴 스타일 */
+        .nav-menu {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            background: var(--glass-bg);
+            backdrop-filter: blur(10px);
+            padding: 15px;
+        }
+
+        .nav-menu a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .nav-menu a:hover {
+            color: #2575fc;
+        }
+
+        /* 알림창 스타일 */
+        .alert {
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 15px;
+        }
+
+        .alert-success {
+            background: rgba(76, 175, 80, 0.2);
+            color: #4CAF50;
+            border: 1px solid rgba(76, 175, 80, 0.3);
+        }
+
+        .alert-error {
+            background: rgba(244, 67, 54, 0.2);
+            color: #F44336;
+            border: 1px solid rgba(244, 67, 54, 0.3);
+        }
+
+        /* 프로필 카드 스타일 */
+        .profile-card {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .profile-card img {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid var(--glass-border);
+        }
+
+        @media (max-width: 768px) {
+            .card {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="glass-component">
+        <h2>로그인</h2>
+        <div class="login-form">
+            <input type="email" placeholder="이메일">
+            <input type="password" placeholder="비밀번호">
+            <button>로그인</button>
+        </div>
+    </div>
+
+    <div class="glass-component">
+        <h2>상품 카드</h2>
+        <div class="card-container">
+            <div class="card">
+                <img src="https://via.assets.so/game.png?id=3&q=95&w=360&h=360&fit=fill" alt="상품 이미지">
+                <h3>상품 이름</h3>
+                <button>장바구니 담기</button>
+            </div>
+            <div class="card">
+                <img src="https://via.assets.so/game.png?id=4&q=95&w=360&h=360&fit=fill" alt="상품 이미지">
+                <h3>상품 이름</h3>
+                <button>장바구니 담기</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="glass-component">
+        <h2>메뉴</h2>
+        <nav class="nav-menu">
+            <a href="#">홈</a>
+            <a href="#">상품</a>
+            <a href="#">서비스</a>
+            <a href="#">고객센터</a>
+        </nav>
+    </div>
+
+    <div class="glass-component">
+        <h2>알림</h2>
+        <div class="alert alert-success">
+            성공적으로 처리되었습니다!
+        </div>
+        <div class="alert alert-error">
+            오류가 발생했습니다. 다시 시도해주세요.
+        </div>
+    </div>
+
+    <div class="glass-component">
+        <h2>프로필</h2>
+        <div class="profile-card">
+            <img src="https://via.assets.so/game.png?id=7&q=95&w=100&h=100&fit=fill" alt="프로필 이미지">
+            <div>
+                <h3>김개발</h3>
+                <p>웹 개발자</p>
+                <p>010-1234-5678</p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

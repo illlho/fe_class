@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>초보자를 위한 웹 컴포넌트 클론</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f4f4f4;
+        }
+        .component {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            margin-bottom: 30px;
+            padding: 20px;
+        }
+        /* 로그인 폼 스타일 */
+        .login-form {
+            display: flex;
+            flex-direction: column;
+            max-width: 300px;
+        }
+        .login-form input {
+            margin-bottom: 10px;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        .login-form button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 10px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        /* 카드 스타일 */
+        .card-container {
+            display: flex;
+            gap: 15px;
+        }
+        .card {
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 15px;
+            width: 200px;
+        }
+        .card img {
+            max-width: 100%;
+            border-radius: 4px;
+        }
+
+        /* 네비게이션 메뉴 스타일 */
+        .nav-menu {
+            display: flex;
+            background-color: #333;
+            color: white;
+            padding: 10px;
+        }
+        .nav-menu a {
+            color: white;
+            text-decoration: none;
+            margin-right: 15px;
+        }
+
+        /* 알림창 스타일 */
+        .alert {
+            padding: 15px;
+            border-radius: 4px;
+        }
+        .alert-success {
+            background-color: #dff0d8;
+            color: #3c763d;
+            border: 1px solid #d6e9c6;
+        }
+        .alert-error {
+            background-color: #f2dede;
+            color: #a94442;
+            border: 1px solid #ebccd1;
+        }
+
+        /* 프로필 카드 스타일 */
+        .profile-card {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        .profile-card img {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+    </style>
+</head>
+<body>
+    <div class="component">
+        <h2>1. 로그인 폼</h2>
+        <div class="login-form">
+            <input type="email" placeholder="이메일">
+            <input type="password" placeholder="비밀번호">
+            <button>로그인</button>
+        </div>
+    </div>
+
+    <div class="component">
+        <h2>2. 상품 카드</h2>
+        <div class="card-container">
+            <div class="card">
+                <img src="https://via.assets.so/game.png?id=1&q=95&w=360&h=360&fit=fill" alt="상품 이미지">
+                <h3>상품 이름</h3>
+                <p>상품 설명</p>
+                <button>장바구니 담기</button>
+            </div>
+            <div class="card">
+                <img src="https://via.assets.so/game.png?id=2&q=95&w=360&h=360&fit=fill" alt="상품 이미지">
+                <h3>상품 이름</h3>
+                <p>상품 설명</p>
+                <button>장바구니 담기</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="component">
+        <h2>3. 내비게이션 메뉴</h2>
+        <nav class="nav-menu">
+            <a href="#">홈</a>
+            <a href="#">상품</a>
+            <a href="#">서비스</a>
+            <a href="#">고객센터</a>
+        </nav>
+    </div>
+
+    <div class="component">
+        <h2>4. 알림창</h2>
+        <div class="alert alert-success">
+            성공적으로 처리되었습니다!
+        </div>
+        <div class="alert alert-error">
+            오류가 발생했습니다. 다시 시도해주세요.
+        </div>
+    </div>
+
+    <div class="component">
+        <h2>5. 프로필 카드</h2>
+        <div class="profile-card">
+            <img src="https://via.assets.so/game.png?id=7&q=95&w=100&h=100&fit=fill" alt="프로필 이미지">
+            <div>
+                <h3>김개발</h3>
+                <p>웹 개발자</p>
+                <p>010-1234-5678</p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

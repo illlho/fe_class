@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Neumorphism 웹 컴포넌트</title>
+    <style>
+        :root {
+            --bg-color: #e0e5ec;
+            --primary-color: #6a89cc;
+            --text-color: #333;
+            --shadow-light: #ffffff;
+            --shadow-dark: #a3b1c6;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            padding: 20px;
+            gap: 20px;
+        }
+
+        .neumorphic-component {
+            background: var(--bg-color);
+            border-radius: 20px;
+            box-shadow:
+                9px 9px 16px var(--shadow-dark),
+                -9px -9px 16px var(--shadow-light);
+            padding: 25px;
+            width: 100%;
+            max-width: 350px;
+            transition: all 0.3s ease;
+        }
+
+        .neumorphic-component:hover {
+            box-shadow:
+                12px 12px 20px var(--shadow-dark),
+                -12px -12px 20px var(--shadow-light);
+        }
+
+        /* 로그인 폼 스타일 */
+        .login-form input {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 15px;
+            background: var(--bg-color);
+            border: none;
+            border-radius: 10px;
+            box-shadow:
+                inset 3px 3px 6px var(--shadow-dark),
+                inset -3px -3px 6px var(--shadow-light);
+            color: var(--text-color);
+            outline: none;
+        }
+
+        .login-form button {
+            width: 100%;
+            padding: 12px;
+            background: var(--primary-color);
+            border: none;
+            border-radius: 10px;
+            color: white;
+            cursor: pointer;
+            box-shadow:
+                5px 5px 10px var(--shadow-dark),
+                -5px -5px 10px var(--shadow-light);
+            transition: all 0.3s ease;
+        }
+
+        .login-form button:hover {
+            box-shadow:
+                3px 3px 6px var(--shadow-dark),
+                -3px -3px 6px var(--shadow-light);
+        }
+
+        /* 카드 스타일 */
+        .card-container {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .card {
+            background: var(--bg-color);
+            border-radius: 20px;
+            box-shadow:
+                6px 6px 12px var(--shadow-dark),
+                -6px -6px 12px var(--shadow-light);
+            padding: 15px;
+            width: calc(50% - 7.5px);
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .card:hover {
+            box-shadow:
+                9px 9px 16px var(--shadow-dark),
+                -9px -9px 16px var(--shadow-light);
+        }
+
+        .card img {
+            max-width: 100%;
+            border-radius: 10px;
+            margin-bottom: 15px;
+            box-shadow:
+                3px 3px 6px var(--shadow-dark),
+                -3px -3px 6px var(--shadow-light);
+        }
+
+        .card button {
+            background: var(--primary-color);
+            border: none;
+            color: white;
+            padding: 10px;
+            border-radius: 8px;
+            margin-top: 10px;
+            cursor: pointer;
+            box-shadow:
+                3px 3px 6px var(--shadow-dark),
+                -3px -3px 6px var(--shadow-light);
+            transition: all 0.3s ease;
+        }
+
+        .card button:hover {
+            box-shadow:
+                2px 2px 4px var(--shadow-dark),
+                -2px -2px 4px var(--shadow-light);
+        }
+
+        /* 네비게이션 메뉴 스타일 */
+        .nav-menu {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            background: var(--bg-color);
+            border-radius: 20px;
+            box-shadow:
+                6px 6px 12px var(--shadow-dark),
+                -6px -6px 12px var(--shadow-light);
+            padding: 15px;
+        }
+
+        .nav-menu a {
+            color: var(--text-color);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+            position: relative;
+        }
+
+        .nav-menu a:hover {
+            color: var(--primary-color);
+        }
+
+        .nav-menu a::after {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 2px;
+            bottom: -5px;
+            left: 0;
+            background-color: var(--primary-color);
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+        }
+
+        .nav-menu a:hover::after {
+            transform: scaleX(1);
+        }
+
+        /* 알림창 스타일 */
+        .alert {
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 15px;
+            box-shadow:
+                3px 3px 6px var(--shadow-dark),
+                -3px -3px 6px var(--shadow-light);
+        }
+
+        .alert-success {
+            background: var(--bg-color);
+            color: #4CAF50;
+            border: 1px solid rgba(76, 175, 80, 0.2);
+        }
+
+        .alert-error {
+            background: var(--bg-color);
+            color: #F44336;
+            border: 1px solid rgba(244, 67, 54, 0.2);
+        }
+
+        /* 프로필 카드 스타일 */
+        .profile-card {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .profile-card img {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            object-fit: cover;
+            box-shadow:
+                6px 6px 12px var(--shadow-dark),
+                -6px -6px 12px var(--shadow-light);
+        }
+
+        @media (max-width: 768px) {
+            .card {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="neumorphic-component">
+        <h2>로그인</h2>
+        <div class="login-form">
+            <input type="email" placeholder="이메일">
+            <input type="password" placeholder="비밀번호">
+            <button>로그인</button>
+        </div>
+    </div>
+
+    <div class="neumorphic-component">
+        <h2>상품 카드</h2>
+        <div class="card-container">
+            <div class="card">
+                <img src="https://via.assets.so/game.png?id=5&q=95&w=360&h=360&fit=fill" alt="상품 이미지">
+                <h3>상품 이름</h3>
+                <button>장바구니 담기</button>
+            </div>
+            <div class="card">
+                <img src="https://via.assets.so/game.png?id=6&q=95&w=360&h=360&fit=fill" alt="상품 이미지">
+                <h3>상품 이름</h3>
+                <button>장바구니 담기</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="neumorphic-component">
+        <h2>메뉴</h2>
+        <nav class="nav-menu">
+            <a href="#">홈</a>
+            <a href="#">상품</a>
+            <a href="#">서비스</a>
+            <a href="#">고객센터</a>
+        </nav>
+    </div>
+
+    <div class="neumorphic-component">
+        <h2>알림</h2>
+        <div class="alert alert-success">
+            성공적으로 처리되었습니다!
+        </div>
+        <div class="alert alert-error">
+            오류가 발생했습니다. 다시 시도해주세요.
+        </div>
+    </div>
+
+    <div class="neumorphic-component">
+        <h2>프로필</h2>
+        <div class="profile-card">
+            <img src="https://via.assets.so/game.png?id=7&q=95&w=100&h=100&fit=fill" alt="프로필 이미지">
+            <div>
+                <h3>김개발</h3>
+                <p>웹 개발자</p>
+                <p>010-1234-5678</p>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
