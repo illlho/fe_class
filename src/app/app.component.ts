@@ -11,25 +11,14 @@ export class AppComponent {
   @ViewChild('splitPaneRef') splitPaneRef!: any;
   @ViewChild('sideMenuRef') sideMenuRef!: any;
   @ViewChild('colMenuRef') colMenuRef!: any;
-  menuFlag: boolean = true;
+  menuFlag: boolean = false;
+  screenWidth: number = 0;
 
-  constructor(private globalService: GlobalService, private renderer: Renderer2, private cdr: ChangeDetectorRef) {
-    // setTimeout(() => {
-    //   this.menuFlag = !this.ionMenu.el.classList.contains('hydrated');
-    //   this.ionMenuSmall.$digest();
-    //   this.setMenuStatus(this.menuFlag);
-    //   this.cdr.detectChanges(); // 변경 감지 실행
-    // }, 100);
-  }
+  constructor(private globalService: GlobalService, private renderer: Renderer2, private cdr: ChangeDetectorRef) { }
 
   ngAfterViewInit() {
-    // 전역 변수 값 구독 (값이 변경될 때마다 자동 업데이트됨)
-    this.globalService.menuFlag$.subscribe(flag => {
-      this.menuFlag = flag
-      this.setMenuOpen(flag);
-    });
-
     this.delayedUpdateView()
+    this.screenWidth = window.innerWidth;
   }
 
   public appPages = [
@@ -38,12 +27,23 @@ export class AppComponent {
     { title: 'Javascript', url: '/folder/JS', icon: 'logo-javascript' },
   ];
 
+  subscribeMenuFlag() {
+    // 전역 변수 값 구독 (값이 변경될 때마다 자동 업데이트됨)
+    this.globalService.menuFlag$.subscribe(flag => {
+      this.menuFlag = flag;
+      this.setMenuOpen(flag);
+    });
+  }
+
   delayedUpdateView() {
     setTimeout(() => {
-      this.menuFlag = !this.splitPaneRef.el.classList.contains('split-pane-visible');
+      this.subscribeMenuFlag()
+      this.menuFlag = this.screenWidth >= 992;
       this.setMenuOpen(this.menuFlag);
       this.setMenuStatus(this.menuFlag);
-      this.cdr.detectChanges(); // 변경 감지 실행
+
+      // 변경 감지 실행
+      this.cdr.detectChanges();
     }, 100);
   }
 

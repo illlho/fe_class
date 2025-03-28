@@ -5,7 +5,7 @@ import { BehaviorSubject } from 'rxjs';
   providedIn: 'root', // 자동으로 앱 전체에서 사용 가능
 })
 export class GlobalService {
-  private menuFlag = new BehaviorSubject<boolean>(true);
+  private menuFlag = new BehaviorSubject<boolean>(false);
   menuFlag$ = this.menuFlag.asObservable(); // 다른 컴포넌트에서 subscribe 가능
 
   // 전역 변수 값 변경 함수
