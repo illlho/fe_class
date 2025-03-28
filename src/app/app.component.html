@@ -1,7 +1,7 @@
 <ion-app>
-  <ion-split-pane contentId="main-content">
+  <ion-split-pane #splitPaneRef contentId="main-content">
 
-    <ion-menu #menuRef contentId="main-content" type="overlay">
+    <ion-menu #sideMenuRef contentId="main-content" type="overlay">
       <ion-content>
         <ion-list id="inbox-list">
           <ion-list-header>Inbox</ion-list-header>
@@ -22,8 +22,8 @@
     </ion-menu>
 
     <!-- 사이드 메뉴 축소 -->
-    <div class="menu-small" #menuSmallRef>
-      <ion-toolbar (click)="setMenuClose()">
+    <div class="col-menu" #colMenuRef>
+      <ion-toolbar (click)="setMenuStatus(!menuFlag)">
         <ion-icon *ngIf="menuFlag == true" name="caret-back-outline"></ion-icon>
         <ion-icon *ngIf="menuFlag == false" name="caret-forward-outline"></ion-icon>
       </ion-toolbar>

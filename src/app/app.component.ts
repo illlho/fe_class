@@ -8,8 +8,9 @@ import { GlobalService } from './services/global.service';
   standalone: false,
 })
 export class AppComponent {
-  @ViewChild('menuRef') ionMenu!: any;
-  @ViewChild('menuSmallRef') ionMenuSmall!: any;
+  @ViewChild('splitPaneRef') splitPaneRef!: any;
+  @ViewChild('sideMenuRef') sideMenuRef!: any;
+  @ViewChild('colMenuRef') colMenuRef!: any;
   menuFlag: boolean = true;
 
   constructor(private globalService: GlobalService, private renderer: Renderer2, private cdr: ChangeDetectorRef) {
@@ -25,14 +26,10 @@ export class AppComponent {
     // 전역 변수 값 구독 (값이 변경될 때마다 자동 업데이트됨)
     this.globalService.menuFlag$.subscribe(flag => {
       this.menuFlag = flag
-      this.setMenuStatus(flag);
+      this.setMenuOpen(flag);
     });
-      
-    setTimeout(() => {
-      this.menuFlag = !this.ionMenu.el.classList.contains('hydrated');
-      this.setMenuStatus(this.menuFlag);
-      this.cdr.detectChanges(); // 변경 감지 실행
-    }, 100);
+
+    this.delayedUpdateView()
   }
 
   public appPages = [
@@ -41,15 +38,26 @@ export class AppComponent {
     { title: 'Javascript', url: '/folder/JS', icon: 'logo-javascript' },
   ];
 
-  setMenuStatus(flag: boolean) {
+  delayedUpdateView() {
+    setTimeout(() => {
+      this.menuFlag = !this.splitPaneRef.el.classList.contains('split-pane-visible');
+      this.setMenuOpen(this.menuFlag);
+      this.setMenuStatus(this.menuFlag);
+      this.cdr.detectChanges(); // 변경 감지 실행
+    }, 100);
+  }
+
+  setMenuOpen(flag: boolean) {
     if (flag == true) {
-      this.renderer.addClass(this.ionMenu.el, 'menu-pane-visible')
+      this.renderer.addClass(this.splitPaneRef.el, 'split-pane-visible')
+      this.renderer.addClass(this.sideMenuRef.el, 'menu-pane-visible')
     } else {
-      this.renderer.removeClass(this.ionMenu.el, 'menu-pane-visible');
+      this.renderer.removeClass(this.splitPaneRef.el, 'split-pane-visible');
+      this.renderer.removeClass(this.sideMenuRef.el, 'menu-pane-visible');
     }
   }
 
-  setMenuClose() {
-    this.globalService.changeMenuStatus();
+  setMenuStatus(flag: boolean) {
+    this.globalService.setMenuStatus(flag);
   }
 }
