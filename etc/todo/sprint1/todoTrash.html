@@ -7,17 +7,6 @@
     <title>Todo App</title>
     <style>
         * {
-            /* 
-                inherit :
-                해당 값이 적용된 스타일을 부모에게 상속받게 됨
-                
-                ex)
-                    부모 요소 = box-sizing: border-box;
-                    자식 요소 = box-sizing: inherit;
-
-                    >>부모 요소가 가진 box-sizing: border-box;를
-                    자식도 그대로 상속 받게 됨
-            */
             box-sizing: inherit;
         }
 
@@ -27,11 +16,6 @@
             padding: 30px;
             margin: 0;
 
-            /*
-                box-sizing : 
-                padding과 border를 포함한 크기를
-                width/height로 계산하게 함
-            */
             box-sizing: border-box;
         }
 
@@ -45,13 +29,6 @@
             gap: 10px;
         }
 
-        .btns {
-            width: 100%;
-            display: flex;
-            flex-direction: row-reverse;
-            gap: 5px;
-        }
-
         .btn {
             background: #ddd;
             width: 70px;
@@ -61,11 +38,6 @@
             display: flex;
             justify-content: center;
             align-items: center;
-        }
-
-        .btns>.btn {
-            float: right;
-            font-weight: 700;
         }
 
         .filters {
@@ -119,14 +91,11 @@
 
 <body>
     <header>
-        <h1>To do List</h1>
+        <div id="back" class="btn">뒤로</div>
+        <h1>To do Trash</h1>
     </header>
 
     <div class="container">
-        <div class="btns">
-            <div id="todoTrash" class="btn">휴지통</div>
-            <div id="todoCreate" class="btn">등록</div>
-        </div>
         <div class="filters">
             <div class="btn">제목 : 오름차순</div>
         </div>
@@ -134,22 +103,19 @@
             <div class="item">
                 <div id="todoDetail" class="content">치킨 먹고 싶다</div>
                 <div class="action-btns">
-                    <div id="todoEdit" class="btn">수정</div>
-                    <div class="btn">삭제</div>
+                    <div class="btn">복구</div>
                 </div>
             </div>
             <div class="item">
                 <div class="content">운동하기</div>
                 <div class="action-btns">
-                    <div class="btn">수정</div>
-                    <div class="btn">삭제</div>
+                    <div class="btn">복구</div>
                 </div>
             </div>
             <div class="item">
                 <div class="content">잠 자기</div>
                 <div class="action-btns">
-                    <div class="btn">수정</div>
-                    <div class="btn">삭제</div>
+                    <div class="btn">복구</div>
                 </div>
             </div>
         </div>
@@ -161,16 +127,7 @@
 
 <script>
     // 각 스프린트 클릭 시 해당 스프린트로 넘어가는 기능
-    document.getElementById('todoCreate').addEventListener('click', function (event) {
-        location.href = `./todoCreate.html`;
-    });
-    document.getElementById('todoEdit').addEventListener('click', function (event) {
-        location.href = `./todoEdit.html`;
-    });
-    document.getElementById('todoDetail').addEventListener('click', function (event) {
-        location.href = `./todoDetail.html`;
-    });
-    document.getElementById('todoTrash').addEventListener('click', function (event) {
-        location.href = `./todoTrash.html`;
+    document.getElementById('back').addEventListener('click', function (event) {
+        location.href = `./index.html`;
     });
 </script>
