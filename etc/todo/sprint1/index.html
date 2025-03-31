@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Todo App</title>
+    <style>
+        * {
+            /* 
+                inherit :
+                해당 값이 적용된 스타일을 부모에게 상속받게 됨
+                
+                ex)
+                    부모 요소 = box-sizing: border-box;
+                    자식 요소 = box-sizing: inherit;
+
+                    >>부모 요소가 가진 box-sizing: border-box;를
+                    자식도 그대로 상속 받게 됨
+            */
+            box-sizing: inherit;
+        }
+
+        body {
+            width: 100%;
+            height: 100%;
+            padding: 30px;
+            margin: 0;
+
+            /*
+                box-sizing : 
+                padding과 border를 포함한 크기를
+                width/height로 계산하게 함
+            */
+            box-sizing: border-box;
+        }
+
+        header h1 {
+            text-align: center;
+        }
+
+        .container {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .btns {
+            width: 100%;
+        }
+
+        .btn {
+            background: #ddd;
+            width: 70px;
+            height: 30px;
+            font-size: 18spx;
+        }
+
+        /* 텍스트 중앙 정렬 */
+        .text-center {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .btns>.btn {
+            float: right;
+        }
+
+        .filters {
+            width: 100%;
+        }
+
+        .filters>.btn {
+            width: 75px;
+            height: 20px;
+            font-size: 11px;
+        }
+
+        .todo-list {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .todo-list>.item {
+            width: 100%;
+            display: flex;
+            flex-direction: row;
+            gap: 10px;
+        }
+
+        .todo-list>.item>.content {
+            width: 100%;
+            font-size: 20px;
+            line-height: 50px;
+            border-bottom: 1px solid black;
+            justify-content: left;
+        }
+
+        .todo-list>.item>.action-btns {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            gap: 4px;
+        }
+
+        .todo-list>.item>.action-btns>.btn {
+            width: 50px;
+            height: 20px;
+            font-size: 14px;
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <h1>To do List</h1>
+    </header>
+
+    <div class="container">
+        <div class="btns">
+            <div class="btn text-center">등록</div>
+        </div>
+        <div class="filters">
+            <div class="btn text-center">제목 : 오름차순</div>
+        </div>
+        <div class="todo-list">
+            <div class="item">
+                <div class="content text-center">운동하기</div>
+                <div class="action-btns">
+                    <div class="btn text-center">수정</div>
+                    <div class="btn text-center">삭제</div>
+                </div>
+            </div>
+            <div class="item">
+                <div class="content text-center">운동하기</div>
+                <div class="action-btns">
+                    <div class="btn text-center">수정</div>
+                    <div class="btn text-center">삭제</div>
+                </div>
+            </div>
+            <div class="item">
+                <div class="content text-center">운동하기</div>
+                <div class="action-btns">
+                    <div class="btn text-center">수정</div>
+                    <div class="btn text-center">삭제</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+
+</html>
+
+<script>
+</script>
