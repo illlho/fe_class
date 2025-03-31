@@ -128,7 +128,7 @@
         </div>
         <div class="todo-list">
             <div class="item">
-                <div class="content">운동하기</div>
+                <div id="todoDetail" class="content">치킨 먹고 싶다</div>
                 <div class="action-btns">
                     <div id="todoEdit" class="btn">수정</div>
                     <div class="btn">삭제</div>
@@ -142,7 +142,7 @@
                 </div>
             </div>
             <div class="item">
-                <div class="content">운동하기</div>
+                <div class="content">잠 자기</div>
                 <div class="action-btns">
                     <div class="btn">수정</div>
                     <div class="btn">삭제</div>
@@ -162,5 +162,8 @@
     });
     document.getElementById('todoEdit').addEventListener('click', function (event) {
         location.href = `./todoEdit.html`;
+    });
+    document.getElementById('todoDetail').addEventListener('click', function (event) {
+        location.href = `./todoDetail.html`;
     });
 </script>
