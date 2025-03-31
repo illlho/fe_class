@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Todo App</title>
+    <style>
+        * {
+            box-sizing: inherit;
+        }
+
+        body {
+            width: 100%;
+            height: 100%;
+            padding: 30px;
+            margin: 0;
+            box-sizing: border-box;
+        }
+
+        header h1 {
+            text-align: center;
+        }
+
+        .container {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .btns {
+            width: 100%;
+            display: flex;
+            flex-direction: row-reverse;
+            gap: 5px;
+        }
+
+        .btn {
+            background: #ddd;
+            width: 70px;
+            height: 30px;
+            font-size: 14px;
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .btns>.btn {
+            float: right;
+            font-weight: 700;
+        }
+
+        .todo-forms {
+            display: flex;
+            flex-direction: column;
+            gap: 40px;
+        }
+
+        .todo-forms>.item {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .todo-forms>.item>input {
+            border: 0;
+            border-bottom: 1px solid black;
+        }
+
+        .title {
+            font-size: 16px;
+            font-weight: 600;
+        }
+
+        .item>input[type=text] {
+            padding-left: 5px;
+            border-bottom: 1px solid #595959;
+        }
+
+        .item>textarea {
+            height: 200px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 5px;
+        }
+
+        .item>input[type=datetime-local] {
+            width: 70%;
+            padding-left: 5px;
+        }
+
+        .item.id>.value {
+            padding-left: 5px;
+            border-bottom: 1px solid #595959;
+            font-weight: 600;
+        }
+
+        .todo-forms * {
+            color: #595959;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <div id="back" class="btn">뒤로</div>
+        <h1>To do Detail</h1>
+    </header>
+
+    <div class="container">
+        <div class="btns">
+            <div class="btn">삭제</div>
+            <div class="btn">수정</div>
+        </div>
+
+        <div class="todo-forms">
+            <div class="item id">
+                <div class="title">ID</div>
+                <div class="value">4</div>
+            </div>
+
+            <div class="item">
+                <div class="title">제목</div>
+                <input type="text" placeholder="제목을 입력해주세요." value="치킨 먹고 싶다" disabled />
+            </div>
+
+            <div class="item">
+                <div class="title">내용</div>
+                <textarea placeholder="내용을 입력해주세요." disabled>떡볶이 국물에 치킨 찍어먹으면 진짜 맛있겠다.</textarea>
+            </div>
+
+            <div class="item">
+                <div class="title">시작일시</div>
+                <input type="datetime-local" value="2025-04-02T20:00" disabled />
+            </div>
+
+            <div class="item">
+                <div class="title">종료일시</div>
+                <input type="datetime-local" value="2025-04-02T22:00" disabled />
+            </div>
+        </div>
+    </div>
+
+</body>
+
+</html>
+
+<script>
+    // 각 스프린트 클릭 시 해당 스프린트로 넘어가는 기능
+    document.getElementById('back').addEventListener('click', function (event) {
+        location.href = `./index.html`;
+    });
+</script>
