@@ -1,0 +1,64 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.btns {
+    width: 100%;
+}
+
+.btn {
+    background: #ddd;
+    width: 70px;
+    height: 30px;
+    font-size: 14px;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.btns>.btn {
+    float: right;
+    font-weight: 700;
+}
+
+.todo-forms {
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+}
+
+.todo-forms>.item {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.todo-forms>.item>input {
+    border: 0;
+    border-bottom: 1px solid black;
+}
+
+.title {
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.item>input[type=text] {
+    padding-left: 5px;
+}
+
+.item>textarea {
+    height: 200px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 5px;
+}
+
+.item>input[type=datetime-local] {
+    width: 70%;
+    padding-left: 5px;
+}

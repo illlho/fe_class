@@ -1,0 +1,75 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.btns {
+    width: 100%;
+    display: flex;
+    flex-direction: row-reverse;
+    gap: 5px;
+}
+
+.btn {
+    background: #ddd;
+    width: 70px;
+    height: 30px;
+    font-size: 14px;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.btns>.btn {
+    float: right;
+    font-weight: 700;
+}
+
+.filters {
+    width: 100%;
+}
+
+.filters>.btn {
+    width: 75px;
+    height: 20px;
+    font-size: 11px;
+}
+
+.todo-list {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.todo-list>.item {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+}
+
+.todo-list>.item>.content {
+    width: 100%;
+    font-size: 20px;
+    line-height: 50px;
+    border-bottom: 1px solid black;
+    display: flex;
+    justify-content: left;
+    align-items: center;
+}
+
+.todo-list>.item>.action-btns {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 4px;
+}
+
+.todo-list>.item>.action-btns>.btn {
+    width: 50px;
+    height: 20px;
+    font-size: 12px;
+    text-align: center;
+}

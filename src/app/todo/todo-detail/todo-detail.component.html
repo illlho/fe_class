@@ -1,1 +1,38 @@
-<p>todo-detail works!</p>
+<header>
+    <div id="back" class="btn" (click)="goBack()">뒤로</div>
+    <h1>To do Detail</h1>
+</header>
+
+<div class="container">
+    <div class="btns">
+        <div class="btn">삭제</div>
+        <div class="btn">수정</div>
+    </div>
+
+    <div class="todo-forms">
+        <div class="item id">
+            <div class="title">ID</div>
+            <div class="value">4</div>
+        </div>
+
+        <div class="item">
+            <div class="title">제목</div>
+            <input type="text" placeholder="제목을 입력해주세요." value="치킨 먹고 싶다" disabled />
+        </div>
+
+        <div class="item">
+            <div class="title">내용</div>
+            <textarea placeholder="내용을 입력해주세요." disabled>떡볶이 국물에 치킨 찍어먹으면 진짜 맛있겠다.</textarea>
+        </div>
+
+        <div class="item">
+            <div class="title">시작일시</div>
+            <input type="datetime-local" value="2025-04-02T20:00" disabled />
+        </div>
+
+        <div class="item">
+            <div class="title">종료일시</div>
+            <input type="datetime-local" value="2025-04-02T22:00" disabled />
+        </div>
+    </div>
+</div>
