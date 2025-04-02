@@ -12,26 +12,14 @@
         <div class="btn">제목 : 오름차순</div>
     </div>
     <div class="todo-list">
-        <div class="item" routerLink="/todo-detail">
-            <div id="todoDetail" class="content">치킨 먹고 싶다</div>
-            <div class="action-btns">
-                <div id="todoEdit" class="btn">수정</div>
-                <div class="btn">삭제</div>
+        <template *ngIf="todoList && todoList.length > 0">
+            <div *ngFor="let todo of todoList" class="item" routerLink="/todo-detail">
+                <div id="todoDetail" class="content">{{todo.title}}</div>
+                <div class="action-btns">
+                    <div id="todoEdit" class="btn">수정</div>
+                    <div class="btn">삭제</div>
+                </div>
             </div>
-        </div>
-        <div class="item">
-            <div class="content">운동하기</div>
-            <div class="action-btns">
-                <div class="btn">수정</div>
-                <div class="btn">삭제</div>
-            </div>
-        </div>
-        <div class="item">
-            <div class="content">잠 자기</div>
-            <div class="action-btns">
-                <div class="btn">수정</div>
-                <div class="btn">삭제</div>
-            </div>
-        </div>
+        </template>
     </div>
 </div>
