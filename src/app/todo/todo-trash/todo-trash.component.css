@@ -4,17 +4,6 @@
     gap: 10px;
 }
 
-.btn {
-    background: #ddd;
-    width: 70px;
-    height: 30px;
-    font-size: 14px;
-    cursor: pointer;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
 .filters {
     width: 100%;
 }
