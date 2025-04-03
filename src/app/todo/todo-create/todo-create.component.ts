@@ -1,13 +1,38 @@
 import { Component } from '@angular/core';
 import { CommonService } from '../../common.service';
+import { FormGroup, FormControl, ReactiveFormsModule } from '@angular/forms';
 
 @Component({
     selector: 'app-todo-create',
-    imports: [],
+    imports: [ReactiveFormsModule],
     templateUrl: './todo-create.component.html',
     styleUrl: './todo-create.component.css'
 })
 export class TodoCreateComponent {
     constructor(private commonService: CommonService) { }
-}
 
+    todoForm = new FormGroup({
+        title: new FormControl(''),
+        category: new FormControl(''),
+        deadline: new FormControl(''),
+    })
+
+    ngOnInit() {
+    }
+
+    onSubmit() {
+        if (!this.todoForm.value.title) {
+            alert('할 일을 입력해주세요!')
+            return;
+        }
+        if (!this.todoForm.value.category) {
+            this.todoForm.value.category = '없음';
+        }
+        if (!this.todoForm.value.deadline) {
+            this.todoForm.value.deadline = this.commonService.getNow();
+        }
+
+        this.commonService.upsertTodo(this.todoForm.value);
+        console.log(this.commonService.getAllTodoList());
+    }
+}

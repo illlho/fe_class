@@ -2,22 +2,23 @@
     <!-- 할 일 입력 폼 -->
     <section class="todo-form" aria-labelledby="form-title">
         <h2 id="form-title">새로운 할 일 추가</h2>
-        <form action="#" method="post">
+        <form [formGroup]="todoForm" (ngSubmit)="onSubmit()">
             <div class="input-group">
                 <label for="new-todo" class="sr-only">할 일</label>
-                <input type="text" id="new-todo" name="todo" placeholder="할 일을 입력하세요" required aria-required="true">
+                <input formControlName="title" type="text" id="new-todo" name="todo" placeholder="할 일을 입력하세요" required
+                    aria-required="true">
                 <button type="submit" class="btn">추가</button>
             </div>
             <div class="input-group">
                 <label for="todo-category" class="sr-only">카테고리</label>
-                <select id="todo-category" name="category">
+                <select id="todo-category" name="category" formControlName="category">
                     <option value="">카테고리 선택</option>
                     <option value="work">업무</option>
                     <option value="personal">개인</option>
                     <option value="shopping">쇼핑</option>
                 </select>
                 <label for="todo-deadline" class="sr-only">마감일</label>
-                <input type="date" id="todo-deadline" name="deadline">
+                <input type="date" id="todo-deadline" name="deadline" formControlName="deadline">
             </div>
         </form>
     </section>
