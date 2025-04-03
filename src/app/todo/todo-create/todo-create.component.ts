@@ -32,7 +32,11 @@ export class TodoCreateComponent {
             this.todoForm.value.deadline = this.commonService.getNow();
         }
 
-        this.commonService.upsertTodo(this.todoForm.value);
+        this.commonService.upsertTodo({
+            ...this.todoForm.value,
+            isDeleted: false,
+            isDone: false,
+        });
         console.log(this.commonService.getAllTodoList());
     }
 }
