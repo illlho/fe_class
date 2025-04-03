@@ -5,26 +5,58 @@
     <!-- 할 일 목록 -->
     <section class="todo-list" aria-labelledby="list-title">
         <h2 id="list-title" class="sr-only">할 일 목록</h2>
-            <!-- 개별 할 일 아이템 -->
-            <article class="todo-item" [class.completed]="todo.isDone" *ngFor="let todo of todoList">
-                <div class="todo-content">
-                    <input type="checkbox" id="todo-2" class="todo-checkbox" [attr.aria-label]="todo.title + ' 완료 체크'" (click)="changeTodoDone(todo.id)" [checked]="todo.isDone" />
-                    <div>
-                        <div class="todo-text">
-                            <span class="category-tag category-work">{{todo.category}}</span>
-                            {{todo.title}}
-                        </div>
-                        <div class="todo-date">마감일: {{todo.deadline}}</div>
+        <!-- 개별 할 일 아이템 -->
+        <article class="todo-item" [class.completed]="todo.isDone" *ngFor="let todo of todoList">
+            <!-- 일반 보기 모드 UI -->
+            <div class="todo-content" *ngIf="editingTodoId !== todo.id">
+                <input type="checkbox" id="todo-{{todo.id}}" class="todo-checkbox"
+                    [attr.aria-label]="todo.title + ' 완료 체크'" (click)="changeTodoDone(todo.id)"
+                    [checked]="todo.isDone" />
+                <div>
+                    <div class="todo-text">
+                        <span class="category-tag category-{{todo.category.toLowerCase()}}">{{todo.category}}</span>
+                        {{todo.title}}
                     </div>
+                    <div class="todo-date">마감일: {{todo.deadline}}</div>
                 </div>
-                <div class="todo-actions">
-                    <button class="action-btn edit-btn" [attr.aria-label]="todo.title + ' 수정'">
-                        <span aria-hidden="true">✎</span>
-                    </button>
-                    <button class="action-btn delete-btn" [attr.aria-label]="todo.title + ' 삭제'" (click)="deleteTodo(todo.id)">
-                        <span aria-hidden="true">×</span>
-                    </button>
+            </div>
+
+            <!-- 수정 모드 UI -->
+            <div class="todo-edit-form" *ngIf="editingTodoId === todo.id">
+                <div class="edit-field-group">
+                    <label for="edit-title-{{todo.id}}">제목</label>
+                    <input type="text" id="edit-title-{{todo.id}}" [(ngModel)]="editTodoForm['title']"
+                        placeholder="할 일 제목" />
                 </div>
-            </article>
+                <div class="edit-field-group">
+                    <label for="edit-category-{{todo.id}}">카테고리</label>
+                    <select id="edit-category-{{todo.id}}" [(ngModel)]="editTodoForm['category']">
+                        <option value="업무">업무</option>
+                        <option value="개인">개인</option>
+                        <option value="중요">중요</option>
+                        <option value="기타">기타</option>
+                    </select>
+                </div>
+                <div class="edit-field-group">
+                    <label for="edit-deadline-{{todo.id}}">마감일</label>
+                    <input type="date" id="edit-deadline-{{todo.id}}" [(ngModel)]="editTodoForm['deadline']" />
+                </div>
+                <div class="edit-actions">
+                    <button class="edit-save-btn" (click)="saveTodoEdit(todo)">저장</button>
+                    <button class="edit-cancel-btn" (click)="cancelEdit()">취소</button>
+                </div>
+            </div>
+
+            <!-- 버튼 그룹 -->
+            <div class="todo-actions" *ngIf="editingTodoId !== todo.id">
+                <button class="action-btn edit-btn" [attr.aria-label]="todo.title + ' 수정'" (click)="startEdit(todo)">
+                    <span aria-hidden="true">✎</span>
+                </button>
+                <button class="action-btn delete-btn" [attr.aria-label]="todo.title + ' 삭제'"
+                    (click)="deleteTodo(todo.id)">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+        </article>
     </section>
 </div>

@@ -100,3 +100,63 @@
     background-color: #fff3cd;
     color: #856404;
 }
+
+/* 수정 폼 스타일 */
+.todo-edit-form {
+    flex: 1;
+    padding: 10px 0;
+}
+
+.edit-field-group {
+    margin-bottom: 12px;
+}
+
+.edit-field-group label {
+    display: block;
+    margin-bottom: 4px;
+    color: #444;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.edit-field-group input,
+.edit-field-group select {
+    width: 100%;
+    padding: 8px 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 14px;
+}
+
+.edit-actions {
+    display: flex;
+    gap: 10px;
+    margin-top: 15px;
+}
+
+.edit-save-btn,
+.edit-cancel-btn {
+    padding: 6px 15px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+    border: none;
+}
+
+.edit-save-btn {
+    background-color: #4a6eb5;
+    color: white;
+}
+
+.edit-save-btn:hover {
+    background-color: #3b5c9b;
+}
+
+.edit-cancel-btn {
+    background-color: #f0f0f0;
+    color: #444;
+}
+
+.edit-cancel-btn:hover {
+    background-color: #e0e0e0;
+}
