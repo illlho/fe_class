@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>시맨틱 태그와 접근성을 고려한 반응형 웹 와이어프레임</title>
+    <style>
+        /* 기본 스타일 */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+            line-height: 1.6;
+            color: #333;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+        }
+
+        /* 접근성 향상을 위한 스타일 */
+        .skip-link {
+            position: absolute;
+            top: -40px;
+            left: 0;
+            background: #000;
+            color: white;
+            padding: 8px;
+            z-index: 100;
+        }
+
+        .skip-link:focus {
+            top: 0;
+        }
+
+        /* 헤더 스타일 */
+        header {
+            background-color: #f8f9fa;
+            padding: 20px 0;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .site-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
+        /* 네비게이션 스타일 */
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 20px;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: #333;
+            padding: 5px 10px;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+
+        nav a:hover,
+        nav a:focus {
+            background-color: #e9ecef;
+            text-decoration: underline;
+        }
+
+        .menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        /* 메인 컨텐츠 영역 */
+        main {
+            padding: 40px 0;
+        }
+
+        /* 히어로 섹션 */
+        .hero {
+            background-color: #e9ecef;
+            padding: 60px 20px;
+            margin-bottom: 40px;
+            text-align: center;
+            border-radius: 8px;
+        }
+
+        .hero h1 {
+            margin-bottom: 20px;
+            font-size: 2.5rem;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 800px;
+            margin: 0 auto 30px;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background-color: #007bff;
+            color: white;
+            padding: 10px 25px;
+            border-radius: 5px;
+            text-decoration: none;
+            transition: background-color 0.3s;
+        }
+
+        .cta-button:hover,
+        .cta-button:focus {
+            background-color: #0069d9;
+            text-decoration: underline;
+        }
+
+        /* 특징 섹션 */
+        .features {
+            margin-bottom: 40px;
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+        }
+
+        .feature-card {
+            background-color: #f8f9fa;
+            padding: 30px;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .feature-icon {
+            font-size: 2rem;
+            margin-bottom: 15px;
+        }
+
+        /* 갤러리 섹션 */
+        .gallery {
+            margin-bottom: 40px;
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        .gallery-item {
+            border-radius: 8px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* 연락처 섹션 */
+        .contact {
+            background-color: #f8f9fa;
+            padding: 40px;
+            border-radius: 8px;
+        }
+
+        .contact form {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        .form-group textarea {
+            height: 150px;
+        }
+
+        /* 푸터 스타일 */
+        footer {
+            background-color: #343a40;
+            color: white;
+            padding: 40px 0;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+        }
+
+        .footer-links h3 {
+            margin-bottom: 15px;
+        }
+
+        .footer-links ul {
+            list-style: none;
+        }
+
+        .footer-links a {
+            color: #f8f9fa;
+            text-decoration: none;
+        }
+
+        .footer-links a:hover,
+        .footer-links a:focus {
+            text-decoration: underline;
+        }
+
+        .copyright {
+            margin-top: 30px;
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        /* 반응형 스타일 */
+        @media (max-width: 768px) {
+            .menu-toggle {
+                display: block;
+            }
+
+            .nav-links {
+                width: 100%;
+                display: none;
+                flex-direction: column;
+                padding-top: 20px;
+            }
+
+            .nav-links.active {
+                display: flex;
+            }
+
+            nav ul {
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            .feature-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- 접근성 향상을 위한 스킵 링크 -->
+    <a href="#main-content" class="skip-link">본문으로 바로가기</a>
+
+    <!-- 헤더 영역 -->
+    <header role="banner">
+        <div class="container site-header">
+            <a href="/" class="logo">웹사이트 이름</a>
+
+            <button class="menu-toggle" aria-expanded="false" aria-controls="nav-links">
+                <span aria-hidden="true">☰</span>
+                <span class="sr-only">메뉴</span>
+            </button>
+
+            <nav role="navigation" class="nav-links" id="nav-links">
+                <ul>
+                    <li><a href="#home">홈</a></li>
+                    <li><a href="#features">특징</a></li>
+                    <li><a href="#gallery">갤러리</a></li>
+                    <li><a href="#contact">문의하기</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- 메인 컨텐츠 영역 -->
+    <main id="main-content" role="main">
+        <!-- 히어로 섹션 -->
+        <section class="hero" id="home">
+            <div class="container">
+                <h1>웹사이트에 오신 것을 환영합니다</h1>
+                <p>시맨틱 태그와 접근성을 고려한 반응형 웹 와이어프레임입니다. 이 예제는 PC와 모바일 환경 모두에서 최적화되어 있습니다.</p>
+                <a href="#contact" class="cta-button">시작하기</a>
+            </div>
+        </section>
+
+        <!-- 특징 섹션 -->
+        <section class="features" id="features">
+            <div class="container">
+                <h2>주요 특징</h2>
+                <div class="feature-grid">
+                    <article class="feature-card">
+                        <div class="feature-icon" aria-hidden="true">✓</div>
+                        <h3>시맨틱 HTML</h3>
+                        <p>의미 있는 HTML 태그를 사용하여 웹 페이지의 구조를 명확하게 정의합니다.</p>
+                    </article>
+                    <article class="feature-card">
+                        <div class="feature-icon" aria-hidden="true">♿</div>
+                        <h3>접근성</h3>
+                        <p>모든 사용자가 콘텐츠에 접근할 수 있도록 ARIA 역할과 레이블을 적용했습니다.</p>
+                    </article>
+                    <article class="feature-card">
+                        <div class="feature-icon" aria-hidden="true">📱</div>
+                        <h3>반응형 디자인</h3>
+                        <p>모든 화면 크기에서 최적의 사용자 경험을 제공합니다.</p>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <!-- 갤러리 섹션 -->
+        <section class="gallery" id="gallery">
+            <div class="container">
+                <h2>갤러리</h2>
+                <div class="gallery-grid">
+                    <figure class="gallery-item">
+                        <img src="/api/placeholder/400/300" alt="갤러리 이미지 설명 1">
+                        <figcaption>이미지 1 설명</figcaption>
+                    </figure>
+                    <figure class="gallery-item">
+                        <img src="/api/placeholder/400/300" alt="갤러리 이미지 설명 2">
+                        <figcaption>이미지 2 설명</figcaption>
+                    </figure>
+                    <figure class="gallery-item">
+                        <img src="/api/placeholder/400/300" alt="갤러리 이미지 설명 3">
+                        <figcaption>이미지 3 설명</figcaption>
+                    </figure>
+                    <figure class="gallery-item">
+                        <img src="/api/placeholder/400/300" alt="갤러리 이미지 설명 4">
+                        <figcaption>이미지 4 설명</figcaption>
+                    </figure>
+                </div>
+            </div>
+        </section>
+
+        <!-- 연락처 섹션 -->
+        <section class="contact" id="contact">
+            <div class="container">
+                <h2>문의하기</h2>
+                <form action="#" method="post">
+                    <div class="form-group">
+                        <label for="name">이름</label>
+                        <input type="text" id="name" name="name" required aria-required="true">
+                    </div>
+                    <div class="form-group">
+                        <label for="email">이메일</label>
+                        <input type="email" id="email" name="email" required aria-required="true">
+                    </div>
+                    <div class="form-group">
+                        <label for="message">메시지</label>
+                        <textarea id="message" name="message" required aria-required="true"></textarea>
+                    </div>
+                    <button type="submit" class="cta-button">보내기</button>
+                </form>
+            </div>
+        </section>
+    </main>
+
+    <!-- 푸터 영역 -->
+    <footer role="contentinfo">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-links">
+                    <h3>회사 정보</h3>
+                    <ul>
+                        <li><a href="#">소개</a></li>
+                        <li><a href="#">서비스</a></li>
+                        <li><a href="#">팀</a></li>
+                    </ul>
+                </div>
+                <div class="footer-links">
+                    <h3>고객 지원</h3>
+                    <ul>
+                        <li><a href="#">FAQ</a></li>
+                        <li><a href="#">고객센터</a></li>
+                        <li><a href="#">이용약관</a></li>
+                        <li><a href="#">개인정보처리방침</a></li>
+                    </ul>
+                </div>
+                <div class="footer-links">
+                    <h3>연락처</h3>
+                    <address>
+                        <p>서울특별시 강남구 테헤란로 123</p>
+                        <p>이메일: info@example.com</p>
+                        <p>전화: 02-123-4567</p>
+                    </address>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2025 웹사이트 이름. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // 모바일 메뉴 토글 기능
+        document.querySelector('.menu-toggle').addEventListener('click', function () {
+            const navLinks = document.getElementById('nav-links');
+            const isExpanded = this.getAttribute('aria-expanded') === 'true';
+
+            this.setAttribute('aria-expanded', !isExpanded);
+            navLinks.classList.toggle('active');
+        });
+    </script>
+</body>
+
+</html>
