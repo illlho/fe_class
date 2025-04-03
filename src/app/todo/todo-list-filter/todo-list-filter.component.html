@@ -1,0 +1,6 @@
+<section class="todo-filters" aria-labelledby="filter-title">
+    <h2 id="filter-title" class="sr-only">할 일 필터</h2>
+
+    <button *ngFor="let filter of filterList" class="filter-btn" [class.active]="selectedFilter == filter"
+        [attr.aria-pressed]="selectedFilter == filter ? 'true' : '' " (click)="selectFilter(filter)">{{filter}}</button>
+</section>

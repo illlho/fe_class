@@ -2,9 +2,13 @@
     <!-- 할 일 입력 폼 -->
     <app-todo-create (createTodoEvent)="createTodo($event)"></app-todo-create>
 
+    <!-- 할 일 필터 -->
+    <app-todo-list-filter (filterEvent)="changeFilter($event)"></app-todo-list-filter>
+
     <!-- 할 일 목록 -->
     <section class="todo-list" aria-labelledby="list-title">
         <h2 id="list-title" class="sr-only">할 일 목록</h2>
+        <h2 *ngIf="todoList.length < 1" class="todo-list-none">데이터 없음</h2>
         <!-- 개별 할 일 아이템 -->
         <article class="todo-item" [class.completed]="todo.isDone" *ngFor="let todo of todoList">
             <!-- 일반 보기 모드 UI -->

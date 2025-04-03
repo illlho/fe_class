@@ -4,10 +4,11 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
 import { TodoCreateComponent } from '../todo-create/todo-create.component';
+import { TodoListFilterComponent } from '../todo-list-filter/todo-list-filter.component';
 
 @Component({
     selector: 'app-todo-list',
-    imports: [CommonModule, TodoCreateComponent, FormsModule],
+    imports: [CommonModule, FormsModule, TodoCreateComponent, TodoListFilterComponent],
     templateUrl: './todo-list.component.html',
     styleUrl: './todo-list.component.css'
 })
@@ -64,5 +65,9 @@ export class TodoListComponent {
         });
         this.cancelEdit();
         this.refreshTodoList();
+    }
+
+    changeFilter(filter: string): void {
+        this.todoList = this.commonService.getFilterList(filter);
     }
 }
