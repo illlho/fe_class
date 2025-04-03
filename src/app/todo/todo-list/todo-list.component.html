@@ -1,1 +1,28 @@
-<app-todo-create></app-todo-create>
+<div class="container">
+    <!-- 할 일 입력 폼 -->
+    <app-todo-create></app-todo-create>
+
+    <!-- 할 일 목록 -->
+    <section class="todo-list" aria-labelledby="list-title">
+        <h2 id="list-title" class="sr-only">할 일 목록</h2>
+            <!-- 개별 할 일 아이템 -->
+            <article class="todo-item completed" *ngFor="let todo of todoList">
+                <input type="checkbox" id="todo-2" class="todo-checkbox" checked [attr.aria-label]="todo.title + ' 완료 체크'">
+                <div>
+                    <div class="todo-text">
+                        <span class="category-tag category-work">{{todo.category}}</span>
+                        {{todo.title}}
+                    </div>
+                    <div class="todo-date">마감일: {{todo.deadline}}</div>
+                </div>
+                <div class="todo-actions">
+                    <button class="action-btn edit-btn" [attr.aria-label]="todo.title + ' 답장 수정'">
+                        <span aria-hidden="true">✎</span>
+                    </button>
+                    <button class="action-btn delete-btn" [attr.aria-label]="todo.title + ' 이메일 답장 삭제'">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+            </article>
+    </section>
+</div>

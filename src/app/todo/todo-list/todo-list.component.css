@@ -1,0 +1,94 @@
+/* 할 일 목록 스타일 */
+.todo-list {
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+}
+
+.todo-item {
+    display: flex;
+    align-items: center;
+    padding: 16px;
+    border-bottom: 1px solid #eee;
+    transition: background-color 0.3s;
+}
+
+.todo-item:last-child {
+    border-bottom: none;
+}
+
+.todo-item:hover {
+    background-color: #f8f9fa;
+}
+
+.todo-checkbox {
+    margin-right: 15px;
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+}
+
+.todo-text {
+    flex: 1;
+    font-size: 1rem;
+}
+
+.completed .todo-text {
+    text-decoration: line-through;
+    color: #6c757d;
+}
+
+.todo-actions {
+    display: flex;
+    gap: 10px;
+}
+
+.todo-date {
+    font-size: 0.8rem;
+    color: #6c757d;
+    margin-top: 4px;
+}
+
+.action-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #6c757d;
+    transition: color 0.3s;
+    padding: 5px;
+}
+
+.action-btn:hover,
+.action-btn:focus {
+    color: #343a40;
+}
+
+.delete-btn:hover,
+.delete-btn:focus {
+    color: #dc3545;
+}
+
+/* 카테고리 태그 스타일 */
+.category-tag {
+    background-color: #e9ecef;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 0.8rem;
+    margin-right: 10px;
+}
+
+.category-work {
+    background-color: #d4edda;
+    color: #155724;
+}
+
+.category-personal {
+    background-color: #cce5ff;
+    color: #004085;
+}
+
+.category-shopping {
+    background-color: #fff3cd;
+    color: #856404;
+}
