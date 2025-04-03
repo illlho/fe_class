@@ -1,53 +1,62 @@
-.container {
+/* 할 일 입력 폼 스타일 */
+.todo-form {
+    background-color: white;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    margin-bottom: 30px;
+}
+
+.input-group {
     display: flex;
-    flex-direction: column;
     gap: 10px;
+    margin-bottom: 15px;
 }
 
-.btns {
-    width: 100%;
+.input-group input {
+    flex: 1;
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 1rem;
 }
 
-.btns>.btn {
-    float: right;
-    font-weight: 700;
+.input-group input:focus {
+    outline: none;
+    border-color: #4a6da7;
+    box-shadow: 0 0 0 2px rgba(74, 109, 167, 0.2);
 }
 
-.todo-forms {
-    display: flex;
-    flex-direction: column;
-    gap: 40px;
+.btn {
+    background-color: #4a6da7;
+    color: white;
+    border: none;
+    padding: 12px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background-color 0.3s;
 }
 
-.todo-forms>.item {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
+.btn:hover,
+.btn:focus {
+    background-color: #5f82c1;
 }
 
-.todo-forms>.item>input {
-    border: 0;
-    border-bottom: 1px solid black;
+.btn-secondary {
+    background-color: #6c757d;
 }
 
-.title {
-    font-size: 16px;
-    font-weight: 600;
+.btn-secondary:hover,
+.btn-secondary:focus {
+    background-color: #5a6268;
 }
 
-.item>input[type=text] {
-    padding-left: 5px;
+.btn-danger {
+    background-color: #dc3545;
 }
 
-.item>textarea {
-    height: 200px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 5px;
-}
-
-.item>input[type=datetime-local] {
-    width: 70%;
-    padding-left: 5px;
+.btn-danger:hover,
+.btn-danger:focus {
+    background-color: #c82333;
 }

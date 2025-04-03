@@ -1,32 +1,24 @@
-<header>
-    <div id="back" class="btn" (click)="goBack()">뒤로</div>
-    <h1>To do Create</h1>
-</header>
-
 <div class="container">
-    <div class="btns">
-        <div id="todoCreate" class="btn">등록</div>
-    </div>
-
-    <div class="todo-forms">
-        <div class="item">
-            <div class="title">제목</div>
-            <input type="text" placeholder="제목을 입력해주세요." />
-        </div>
-
-        <div class="item">
-            <div class="title">내용</div>
-            <textarea placeholder="내용을 입력해주세요."></textarea>
-        </div>
-
-        <div class="item">
-            <div class="title">시작일시</div>
-            <input type="datetime-local" />
-        </div>
-
-        <div class="item">
-            <div class="title">종료일시</div>
-            <input type="datetime-local" />
-        </div>
-    </div>
+    <!-- 할 일 입력 폼 -->
+    <section class="todo-form" aria-labelledby="form-title">
+        <h2 id="form-title">새로운 할 일 추가</h2>
+        <form action="#" method="post">
+            <div class="input-group">
+                <label for="new-todo" class="sr-only">할 일</label>
+                <input type="text" id="new-todo" name="todo" placeholder="할 일을 입력하세요" required aria-required="true">
+                <button type="submit" class="btn">추가</button>
+            </div>
+            <div class="input-group">
+                <label for="todo-category" class="sr-only">카테고리</label>
+                <select id="todo-category" name="category">
+                    <option value="">카테고리 선택</option>
+                    <option value="work">업무</option>
+                    <option value="personal">개인</option>
+                    <option value="shopping">쇼핑</option>
+                </select>
+                <label for="todo-deadline" class="sr-only">마감일</label>
+                <input type="date" id="todo-deadline" name="deadline">
+            </div>
+        </form>
+    </section>
 </div>

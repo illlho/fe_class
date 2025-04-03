@@ -9,9 +9,5 @@ import { CommonService } from '../../common.service';
 })
 export class TodoCreateComponent {
     constructor(private commonService: CommonService) { }
-
-    goBack(): void {
-        this.commonService.goBack();
-    }
 }
 
