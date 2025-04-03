@@ -36,7 +36,8 @@ export class TodoCreateComponent {
             isDeleted: false,
             isDone: false,
         });
-        
+
         this.createTodoEvent.emit();
+        this.todoForm.patchValue({ title: null, category: '', deadline: null });
     }
 }
