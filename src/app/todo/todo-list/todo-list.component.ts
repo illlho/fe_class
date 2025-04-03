@@ -7,7 +7,7 @@ import { TodoCreateComponent } from '../todo-create/todo-create.component';
 
 @Component({
     selector: 'app-todo-list',
-    imports: [RouterLink, CommonModule, TodoCreateComponent],
+    imports: [CommonModule, TodoCreateComponent],
     templateUrl: './todo-list.component.html',
     styleUrl: './todo-list.component.css'
 })
