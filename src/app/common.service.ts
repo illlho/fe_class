@@ -57,6 +57,15 @@ export class CommonService {
         return this.getAllTodoList().find(item => item.id === id);
     }
 
+    removeTodo(id: number): void {
+        let todoList = this.getAllTodoList();
+        let todoIndex = todoList.findIndex(item => item.id === id);
+        if (todoIndex > -1) {
+            todoList[todoIndex].isDeleted = true;
+        }
+        this.setTodoList(todoList);
+    }
+
     getNow() {
         const now = new Date();
 

@@ -19,7 +19,7 @@
                     <button class="action-btn edit-btn" [attr.aria-label]="todo.title + ' 수정'">
                         <span aria-hidden="true">✎</span>
                     </button>
-                    <button class="action-btn delete-btn" [attr.aria-label]="todo.title + ' 삭제'">
+                    <button class="action-btn delete-btn" [attr.aria-label]="todo.title + ' 삭제'" (click)="deleteTodo(todo.id)">
                         <span aria-hidden="true">×</span>
                     </button>
                 </div>

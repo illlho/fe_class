@@ -22,4 +22,9 @@ export class TodoListComponent {
     goBack(): void {
         this.commonService.goBack();
     }
+
+    deleteTodo(id: number): void {
+        this.commonService.removeTodo(id);
+        this.todoList = this.commonService.getTodoList();
+    }
 }
