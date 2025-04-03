@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Output, EventEmitter } from '@angular/core';
 import { CommonService } from '../../common.service';
 import { FormGroup, FormControl, ReactiveFormsModule } from '@angular/forms';
 
@@ -17,8 +17,7 @@ export class TodoCreateComponent {
         deadline: new FormControl(''),
     })
 
-    ngOnInit() {
-    }
+    @Output() createTodoEvent = new EventEmitter<void>();
 
     onSubmit() {
         if (!this.todoForm.value.title) {
@@ -37,6 +36,7 @@ export class TodoCreateComponent {
             isDeleted: false,
             isDone: false,
         });
-        console.log(this.commonService.getAllTodoList());
+        
+        this.createTodoEvent.emit();
     }
 }

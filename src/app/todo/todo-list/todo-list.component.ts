@@ -27,4 +27,8 @@ export class TodoListComponent {
         this.commonService.removeTodo(id);
         this.todoList = this.commonService.getTodoList();
     }
+
+    createTodo(event: void): void {
+        this.todoList = this.commonService.getTodoList();
+    }
 }

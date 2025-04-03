@@ -1,6 +1,6 @@
 <div class="container">
     <!-- 할 일 입력 폼 -->
-    <app-todo-create></app-todo-create>
+    <app-todo-create (createTodoEvent)="createTodo($event)"></app-todo-create>
 
     <!-- 할 일 목록 -->
     <section class="todo-list" aria-labelledby="list-title">
