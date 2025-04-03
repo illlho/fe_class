@@ -77,6 +77,36 @@ nav a:focus {
     cursor: pointer;
 }
 
+/* 푸터 스타일 */
+footer {
+    background-color: #343a40;
+    color: #f8f9fa;
+    padding: 30px 0;
+    margin-top: 40px;
+}
+
+.footer-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.footer-links {
+    display: flex;
+    gap: 20px;
+}
+
+.footer-links a {
+    color: #f8f9fa;
+    text-decoration: none;
+}
+
+.footer-links a:hover,
+.footer-links a:focus {
+    text-decoration: underline;
+}
+
 /* 헤더 반응형 스타일 */
 @media (max-width: 768px) {
     .menu-toggle {
@@ -97,5 +127,11 @@ nav a:focus {
     nav ul {
         flex-direction: column;
         gap: 10px;
+    }
+
+    .footer-content {
+        flex-direction: column;
+        gap: 20px;
+        text-align: center;
     }
 }
