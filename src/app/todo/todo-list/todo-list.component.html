@@ -7,13 +7,15 @@
         <h2 id="list-title" class="sr-only">할 일 목록</h2>
             <!-- 개별 할 일 아이템 -->
             <article class="todo-item" [class.completed]="todo.isDone" *ngFor="let todo of todoList">
-                <input type="checkbox" id="todo-2" class="todo-checkbox" [attr.aria-label]="todo.title + ' 완료 체크'" (click)="changeTodoDone(todo.id)" [checked]="todo.isDone" />
-                <div>
-                    <div class="todo-text">
-                        <span class="category-tag category-work">{{todo.category}}</span>
-                        {{todo.title}}
+                <div class="todo-content">
+                    <input type="checkbox" id="todo-2" class="todo-checkbox" [attr.aria-label]="todo.title + ' 완료 체크'" (click)="changeTodoDone(todo.id)" [checked]="todo.isDone" />
+                    <div>
+                        <div class="todo-text">
+                            <span class="category-tag category-work">{{todo.category}}</span>
+                            {{todo.title}}
+                        </div>
+                        <div class="todo-date">마감일: {{todo.deadline}}</div>
                     </div>
-                    <div class="todo-date">마감일: {{todo.deadline}}</div>
                 </div>
                 <div class="todo-actions">
                     <button class="action-btn edit-btn" [attr.aria-label]="todo.title + ' 수정'">
