@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ElementRef, ViewChild } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 
 @Component({
@@ -9,4 +9,14 @@ import { RouterOutlet } from '@angular/router';
 })
 export class AppComponent {
     title = 'fe_study';
+    isMenuOpen = false;
+
+    @ViewChild('menuToggle') menuToggle!: ElementRef;
+    @ViewChild('navLinks') navLinks!: ElementRef;
+
+    toggleMenu() {
+        const isExpanded = this.menuToggle.nativeElement.getAttribute('aria-expanded') == 'true'
+        this.menuToggle.nativeElement.setAttribute('aria-expanded', !isExpanded);
+        this.navLinks.nativeElement.classList.toggle('active')
+    }
 }
