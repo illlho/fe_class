@@ -33,7 +33,7 @@ export class CommonService {
 
     getLastId(): number {
         const todoList = this.getAllTodoList();
-        return todoList[todoList.length - 1].id;
+        return todoList.length == 0 ? 0 : todoList[todoList.length - 1].id;
     }
 
     upsertTodo(todo: any): void {
@@ -51,5 +51,21 @@ export class CommonService {
 
     findTodoById(id: number): any {
         return this.getAllTodoList().find(item => item.id === id);
+    }
+
+    getNow() {
+        const now = new Date();
+
+        // YYYY-MM-DD
+        const year = now.getFullYear();
+        const month = String(now.getMonth() + 1).padStart(2, '0'); // 0부터 시작하므로 +1
+        const day = String(now.getDate()).padStart(2, '0');
+
+        // HH:mm:ss (24시간제)
+        const hours = String(now.getHours()).padStart(2, '0');
+        const minutes = String(now.getMinutes()).padStart(2, '0');
+        const seconds = String(now.getSeconds()).padStart(2, '0');
+
+        return `${year}-${month}-${day}T${hours}:${minutes}:${seconds}`;
     }
 }
