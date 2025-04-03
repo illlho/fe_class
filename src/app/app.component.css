@@ -77,6 +77,11 @@ nav a:focus {
     cursor: pointer;
 }
 
+/* 메인 컨텐츠 영역 */
+main {
+    padding: 40px 0;
+}
+
 /* 푸터 스타일 */
 footer {
     background-color: #343a40;
