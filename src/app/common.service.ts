@@ -42,6 +42,16 @@ export class CommonService {
         return this.getAllTodoList().filter(item => item.isDeleted === true);
     }
 
+    getFilterList(filter: string): any[] {
+        if (filter === '전체') {
+            return this.getTodoList();
+        } else if (filter === '삭제') {
+            return this.getTrashList();
+        } else {
+            return this.getAllTodoList().filter(item => item.category === filter && item.isDeleted === false);
+        }
+    }
+
     getLastId(): number {
         const todoList = this.getAllTodoList();
         return todoList.length == 0 ? 0 : todoList[todoList.length - 1].id;
