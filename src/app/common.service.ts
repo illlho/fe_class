@@ -15,6 +15,10 @@ export class CommonService {
         // }
     }
 
+    removeAllTodoList(): void {
+        localStorage.removeItem('todoList');
+    }
+
     setTodoList(todoList: any[]): void {
         localStorage.setItem('todoList', JSON.stringify(todoList));
     }
