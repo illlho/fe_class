@@ -70,6 +70,7 @@ export class CommonService {
         const minutes = String(now.getMinutes()).padStart(2, '0');
         const seconds = String(now.getSeconds()).padStart(2, '0');
 
-        return `${year}-${month}-${day}T${hours}:${minutes}:${seconds}`;
+        return `${year}-${month}-${day}`;
+        // return `${year}-${month}-${day}T${hours}:${minutes}:${seconds}`;
     }
 }
