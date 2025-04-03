@@ -23,6 +23,13 @@ export class CommonService {
         localStorage.setItem('todoList', JSON.stringify(todoList));
     }
 
+    changeTodoDone(id: number): void {
+        let todoList = this.getTodoList();
+        let todo = todoList.find(item => item.id === id)
+        todo.isDone = !todo.isDone;
+        this.upsertTodo(todo);
+    }
+
     getAllTodoList(): any[] {
         return JSON.parse(localStorage.getItem('todoList') || '[]');
     }

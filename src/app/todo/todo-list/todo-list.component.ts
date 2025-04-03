@@ -16,7 +16,7 @@ export class TodoListComponent {
     todoList: any[] = [];
 
     ngOnInit(): void {
-        this.todoList = this.commonService.getTodoList();
+        this.refreshTodoList();
     }
 
     goBack(): void {
@@ -25,10 +25,19 @@ export class TodoListComponent {
 
     deleteTodo(id: number): void {
         this.commonService.removeTodo(id);
-        this.todoList = this.commonService.getTodoList();
+        this.refreshTodoList();
     }
 
     createTodo(event: void): void {
+        this.refreshTodoList();
+    }
+    
+    changeTodoDone(id: number): void {
+        this.commonService.changeTodoDone(id);
+        this.refreshTodoList();
+    }
+
+    refreshTodoList(): void {
         this.todoList = this.commonService.getTodoList();
     }
 }
