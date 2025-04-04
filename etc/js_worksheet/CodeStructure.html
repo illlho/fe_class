@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JavaScript - 코드 구조</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            line-height: 1.6;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+            color: #333;
+        }
+
+        h1,
+        h2,
+        h3 {
+            color: #2c3e50;
+        }
+
+        code {
+            background-color: #f8f8f8;
+            border: 1px solid #ddd;
+            border-radius: 3px;
+            padding: 2px 5px;
+            font-family: Consolas, monospace;
+        }
+
+        pre {
+            background-color: #f8f8f8;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 10px;
+            overflow-x: auto;
+        }
+
+        .example-container {
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 15px;
+            margin: 20px 0;
+        }
+
+        .output {
+            background-color: #f0f8ff;
+            border: 1px solid #bde0fe;
+            border-radius: 5px;
+            padding: 10px;
+            margin-top: 10px;
+        }
+
+        .tip {
+            background-color: #e6f7ff;
+            border-left: 4px solid #1890ff;
+            padding: 10px 15px;
+            margin: 15px 0;
+        }
+
+        .warning {
+            background-color: #fff1f0;
+            border-left: 4px solid #ff4d4f;
+            padding: 10px 15px;
+            margin: 15px 0;
+        }
+
+        button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 14px;
+            margin: 4px 2px;
+            cursor: pointer;
+            border-radius: 4px;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>JavaScript - 코드 구조</h1>
+
+    <section>
+        <h2>JavaScript 코드 구조의 기본 요소</h2>
+        <p>JavaScript 코드는 다음과 같은 기본 요소로 구성됩니다:</p>
+        <ul>
+            <li><strong>문장(Statement)</strong>: 작업을 수행하는 코드 블록</li>
+            <li><strong>세미콜론(;)</strong>: 문장의 끝을 나타냄</li>
+            <li><strong>블록(Block)</strong>: 중괄호 <code>{}</code>로 둘러싸인 코드 그룹</li>
+            <li><strong>주석(Comments)</strong>: 코드를 설명하기 위한 텍스트</li>
+        </ul>
+    </section>
+
+    <section>
+        <h2>문장(Statement)</h2>
+        <p>JavaScript 문장은 코드에서 하나의 명령을 나타냅니다. 각 문장은 일반적으로 세미콜론(<code>;</code>)으로 끝납니다.</p>
+
+        <div class="example-container">
+            <pre><code>// 각각의 줄이 하나의 문장입니다
+let message = "안녕하세요";
+console.log(message);
+alert(message);</code></pre>
+
+            <button onclick="runStatementExample()">예제 실행</button>
+            <div id="statement-output" class="output"></div>
+
+            <script>
+                function runStatementExample() {
+                    let message = "안녕하세요";
+                    console.log(message);
+                    // alert는 실행하지 않고 출력만 합니다
+
+                    document.getElementById("statement-output").innerHTML =
+                        `변수 선언 및 값 할당: let message = "안녕하세요";<br>` +
+                        `콘솔에 출력: console.log(message); // 콘솔에 "안녕하세요" 출력<br>` +
+                        `(alert는 실행하지 않음): alert(message); // 경고창에 "안녕하세요" 표시`;
+                }
+            </script>
+        </div>
+    </section>
+
+    <section>
+        <h2>세미콜론(;)</h2>
+        <p>세미콜론은 JavaScript 문장의 끝을 나타냅니다. 대부분의 경우 자동 세미콜론 삽입(ASI) 기능 때문에 생략할 수 있지만, 명시적으로 사용하는 것이 권장됩니다.</p>
+
+        <div class="warning">
+            <h3>세미콜론 생략의 위험성</h3>
+            <p>자동 세미콜론 삽입 기능은 종종 예상치 못한 결과를 가져올 수 있습니다. 아래 예제를 살펴보세요:</p>
+            <pre><code>// 세미콜론이 없을 때 문제가 발생하는 예
+let a = 5
+let b = a
+(function() {
+  console.log("이 함수는 즉시 호출됩니다")
+})()
+
+// 위 코드는 다음과 같이 해석됩니다:
+// let a = 5;
+// let b = a(function() { console.log("이 함수는 즉시 호출됩니다") })();
+// 이는 'a is not a function' 오류를 발생시킵니다.</code></pre>
+        </div>
+
+        <div class="example-container">
+            <h3>세미콜론 사용 예제</h3>
+            <pre><code>// 권장: 모든 문장 끝에 세미콜론 사용
+let name = "홍길동";
+let age = 25;
+console.log(`이름: ${name}, 나이: ${age}`);</code></pre>
+
+            <button onclick="runSemicolonExample()">예제 실행</button>
+            <div id="semicolon-output" class="output"></div>
+
+            <script>
+                function runSemicolonExample() {
+                    let name = "홍길동";
+                    let age = 25;
+                    console.log(`이름: ${name}, 나이: ${age}`);
+
+                    document.getElementById("semicolon-output").innerHTML =
+                        `변수 name에 "홍길동" 할당<br>` +
+                        `변수 age에 25 할당<br>` +
+                        `콘솔에 출력된 내용: "이름: 홍길동, 나이: 25"`;
+                }
+            </script>
+        </div>
+    </section>
+
+    <section>
+        <h2>블록(Block)</h2>
+        <p>중괄호 <code>{}</code>로 묶인 코드 그룹을 블록이라고 합니다. 블록은 여러 문장을 그룹화하는 데 사용되며, 조건문, 반복문, 함수 등에서 사용됩니다.</p>
+
+        <div class="example-container">
+            <pre><code>// 조건문에서의 블록 사용
+if (true) {
+    // 이 부분이 하나의 블록입니다
+    let message = "조건이 참입니다";
+    console.log(message);
+}
+
+// 함수에서의 블록 사용
+function greet() {
+    // 이 부분이 함수 본문 블록입니다
+    let greeting = "안녕하세요";
+    return greeting;
+}</code></pre>
+
+            <button onclick="runBlockExample()">예제 실행</button>
+            <div id="block-output" class="output"></div>
+
+            <script>
+                function runBlockExample() {
+                    let blockResult = "";
+
+                    if (true) {
+                        let message = "조건이 참입니다";
+                        console.log(message);
+                        blockResult += `if 블록 내부의 message: ${message}<br>`;
+                    }
+
+                    function greet() {
+                        let greeting = "안녕하세요";
+                        return greeting;
+                    }
+
+                    blockResult += `greet() 함수의 반환값: ${greet()}<br>`;
+
+                    try {
+                        blockResult += `블록 밖에서 message에 접근: ${message}<br>`;
+                    } catch (error) {
+                        blockResult += `블록 밖에서 message에 접근 시 오류: <span style="color:red">${error.message}</span><br>`;
+                    }
+
+                    document.getElementById("block-output").innerHTML = blockResult;
+                }
+            </script>
+        </div>
+    </section>
+
+    <section>
+        <h2>주석(Comments)</h2>
+        <p>주석은 코드를 설명하는 텍스트로, 실행되지 않습니다. JavaScript에서는 한 줄 주석(<code>//</code>)과 여러 줄 주석(<code>/* */</code>)을 사용할 수 있습니다.
+        </p>
+
+        <div class="example-container">
+            <pre><code>// 이것은 한 줄 주석입니다
+let x = 10; // 변수 x에 10을 할당합니다
+
+/*
+  이것은
+  여러 줄
+  주석입니다
+*/
+let y = 20;</code></pre>
+
+            <button onclick="runCommentExample()">예제 실행</button>
+            <div id="comment-output" class="output"></div>
+
+            <script>
+                function runCommentExample() {
+                    // 이것은 한 줄 주석입니다
+                    let x = 10; // 변수 x에 10을 할당합니다
+
+                    /*
+                      이것은
+                      여러 줄
+                      주석입니다
+                    */
+                    let y = 20;
+
+                    document.getElementById("comment-output").innerHTML =
+                        `변수 x의 값: ${x}<br>` +
+                        `변수 y의 값: ${y}<br>` +
+                        `주석은 실행되지 않으므로 코드 출력에는 영향이 없습니다.`;
+                }
+            </script>
+        </div>
+
+        <div class="tip">
+            <h3>효과적인 주석 작성 팁</h3>
+            <ul>
+                <li><strong>왜(why)에 집중:</strong> 코드가 무엇을 하는지(what)는 코드 자체가 설명하고, 주석은 왜 그렇게 했는지를 설명합니다.</li>
+                <li><strong>복잡한 로직 설명:</strong> 이해하기 어려운 코드 부분에 주석을 추가합니다.</li>
+                <li><strong>불필요한 주석 지양:</strong> 코드가 자명한 경우 중복 설명은 피합니다.</li>
+                <li><strong>주석 최신 상태 유지:</strong> 코드를 수정할 때 관련 주석도 함께 업데이트합니다.</li>
+            </ul>
+        </div>
+    </section>
+
+    <section>
+        <h2>코드 포맷팅</h2>
+        <p>가독성 좋은 코드를 작성하기 위한 포맷팅 규칙입니다:</p>
+
+        <div class="example-container">
+            <h3>들여쓰기(Indentation)</h3>
+            <pre><code>// 들여쓰기를 사용한 예제
+function calculateArea(width, height) {
+    if (width > 0 && height > 0) {
+        let area = width * height;
+        return area;
+    } else {
+        return 0;
+    }
+}</code></pre>
+
+            <h3>중괄호 스타일</h3>
+            <pre><code>// K&R 스타일 (JavaScript에서 많이 사용)
+if (condition) {
+    // 코드
+} else {
+    // 코드
+}
+
+// Allman 스타일
+if (condition) 
+{
+    // 코드
+} 
+else 
+{
+    // 코드
+}</code></pre>
+
+            <h3>한 줄 코드</h3>
+            <pre><code>// 짧은 if 문을 한 줄에 쓰는 경우
+if (x > 0) return x; // 한 줄일 때는 가능
+
+// 더 긴 코드는 여러 줄로 나누는 것이 좋습니다
+if (longCondition && 
+    anotherCondition) {
+    // 코드
+}</code></pre>
+        </div>
+    </section>
+
+    <section>
+        <h2>실습: 코드 구조 적용하기</h2>
+
+        <div class="example-container">
+            <p>아래 입력 필드에 숫자를 입력하고 버튼을 클릭하면, 코드 구조를 적용하여 작성된 함수가 실행됩니다.</p>
+
+            <div>
+                <label for="num1">첫 번째 숫자:</label>
+                <input type="number" id="num1" value="10">
+                <br>
+                <label for="num2">두 번째 숫자:</label>
+                <input type="number" id="num2" value="5">
+                <br>
+                <button onclick="performOperation()">계산하기</button>
+            </div>
+
+            <div id="operation-output" class="output"></div>
+
+            <script>
+                /**
+                 * 두 수에 대한 다양한 연산을 수행하고 결과를 반환하는 함수
+                 * @param {number} a - 첫 번째 숫자
+                 * @param {number} b - 두 번째 숫자
+                 * @return {object} 연산 결과를 담은 객체
+                 */
+                function calculateOperations(a, b) {
+                    // 결과를 저장할 객체 생성
+                    let results = {};
+
+                    // 기본 산술 연산 수행
+                    results.sum = a + b;
+                    results.difference = a - b;
+                    results.product = a * b;
+
+                    // 나눗셈은 0으로 나누는 경우를 처리
+                    if (b !== 0) {
+                        results.quotient = a / b;
+                    } else {
+                        results.quotient = "나눗셈 불가 (0으로 나눔)";
+                    }
+
+                    // 추가 연산 수행
+                    results.remainder = a % b;
+                    results.power = Math.pow(a, b);
+
+                    // 결과 반환
+                    return results;
+                }
+
+                // 버튼 클릭 시 호출되는 함수
+                function performOperation() {
+                    // 입력값 가져오기
+                    let num1 = parseFloat(document.getElementById("num1").value);
+                    let num2 = parseFloat(document.getElementById("num2").value);
+
+                    // 숫자가 아닌 경우 처리
+                    if (isNaN(num1) || isNaN(num2)) {
+                        document.getElementById("operation-output").innerHTML =
+                            "유효한 숫자를 입력해주세요.";
+                        return;
+                    }
+
+                    // 계산 수행
+                    let results = calculateOperations(num1, num2);
+
+                    // 결과 표시
+                    let outputHTML = "<h4>계산 결과:</h4>";
+                    outputHTML += `<ul>`;
+                    outputHTML += `<li>덧셈: ${num1} + ${num2} = ${results.sum}</li>`;
+                    outputHTML += `<li>뺄셈: ${num1} - ${num2} = ${results.difference}</li>`;
+                    outputHTML += `<li>곱셈: ${num1} × ${num2} = ${results.product}</li>`;
+                    outputHTML += `<li>나눗셈: ${num1} ÷ ${num2} = ${results.quotient}</li>`;
+                    outputHTML += `<li>나머지: ${num1} % ${num2} = ${results.remainder}</li>`;
+                    outputHTML += `<li>거듭제곱: ${num1} ^ ${num2} = ${results.power}</li>`;
+                    outputHTML += `</ul>`;
+
+                    document.getElementById("operation-output").innerHTML = outputHTML;
+                }
+            </script>
+        </div>
+    </section>
+
+    <section>
+        <h2>요약</h2>
+        <ul>
+            <li><strong>문장(Statement):</strong> JavaScript의 기본 실행 단위로, 세미콜론으로 끝납니다.</li>
+            <li><strong>세미콜론(;):</strong> 문장의 끝을 표시하며, 명시적으로 사용하는 것이 권장됩니다.</li>
+            <li><strong>블록(Block):</strong> 중괄호로 묶인 코드 그룹으로, 여러 문장을 하나의 단위로 만듭니다.</li>
+            <li><strong>주석(Comments):</strong> 코드를 설명하는 텍스트로, 실행되지 않습니다.</li>
+            <li><strong>코드 포맷팅:</strong> 가독성을 높이기 위한 일관된 코드 작성 규칙을 적용하는 것이 중요합니다.</li>
+        </ul>
+    </section>
+
+    <footer style="margin-top: 30px; border-top: 1px solid #ddd; padding-top: 10px; text-align: center;">
+        <p>© 2025 JavaScript 학습 자료</p>
+    </footer>
+</body>
+
+</html>

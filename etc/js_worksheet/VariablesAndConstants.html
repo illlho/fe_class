@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JavaScript - 변수와 상수</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            line-height: 1.6;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+            color: #333;
+        }
+
+        h1,
+        h2,
+        h3 {
+            color: #2c3e50;
+        }
+
+        code {
+            background-color: #f8f8f8;
+            border: 1px solid #ddd;
+            border-radius: 3px;
+            padding: 2px 5px;
+            font-family: Consolas, monospace;
+        }
+
+        pre {
+            background-color: #f8f8f8;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 10px;
+            overflow-x: auto;
+        }
+
+        .example-container {
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 15px;
+            margin: 20px 0;
+        }
+
+        .output {
+            background-color: #f0f8ff;
+            border: 1px solid #bde0fe;
+            border-radius: 5px;
+            padding: 10px;
+            margin-top: 10px;
+        }
+
+        .tip {
+            background-color: #e6f7ff;
+            border-left: 4px solid #1890ff;
+            padding: 10px 15px;
+            margin: 15px 0;
+        }
+
+        button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 14px;
+            margin: 4px 2px;
+            cursor: pointer;
+            border-radius: 4px;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin: 15px 0;
+        }
+
+        th,
+        td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>JavaScript - 변수와 상수</h1>
+
+    <section>
+        <h2>변수란?</h2>
+        <p>변수(Variable)는 데이터를 저장하기 위한 <strong>이름이 붙은 저장소</strong>입니다. JavaScript에서는 <code>var</code>, <code>let</code>,
+            <code>const</code> 키워드를 사용하여 변수를 선언할 수 있습니다.</p>
+
+        <h3>변수 선언 방법</h3>
+        <div class="example-container">
+            <pre><code>// var를 사용한 변수 선언 (ES5 이전 방식)
+var message = "안녕하세요";
+
+// let을 사용한 변수 선언 (ES6+, 권장)
+let name = "홍길동";
+
+// 값을 할당하지 않고 선언
+let age;
+age = 25; // 나중에 값 할당</code></pre>
+
+            <button onclick="runVariableExample()">예제 실행</button>
+            <div id="variable-output" class="output"></div>
+
+            <script>
+                function runVariableExample() {
+                    var message = "안녕하세요";
+                    let name = "홍길동";
+                    let age;
+                    age = 25;
+
+                    document.getElementById("variable-output").innerHTML =
+                        `message 변수의 값: ${message}<br>` +
+                        `name 변수의 값: ${name}<br>` +
+                        `age 변수의 값: ${age}`;
+                }
+            </script>
+        </div>
+    </section>
+
+    <section>
+        <h2>상수란?</h2>
+        <p>상수(Constant)는 한 번 할당하면 값을 변경할 수 없는 변수입니다. JavaScript에서는 <code>const</code> 키워드를 사용하여 상수를 선언합니다.</p>
+
+        <div class="example-container">
+            <pre><code>// const를 사용한 상수 선언
+const PI = 3.14159;
+const USER_ID = "user123";
+
+// 상수는 재할당할 수 없음
+// PI = 3.14; // 이 코드는 오류 발생!</code></pre>
+
+            <button onclick="runConstExample()">예제 실행</button>
+            <div id="const-output" class="output"></div>
+
+            <script>
+                function runConstExample() {
+                    const PI = 3.14159;
+                    const USER_ID = "user123";
+
+                    let result = "";
+                    result += `PI 상수의 값: ${PI}<br>`;
+                    result += `USER_ID 상수의 값: ${USER_ID}<br>`;
+
+                    try {
+                        PI = 3.14;
+                    } catch (error) {
+                        result += `<span style="color:red">오류: ${error.message}</span>`;
+                    }
+
+                    document.getElementById("const-output").innerHTML = result;
+                }
+            </script>
+        </div>
+    </section>
+
+    <section>
+        <h2>var, let, const의 차이점</h2>
+
+        <table>
+            <tr>
+                <th>특성</th>
+                <th>var</th>
+                <th>let</th>
+                <th>const</th>
+            </tr>
+            <tr>
+                <td>재선언</td>
+                <td>가능</td>
+                <td>불가능</td>
+                <td>불가능</td>
+            </tr>
+            <tr>
+                <td>재할당</td>
+                <td>가능</td>
+                <td>가능</td>
+                <td>불가능</td>
+            </tr>
+            <tr>
+                <td>스코프</td>
+                <td>함수 스코프</td>
+                <td>블록 스코프</td>
+                <td>블록 스코프</td>
+            </tr>
+            <tr>
+                <td>호이스팅</td>
+                <td>선언만 호이스팅</td>
+                <td>호이스팅 되지만 TDZ 존재</td>
+                <td>호이스팅 되지만 TDZ 존재</td>
+            </tr>
+        </table>
+
+        <div class="example-container">
+            <h4>스코프 차이 예제</h4>
+            <pre><code>function scopeExample() {
+    if (true) {
+        var varVariable = "var는 함수 스코프";
+        let letVariable = "let은 블록 스코프";
+        const constVariable = "const도 블록 스코프";
+    }
+    
+    console.log(varVariable); // "var는 함수 스코프" 출력
+    // console.log(letVariable); // 오류! 블록 밖에서 접근 불가
+    // console.log(constVariable); // 오류! 블록 밖에서 접근 불가
+}</code></pre>
+
+            <button onclick="runScopeExample()">예제 실행</button>
+            <div id="scope-output" class="output"></div>
+
+            <script>
+                function runScopeExample() {
+                    let result = "";
+
+                    function scopeTest() {
+                        if (true) {
+                            var varVariable = "var는 함수 스코프";
+                            let letVariable = "let은 블록 스코프";
+                            const constVariable = "const도 블록 스코프";
+
+                            result += "블록 내부:<br>";
+                            result += `varVariable: ${varVariable}<br>`;
+                            result += `letVariable: ${letVariable}<br>`;
+                            result += `constVariable: ${constVariable}<br><br>`;
+                        }
+
+                        result += "블록 외부(함수 내부):<br>";
+                        result += `varVariable: ${varVariable}<br>`;
+
+                        try {
+                            result += `letVariable: ${letVariable}<br>`;
+                        } catch (error) {
+                            result += `letVariable: <span style="color:red">오류! ${error.message}</span><br>`;
+                        }
+
+                        try {
+                            result += `constVariable: ${constVariable}<br>`;
+                        } catch (error) {
+                            result += `constVariable: <span style="color:red">오류! ${error.message}</span><br>`;
+                        }
+                    }
+
+                    scopeTest();
+                    document.getElementById("scope-output").innerHTML = result;
+                }
+            </script>
+        </div>
+    </section>
+
+    <section>
+        <h2>실용적인 팁</h2>
+
+        <div class="tip">
+            <h3>현대 JavaScript에서의 변수 사용 가이드라인</h3>
+            <ul>
+                <li><strong>기본적으로 const 사용:</strong> 값이 변경되지 않을 변수는 항상 <code>const</code>로 선언</li>
+                <li><strong>변경이 필요한 경우만 let 사용:</strong> 루프 카운터나 값 누적 등에 <code>let</code> 사용</li>
+                <li><strong>var는 사용 지양:</strong> 레거시 코드가 아니라면 <code>var</code> 사용 피하기</li>
+                <li><strong>의미 있는 변수명 사용:</strong> 변수명만으로 용도를 알 수 있게 명명하기</li>
+                <li><strong>상수는 대문자와 언더스코어로 명명:</strong> 예: <code>MAX_SIZE</code>, <code>API_KEY</code></li>
+            </ul>
+        </div>
+
+        <div class="example-container">
+            <h3>실습: 변수와 상수 사용하기</h3>
+            <p>아래 입력 필드에 값을 입력하고 버튼을 클릭하면 결과를 확인할 수 있습니다.</p>
+
+            <div>
+                <label for="radius">원의 반지름:</label>
+                <input type="number" id="radius" value="5">
+                <button onclick="calculateCircle()">계산하기</button>
+            </div>
+
+            <div id="circle-output" class="output"></div>
+
+            <script>
+                function calculateCircle() {
+                    // 상수 정의
+                    const PI = 3.14159;
+
+                    // 변수에 사용자 입력 저장
+                    let radius = parseFloat(document.getElementById("radius").value);
+
+                    // 계산을 위한 변수들
+                    let area = PI * radius * radius;
+                    let circumference = 2 * PI * radius;
+
+                    // 결과 출력
+                    let result = `<strong>원의 속성:</strong><br>`;
+                    result += `반지름: ${radius}<br>`;
+                    result += `넓이: ${area.toFixed(2)}<br>`;
+                    result += `둘레: ${circumference.toFixed(2)}<br>`;
+
+                    document.getElementById("circle-output").innerHTML = result;
+                }
+            </script>
+        </div>
+    </section>
+
+    <section>
+        <h2>요약</h2>
+        <ul>
+            <li><strong>변수:</strong> 데이터를 저장하는 이름이 있는 메모리 공간</li>
+            <li><strong>let:</strong> 재할당 가능한 변수를 위한 현대적인 선언 방법</li>
+            <li><strong>const:</strong> 한 번 할당하면 변경할 수 없는 상수 선언 방법</li>
+            <li><strong>var:</strong> 레거시 코드에서 볼 수 있는 오래된 변수 선언 방법</li>
+            <li>현대 JavaScript에서는 기본적으로 <code>const</code>를 사용하고, 필요한 경우에만 <code>let</code>을 사용하는 것이 권장됩니다.</li>
+        </ul>
+    </section>
+
+    <footer style="margin-top: 30px; border-top: 1px solid #ddd; padding-top: 10px; text-align: center;">
+        <p>© 2025 JavaScript 학습 자료</p>
+    </footer>
+</body>
+
+</html>
