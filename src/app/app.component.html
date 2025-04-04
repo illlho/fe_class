@@ -4,7 +4,7 @@
 <!-- 헤더 영역 -->
 <header role="banner">
     <div class="container site-header">
-        <a href="/" class="logo">To Do 서비스</a>
+        <a [routerLink]="['']" class="logo">FESTUDY</a>
 
         <button class="menu-toggle" aria-expanded="false" aria-controls="nav-links" #menuToggle (click)="toggleMenu()">
             <span aria-hidden="true">☰</span>
@@ -13,10 +13,10 @@
 
         <nav role="navigation" class="nav-links" #navLinks>
             <ul>
-                <li><a href="#home">할 일</a></li>
-                <li><a href="#categories">카테고리</a></li>
+                <li><a [routerLink]="['/todo-list']" >할 일</a></li>
+                <!-- <li><a href="#categories">카테고리</a></li>
                 <li><a href="#statistics">통계</a></li>
-                <li><a href="#settings">설정</a></li>
+                <li><a href="#settings">설정</a></li> -->
             </ul>
         </nav>
     </div>
