@@ -12,8 +12,8 @@ body {
 
 body {
     display: flex;
-    flex-direction: column;
     /* 페이지를 위에서 아래로 쌓는 구조로 설정 */
+    flex-direction: column;
 }
 
 .sr-only {
@@ -35,6 +35,13 @@ body {
     white-space: nowrap;
     /* 테두리 제거 — 불필요한 시각적 요소 방지 */
     border: 0;
+}
+
+a {
+    /* 밑줄 제거 */
+    text-decoration: none;
+    /* 부모 요소의 글자색 상속 */
+    color: inherit;
 }
 
 /* --------- 헤더 영역 스타일 --------- */
