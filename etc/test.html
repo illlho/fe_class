@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Custom Input + Select</title>
+    <style>
+        body {
+            background-color: #121212;
+            font-family: Arial, sans-serif;
+            padding: 40px;
+            color: #fff;
+        }
+
+        .container {
+            display: flex;
+            align-items: center;
+            background-color: #2e1f1f;
+            border: 1px solid #7f3cff;
+            border-radius: 12px;
+            padding: 4px;
+            width: 400px;
+        }
+
+        .token-icon {
+            width: 32px;
+            height: 32px;
+            margin: 0 8px;
+            border-radius: 6px;
+            object-fit: cover;
+        }
+
+        .token-input {
+            flex: 1;
+            border: none;
+            background: transparent;
+            color: #ccc;
+            font-size: 16px;
+            padding: 10px;
+            outline: none;
+        }
+
+        .custom-select {
+            position: relative;
+            width: 100px;
+            cursor: pointer;
+            z-index: 20;
+        }
+
+        .selected-option {
+            display: flex;
+            align-items: center;
+            background-color: #2a2a38;
+            padding: 8px;
+            border-radius: 8px;
+            font-weight: bold;
+            font-size: 14px;
+        }
+
+        .selected-option img {
+            width: 20px;
+            height: 20px;
+            margin-right: 6px;
+            border-radius: 4px;
+        }
+
+        .options {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            width: 100%;
+            background-color: #2a2a38;
+            border-radius: 8px;
+            overflow: hidden;
+            z-index: 30;
+        }
+
+        .option {
+            display: flex;
+            align-items: center;
+            padding: 8px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        .option:hover {
+            background-color: #3a3a50;
+        }
+
+        .option img {
+            width: 20px;
+            height: 20px;
+            margin-right: 6px;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+        <input type="number" placeholder="0.00" step="0.01" class="token-input" min="0">
+        <div class="custom-select" onclick="toggleOptions()">
+            <div class="selected-option" id="selected-option">
+                <img src="https://placehold.co/100x100" alt="icon">
+                <span>SOL</span>
+            </div>
+            <div class="options" id="options">
+                <div class="option" onclick="selectToken('SOL', 'https://placehold.co/100x100')">
+                    <img src="https://placehold.co/100x100" alt="icon">
+                    <span>SOL</span>
+                </div>
+                <div class="option" onclick="selectToken('ETH', 'https://placehold.co/100x100')">
+                    <img src="https://placehold.co/100x100" alt="icon">
+                    <span>ETH</span>
+                </div>
+                <div class="option" onclick="selectToken('BTC', 'https://placehold.co/100x100')">
+                    <img src="https://placehold.co/100x100" alt="icon">
+                    <span>BTC</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function toggleOptions() {
+            document.getElementById("options").style.display =
+                document.getElementById("options").style.display === "block" ? "none" : "block";
+        }
+
+        function selectToken(name, imgUrl) {
+            const icon = document.getElementById("left-icon");
+            const selected = document.getElementById("selected-option");
+
+            icon.src = imgUrl;
+            selected.innerHTML = `<img src="${imgUrl}" alt="icon"><span>${name}</span>`;
+            document.getElementById("options").style.display = "none";
+        }
+
+        // 클릭 바깥 영역 닫기
+        document.addEventListener('click', function (e) {
+            const selectBox = document.querySelector('.custom-select');
+            if (!selectBox.contains(e.target)) {
+                document.getElementById("options").style.display = "none";
+            }
+        });
+    </script>
+
+</body>
+
+</html>
