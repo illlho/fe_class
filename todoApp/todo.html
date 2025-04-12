@@ -5,61 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>To-Do App</title>
-    <style>
-        body {
-            width: 100%;
-            display: flex;
-            justify-content: center;
-        }
-
-        .container {
-            width: 100%;
-            max-width: 500px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-        }
-
-        .title {
-            text-align: center;
-        }
-
-        .add-form {
-            display: flex;
-            gap: 10px;
-            margin-bottom: 15px;
-        }
-
-        .add-form input {
-            flex: 1;
-            padding: 12px;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-            font-size: 1rem;
-        }
-
-        .add-form input:focus {
-            outline: none;
-            border-color: #4a6da7;
-            box-shadow: 0 0 0 2px rgba(74, 109, 167, 0.2);
-        }
-
-        .btn {
-            background-color: #4a6da7;
-            color: white;
-            border: none;
-            padding: 12px 20px;
-            border-radius: 4px;
-            cursor: pointer;
-            font-size: 1rem;
-            transition: background-color 0.3s;
-        }
-
-        .btn:hover,
-        .btn:focus {
-            background-color: #5f82c1;
-        }
-    </style>
+    <link rel="stylesheet" href="todo.css">
 </head>
 
 <body> <!-- 실제 화면에 보이는 내용을 작성하는 부분 -->
@@ -77,35 +23,6 @@
     </div>
 </body> <!-- 문서의 실제 내용 끝 -->
 
+<script src="./todo.js"></script>
+
 </html> <!-- HTML 문서 종료 -->
-
-<script>
-    function createTodo() {
-        // 1. 입력창 요소 가져오기
-        let 입력창 = document.getElementById('todo-input');
-
-        // 2. 입력창에 사용자가 입력한 텍스트 가져오기
-        let 입력내용 = 입력창.value.trim(); // 양쪽 공백 제거
-
-        // 3. 입력이 비어있으면 추가하지 않음
-        if (입력내용 === "") {
-            alert("할 일을 입력해주세요!");
-            return;
-        }
-
-        // 4. 할 일 목록(ul 요소) 가져오기
-        let 할일목록 = document.getElementById("todo-list");
-
-        // 5. 새로운 li 요소 생성
-        let 새할일 = document.createElement("li");
-
-        // 6. li 요소에 입력된 내용을 넣기
-        새할일.innerText = 입력내용;
-
-        // 7. li 요소를 ul 목록에 추가하기
-        할일목록.appendChild(새할일);
-
-        // 8. 입력창 비워주기 (다음 입력을 위해)
-        입력창.value = "";
-    }
-</script>
