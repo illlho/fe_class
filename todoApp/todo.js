@@ -26,3 +26,9 @@ function createTodo() {
     // 8. 입력창 비워주기 (다음 입력을 위해)
     입력창.value = "";
 }
+
+document.getElementById("todo-input").addEventListener("keydown", function (event) {
+    if (event.key === "Enter") {
+        createTodo();
+    }
+})
