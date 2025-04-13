@@ -5,24 +5,33 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>To-Do App</title>
-    <link rel="stylesheet" href="todo.css">
+    <link rel="stylesheet" href="./todo.css">
 </head>
 
-<body> <!-- 실제 화면에 보이는 내용을 작성하는 부분 -->
-    <div class="container"> <!-- 내용을 감싸는 박스 (중앙 정렬용) -->
-        <h1 class="title">To-Do App</h1> <!-- 앱의 제목 -->
+<body>
+    <div class="container">
+        <h1 class="title">To-Do App</h1>
 
-        <div class="add-form"> <!-- 할 일을 입력하고 추가할 수 있는 영역 -->
-            <input id="todo-input" type="text" placeholder="할 일을 입력하세요" /> <!-- 입력창 -->
-            <button onclick="createTodo()" id="todo-add-btn" class="btn">추가</button> <!-- 할 일 추가 버튼 -->
+        <div class="add-form">
+            <input id="todo-input" type="text" placeholder="할 일을 입력하세요" />
+            <button id="todo-add-btn" class="btn" onclick="createTodo()">추가</button>
         </div>
 
-        <ul id="todo-list"> <!-- 할 일 목록이 들어갈 공간 -->
-            <li>예시 할 일</li> <!-- 미리 적어둔 예시 항목 -->
+        <ul id="todo-list">
+            <li>
+                <input type="checkbox" onchange="toggleComplete(this)" />
+                <div>
+                    <span class="todo-text">내용은 보통 이렇게 들어감</span>
+                    <span>
+                        <button class="btn edit-btn" onclick="editItem(this)">수정</button>
+                        <button class="btn delete-btn" onclick="deleteItem(this)">삭제</button>
+                    </span>
+                </div>
+            </li>
         </ul>
     </div>
-</body> <!-- 문서의 실제 내용 끝 -->
+</body>
 
 <script src="./todo.js"></script>
 
-</html> <!-- HTML 문서 종료 -->
+</html>

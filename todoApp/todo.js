@@ -1,34 +1,46 @@
 function createTodo() {
-    // 1. 입력창 요소 가져오기
-    let 입력창 = document.getElementById('todo-input');
+    let todoInput = document.getElementById('todo-input')
+    let inputText = todoInput.value
 
-    // 2. 입력창에 사용자가 입력한 텍스트 가져오기
-    let 입력내용 = 입력창.value.trim(); // 양쪽 공백 제거
-
-    // 3. 입력이 비어있으면 추가하지 않음
-    if (입력내용 === "") {
-        alert("할 일을 입력해주세요!");
-        return;
+    if (inputText == '') {
+        alert('할 일을 입력해 주세요!')
+        return false
     }
 
-    // 4. 할 일 목록(ul 요소) 가져오기
-    let 할일목록 = document.getElementById("todo-list");
+    let todoList = document.getElementById('todo-list')
+    let newTodo = document.createElement('li')
+    newTodo.innerText = inputText
 
-    // 5. 새로운 li 요소 생성
-    let 새할일 = document.createElement("li");
+    todoList.appendChild(newTodo)
 
-    // 6. li 요소에 입력된 내용을 넣기
-    새할일.innerText = 입력내용;
-
-    // 7. li 요소를 ul 목록에 추가하기
-    할일목록.appendChild(새할일);
-
-    // 8. 입력창 비워주기 (다음 입력을 위해)
-    입력창.value = "";
+    todoInput.value = ''
 }
 
-document.getElementById("todo-input").addEventListener("keydown", function (event) {
-    if (event.key === "Enter") {
-        createTodo();
+function editItem(button) {
+    // closest : 상위 요소 탐색. li를 매개변수로 전달하면 li를 찾을때 까지 탐색 진행
+    const li = button.closest('li');
+
+    // querySelector : css 선택자 문법으로 HTML 요소를 '하나' 찾아 주는 함수. 조건에 맞는 첫 번째 요소 하나만을 가져온다.
+    const textSpan = li.querySelector('.todo-text');
+
+    // 사용자에게 입력을 요구하는 팝업창을 띄움
+    const newText = prompt('할 일을 수정하세요:', textSpan.textContent);
+    if (newText !== null && newText.trim() !== '') {
+        textSpan.textContent = newText.trim();
     }
-})
+}
+
+function deleteItem(button) {
+    const li = button.closest('li');
+
+    // 요소를 삭제
+    li.remove();
+}
+
+function toggleComplete(checkbox) {
+    // 현재 요소의 다음 형제 요소를 가져옴
+    const text = checkbox.nextElementSibling;
+
+    // 체크 여부에 따라 토글
+    text.classList.toggle('completed', checkbox.checked);
+}
