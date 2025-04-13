@@ -44,3 +44,70 @@ function toggleComplete(checkbox) {
     // 체크 여부에 따라 토글
     text.classList.toggle('completed', checkbox.checked);
 }
+
+
+
+
+
+
+
+
+
+function createTodo() {
+    let todoInput = document.getElementById('todo-input')
+    let inputText = todoInput.value
+
+    if (inputText.trim() === '') {
+        alert('할 일을 입력해 주세요!')
+        return false
+    }
+
+    let todoList = document.getElementById('todo-list')
+    let newTodo = document.createElement('li')
+
+    // 체크박스 생성
+    let checkbox = document.createElement('input')
+    checkbox.type = 'checkbox'
+    checkbox.setAttribute('onchange', 'toggleComplete(this)')
+
+    // div 생성
+    let div = document.createElement('div')
+
+    // 할 일 텍스트 span 생성
+    let todoText = document.createElement('span')
+    todoText.className = 'todo-text'
+    todoText.innerText = inputText
+
+    // 버튼 그룹 span 생성
+    let buttonGroup = document.createElement('span')
+
+    // 수정 버튼 생성
+    let editBtn = document.createElement('button')
+    editBtn.className = 'btn edit-btn'
+    editBtn.innerText = '수정'
+    editBtn.setAttribute('onclick', 'editItem(this)')
+
+    // 삭제 버튼 생성
+    let deleteBtn = document.createElement('button')
+    deleteBtn.className = 'btn delete-btn'
+    deleteBtn.innerText = '삭제'
+    deleteBtn.setAttribute('onclick', 'deleteItem(this)')
+
+    // 버튼 그룹에 버튼들 추가
+    buttonGroup.appendChild(editBtn)
+    buttonGroup.appendChild(deleteBtn)
+
+    // div에 텍스트와 버튼 그룹 추가
+    div.appendChild(todoText)
+    div.appendChild(buttonGroup)
+
+    // li에 체크박스와 div 추가
+    newTodo.appendChild(checkbox)
+    newTodo.appendChild(div)
+
+    // 리스트에 추가
+    todoList.appendChild(newTodo)
+
+    // 입력창 초기화
+    todoInput.value = ''
+}
