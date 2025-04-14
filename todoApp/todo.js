@@ -1,63 +1,9 @@
+// 할 일 생성
 function createTodo() {
     let todoInput = document.getElementById('todo-input')
     let inputText = todoInput.value
 
     if (inputText == '') {
-        alert('할 일을 입력해 주세요!')
-        return false
-    }
-
-    let todoList = document.getElementById('todo-list')
-    let newTodo = document.createElement('li')
-    newTodo.innerText = inputText
-
-    todoList.appendChild(newTodo)
-
-    todoInput.value = ''
-}
-
-function editItem(button) {
-    // closest : 상위 요소 탐색. li를 매개변수로 전달하면 li를 찾을때 까지 탐색 진행
-    const li = button.closest('li');
-
-    // querySelector : css 선택자 문법으로 HTML 요소를 '하나' 찾아 주는 함수. 조건에 맞는 첫 번째 요소 하나만을 가져온다.
-    const textSpan = li.querySelector('.todo-text');
-
-    // 사용자에게 입력을 요구하는 팝업창을 띄움
-    const newText = prompt('할 일을 수정하세요:', textSpan.textContent);
-    if (newText !== null && newText.trim() !== '') {
-        textSpan.textContent = newText.trim();
-    }
-}
-
-function deleteItem(button) {
-    const li = button.closest('li');
-
-    // 요소를 삭제
-    li.remove();
-}
-
-function toggleComplete(checkbox) {
-    // 현재 요소의 다음 형제 요소를 가져옴
-    const text = checkbox.nextElementSibling;
-
-    // 체크 여부에 따라 토글
-    text.classList.toggle('completed', checkbox.checked);
-}
-
-
-
-
-
-
-
-
-
-function createTodo() {
-    let todoInput = document.getElementById('todo-input')
-    let inputText = todoInput.value
-
-    if (inputText.trim() === '') {
         alert('할 일을 입력해 주세요!')
         return false
     }
@@ -73,12 +19,12 @@ function createTodo() {
     // div 생성
     let div = document.createElement('div')
 
-    // 할 일 텍스트 span 생성
+    // 할 일 텍스트 Span 생성
     let todoText = document.createElement('span')
     todoText.className = 'todo-text'
     todoText.innerText = inputText
 
-    // 버튼 그룹 span 생성
+    // 버튼 그룹 Span 생성
     let buttonGroup = document.createElement('span')
 
     // 수정 버튼 생성
@@ -93,7 +39,7 @@ function createTodo() {
     deleteBtn.innerText = '삭제'
     deleteBtn.setAttribute('onclick', 'deleteItem(this)')
 
-    // 버튼 그룹에 버튼들 추가
+    // 버튼 그룹에 버튼을 추가
     buttonGroup.appendChild(editBtn)
     buttonGroup.appendChild(deleteBtn)
 
@@ -110,4 +56,45 @@ function createTodo() {
 
     // 입력창 초기화
     todoInput.value = ''
+}
+
+// 할 일 삭제
+function deleteItem(button) {
+    // closest : 부모 방향으로 거슬러 올라가며 매개변수로 전달한 'li' 태그를 찾는다. 가장 먼저 발견된 항목 하나를 반환한다.
+    let li = button.closest('li')
+    li.remove()
+}
+
+// 할 일 수정
+function editItem(button) {
+    let li = button.closest('li')
+
+    // querySelector : css 선택자 문법으로 HTML 요소를 '하나' 찾아주는 함수
+    // 조건에 맞는 첫 번째 요소 하나만을 가져온다.
+    let textSpan = li.querySelector('.todo-text')
+
+    let newText = prompt('할 일을 수정하세요', textSpan.textContent)
+    if (newText == null) {
+        alert('수정할 내용을 입력해 주세요!')
+        return false
+    }
+    if (newText.trim() == '') {
+        alert('수정할 내용을 입력해 주세요!')
+        return false
+    }
+    textSpan.textContent = newText.trim()
+
+    // if (newText != null && newText.trim() != '') {
+    //     textSpan.textContent = newText.trim()
+    // } else {
+    //     alert('수정할 내용을 입력해 주세요!')
+    //     return false
+    // }
+}
+
+// 할 일 완료
+function toggleComplete(checkbox) {
+    // 현재 요소의 다음 형제 요소를 가져와라
+    let textDiv = checkbox.nextElementSibling
+    textDiv.classList.toggle('completed', checkbox.checked)
 }
