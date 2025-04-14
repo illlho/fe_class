@@ -1,0 +1,1200 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>여행 플래너</title>
+    <style>
+        :root {
+            --primary-color: #3498db;
+            --secondary-color: #2ecc71;
+            --accent-color: #e74c3c;
+            --light-color: #f9f9f9;
+            --dark-color: #333;
+            --shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--light-color);
+            color: var(--dark-color);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        header {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 1rem;
+            text-align: center;
+            border-radius: 8px;
+            margin-bottom: 2rem;
+            box-shadow: var(--shadow);
+        }
+
+        h1,
+        h2,
+        h3 {
+            margin-bottom: 1rem;
+        }
+
+        nav {
+            display: flex;
+            justify-content: center;
+            margin-top: 1rem;
+        }
+
+        .nav-btn {
+            background-color: rgba(255, 255, 255, 0.2);
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            margin: 0 0.5rem;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .nav-btn:hover,
+        .nav-btn.active {
+            background-color: rgba(255, 255, 255, 0.4);
+        }
+
+        section {
+            margin-bottom: 2rem;
+            background-color: white;
+            padding: 1.5rem;
+            border-radius: 8px;
+            box-shadow: var(--shadow);
+        }
+
+        /* 일정 관련 스타일 */
+        .date-selector {
+            display: flex;
+            overflow-x: auto;
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+        }
+
+        .date-btn {
+            background-color: var(--light-color);
+            border: 1px solid #ddd;
+            padding: 0.5rem 1rem;
+            margin-right: 0.5rem;
+            border-radius: 4px;
+            cursor: pointer;
+            min-width: 100px;
+            text-align: center;
+            transition: all 0.3s;
+        }
+
+        .date-btn.active {
+            background-color: var(--primary-color);
+            color: white;
+            border-color: var(--primary-color);
+        }
+
+        .timeline {
+            position: relative;
+            margin: 2rem 0;
+            padding-left: 40px;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 10px;
+            top: 0;
+            bottom: 0;
+            width: 4px;
+            background-color: var(--primary-color);
+            border-radius: 2px;
+        }
+
+        .timeline-item {
+            position: relative;
+            margin-bottom: 1.5rem;
+            padding: 1rem;
+            background-color: var(--light-color);
+            border-radius: 8px;
+            box-shadow: var(--shadow);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .timeline-item:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -36px;
+            top: 18px;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background-color: white;
+            border: 3px solid var(--primary-color);
+        }
+
+        .timeline-time {
+            font-weight: bold;
+            color: var(--primary-color);
+            margin-bottom: 0.5rem;
+        }
+
+        .timeline-content {
+            margin-bottom: 0.5rem;
+        }
+
+        .timeline-location a {
+            color: var(--primary-color);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+        }
+
+        .timeline-location a:hover {
+            text-decoration: underline;
+        }
+
+        .timeline-location svg {
+            margin-right: 5px;
+        }
+
+        /* 위치 관련 스타일 */
+        .location-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1rem;
+        }
+
+        .location-card {
+            background-color: var(--light-color);
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: transform 0.3s;
+        }
+
+        .location-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .location-image {
+            height: 150px;
+            background-color: #ddd;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .location-details {
+            padding: 1rem;
+        }
+
+        .location-name {
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+
+        .location-address {
+            font-size: 0.9rem;
+            color: #666;
+            margin-bottom: 0.5rem;
+        }
+
+        .location-link {
+            display: inline-block;
+            color: var(--primary-color);
+            text-decoration: none;
+        }
+
+        .location-link:hover {
+            text-decoration: underline;
+        }
+
+        /* 가계부 관련 스타일 */
+        .expense-form {
+            margin-bottom: 1.5rem;
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr auto;
+            gap: 0.5rem;
+        }
+
+        @media (max-width: 768px) {
+            .expense-form {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .form-group {
+            margin-bottom: 0.5rem;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 0.3rem;
+            font-size: 0.9rem;
+            color: #666;
+        }
+
+        input,
+        select {
+            width: 100%;
+            padding: 0.5rem;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+
+        button {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #2980b9;
+        }
+
+        .expense-list {
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th,
+        td {
+            padding: 0.75rem;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        th {
+            background-color: var(--light-color);
+        }
+
+        .delete-btn {
+            background-color: var(--accent-color);
+            color: white;
+            border: none;
+            padding: 0.3rem 0.6rem;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.8rem;
+        }
+
+        .delete-btn:hover {
+            background-color: #c0392b;
+        }
+
+        .total-expense {
+            text-align: right;
+            font-weight: bold;
+            margin-top: 1rem;
+            padding: 0.5rem;
+            background-color: var(--light-color);
+            border-radius: 4px;
+        }
+
+        /* 애니메이션 */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .animate-in {
+            animation: fadeIn 0.5s ease forwards;
+        }
+
+        .active-now {
+            border-left: 4px solid var(--secondary-color);
+            background-color: rgba(46, 204, 113, 0.1);
+        }
+
+        /* 반응형 디자인 */
+        @media (max-width: 768px) {
+            .container {
+                padding: 10px;
+            }
+
+            section {
+                padding: 1rem;
+            }
+
+            .timeline {
+                padding-left: 30px;
+            }
+
+            .timeline::before {
+                left: 8px;
+            }
+
+            .timeline-item::before {
+                left: -26px;
+                width: 12px;
+                height: 12px;
+            }
+
+            .expense-form {
+                flex-direction: column;
+            }
+
+            th,
+            td {
+                padding: 0.5rem;
+            }
+
+            .location-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        /* 날짜 추가 모달 */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 100;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-content {
+            background-color: white;
+            width: 90%;
+            max-width: 500px;
+            padding: 1.5rem;
+            border-radius: 8px;
+            box-shadow: var(--shadow);
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .close-btn {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: #666;
+        }
+
+        /* 일정 추가 버튼 */
+        .add-btn {
+            display: block;
+            width: 100%;
+            padding: 0.75rem;
+            background-color: var(--secondary-color);
+            color: white;
+            text-align: center;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-top: 1rem;
+            transition: background-color 0.3s;
+        }
+
+        .add-btn:hover {
+            background-color: #27ae60;
+        }
+
+        .budget-summary {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .budget-card {
+            flex: 1;
+            min-width: 200px;
+            background-color: var(--light-color);
+            padding: 1rem;
+            border-radius: 8px;
+            box-shadow: var(--shadow);
+        }
+
+        .budget-card h3 {
+            margin-bottom: 0.5rem;
+            color: var(--primary-color);
+        }
+
+        .budget-amount {
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <h1>플래너</h1>
+            <nav>
+                <button class="nav-btn active" data-tab="schedule">일정</button>
+                <button class="nav-btn" data-tab="locations">위치 정보</button>
+                <button class="nav-btn" data-tab="expenses">가계부</button>
+            </nav>
+        </header>
+
+        <!-- 일정 탭 -->
+        <section id="schedule" class="tab-content active">
+            <h2>여행 일정</h2>
+            <div class="date-selector" id="dateSelector">
+                <!-- 날짜 버튼들이 여기에 동적으로 추가됩니다 -->
+            </div>
+            <button id="addDateBtn" class="add-btn">+ 새 날짜 추가</button>
+
+            <div class="timeline" id="timeline">
+                <!-- 일정이 여기에 동적으로 추가됩니다 -->
+                <div class="empty-state" id="emptySchedule">
+                    <p>아직 일정이 없습니다. 새 날짜를 추가하고 일정을 계획해보세요!</p>
+                </div>
+            </div>
+            <button id="addScheduleBtn" class="add-btn" style="display:none;">+ 새 일정 추가</button>
+        </section>
+
+        <!-- 위치 정보 탭 -->
+        <section id="locations" class="tab-content">
+            <h2>위치 정보</h2>
+            <div class="location-grid" id="locationGrid">
+                <!-- 위치 정보가 여기에 동적으로 추가됩니다 -->
+                <div class="empty-state" id="emptyLocations">
+                    <p>아직 등록된 위치가 없습니다. 일정에 위치를 추가해보세요!</p>
+                </div>
+            </div>
+            <button id="addLocationBtn" class="add-btn">+ 새 위치 추가</button>
+        </section>
+
+        <!-- 가계부 탭 -->
+        <section id="expenses" class="tab-content">
+            <h2>여행 가계부</h2>
+            <div class="expense-form">
+                <div class="form-group">
+                    <label for="expenseDate">날짜</label>
+                    <input type="date" id="expenseDate">
+                </div>
+                <div class="form-group">
+                    <label for="expenseCategory">분류</label>
+                    <select id="expenseCategory">
+                        <option value="숙소">숙소</option>
+                        <option value="식비">식비</option>
+                        <option value="교통비">교통비</option>
+                        <option value="유류비">유류비</option>
+                        <option value="관광">관광</option>
+                        <option value="쇼핑">쇼핑</option>
+                        <option value="기타">기타</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="expenseAmount">금액</label>
+                    <input type="number" id="expenseAmount" placeholder="금액을 입력하세요">
+                </div>
+                <div class="form-group">
+                    <label for="expenseDescription">내용</label>
+                    <input type="text" id="expenseDescription" placeholder="지출 내용을 입력하세요">
+                </div>
+                <div class="form-group" style="display:flex; align-items:flex-end;">
+                    <button id="addExpenseBtn">추가</button>
+                </div>
+            </div>
+
+            <div class="budget-summary">
+                <div class="budget-card">
+                    <h3>총 지출액</h3>
+                    <div class="budget-amount" id="totalExpense">₩0</div>
+                </div>
+                <div class="budget-card">
+                    <h3>카테고리별 지출</h3>
+                    <div id="categoryExpenses">
+                        <!-- 카테고리별 지출이 여기에 표시됩니다 -->
+                    </div>
+                </div>
+            </div>
+
+            <div class="expense-list">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>날짜</th>
+                            <th>분류</th>
+                            <th>내용</th>
+                            <th>금액</th>
+                            <th>관리</th>
+                        </tr>
+                    </thead>
+                    <tbody id="expenseList">
+                        <!-- 지출 목록이 여기에 동적으로 추가됩니다 -->
+                    </tbody>
+                </table>
+                <div class="empty-state" id="emptyExpenses">
+                    <p>아직 등록된 지출이 없습니다. 새 지출을 추가해보세요!</p>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- 날짜 추가 모달 -->
+    <div class="modal" id="dateModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>새 날짜 추가</h3>
+                <button class="close-btn" id="closeDateModal">&times;</button>
+            </div>
+            <div class="form-group">
+                <label for="newDate">날짜</label>
+                <input type="date" id="newDate">
+            </div>
+            <div class="form-group">
+                <label for="dateTitle">제목 (예: 서울 여행 1일차)</label>
+                <input type="text" id="dateTitle" placeholder="제목을 입력하세요">
+            </div>
+            <button id="saveDateBtn" class="add-btn">저장</button>
+        </div>
+    </div>
+
+    <!-- 일정 추가 모달 -->
+    <div class="modal" id="scheduleModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>새 일정 추가</h3>
+                <button class="close-btn" id="closeScheduleModal">&times;</button>
+            </div>
+            <div class="form-group">
+                <label for="scheduleTime">시간</label>
+                <input type="time" id="scheduleTime">
+            </div>
+            <div class="form-group">
+                <label for="scheduleActivity">활동</label>
+                <input type="text" id="scheduleActivity" placeholder="활동 내용을 입력하세요">
+            </div>
+            <div class="form-group">
+                <label for="scheduleLocation">장소</label>
+                <input type="text" id="scheduleLocation" placeholder="장소 이름을 입력하세요">
+            </div>
+            <div class="form-group">
+                <label for="scheduleAddress">주소</label>
+                <input type="text" id="scheduleAddress" placeholder="주소를 입력하세요">
+            </div>
+            <button id="saveScheduleBtn" class="add-btn">저장</button>
+        </div>
+    </div>
+
+    <!-- 위치 추가 모달 -->
+    <div class="modal" id="locationModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>새 위치 추가</h3>
+                <button class="close-btn" id="closeLocationModal">&times;</button>
+            </div>
+            <div class="form-group">
+                <label for="locationName">장소 이름</label>
+                <input type="text" id="locationName" placeholder="장소 이름을 입력하세요">
+            </div>
+            <div class="form-group">
+                <label for="locationAddress">주소</label>
+                <input type="text" id="locationAddress" placeholder="주소를 입력하세요">
+            </div>
+            <div class="form-group">
+                <label for="locationCategory">분류</label>
+                <select id="locationCategory">
+                    <option value="숙소">숙소</option>
+                    <option value="식당">식당</option>
+                    <option value="관광지">관광지</option>
+                    <option value="쇼핑">쇼핑</option>
+                    <option value="교통">교통</option>
+                    <option value="기타">기타</option>
+                </select>
+            </div>
+            <button id="saveLocationBtn" class="add-btn">저장</button>
+        </div>
+    </div>
+</body>
+
+<script>
+    // 데이터 저장소
+    let travelData = {
+        dates: [],
+        schedules: {},
+        locations: [],
+        expenses: []
+    };
+
+    // 로컬 스토리지에서 데이터 불러오기
+    if (localStorage.getItem('travelData')) {
+        try {
+            travelData = JSON.parse(localStorage.getItem('travelData'));
+        } catch (e) {
+            console.error('데이터 로드 오류:', e);
+        }
+    }
+
+    // 현재 선택된 날짜
+    let currentDate = null;
+
+    // DOM 요소
+    const dateSelector = document.getElementById('dateSelector');
+    const timeline = document.getElementById('timeline');
+    const locationGrid = document.getElementById('locationGrid');
+    const expenseList = document.getElementById('expenseList');
+    const addDateBtn = document.getElementById('addDateBtn');
+    const addScheduleBtn = document.getElementById('addScheduleBtn');
+    const addLocationBtn = document.getElementById('addLocationBtn');
+    const addExpenseBtn = document.getElementById('addExpenseBtn');
+    const emptySchedule = document.getElementById('emptySchedule');
+    const emptyLocations = document.getElementById('emptyLocations');
+    const emptyExpenses = document.getElementById('emptyExpenses');
+    const totalExpenseEl = document.getElementById('totalExpense');
+    const categoryExpensesEl = document.getElementById('categoryExpenses');
+
+    // 모달 요소
+    const dateModal = document.getElementById('dateModal');
+    const scheduleModal = document.getElementById('scheduleModal');
+    const locationModal = document.getElementById('locationModal');
+    const closeDateModal = document.getElementById('closeDateModal');
+    const closeScheduleModal = document.getElementById('closeScheduleModal');
+    const closeLocationModal = document.getElementById('closeLocationModal');
+    const saveDateBtn = document.getElementById('saveDateBtn');
+    const saveScheduleBtn = document.getElementById('saveScheduleBtn');
+    const saveLocationBtn = document.getElementById('saveLocationBtn');
+
+    // 폼 요소
+    const newDateInput = document.getElementById('newDate');
+    const dateTitleInput = document.getElementById('dateTitle');
+    const scheduleTimeInput = document.getElementById('scheduleTime');
+    const scheduleActivityInput = document.getElementById('scheduleActivity');
+    const scheduleLocationInput = document.getElementById('scheduleLocation');
+    const scheduleAddressInput = document.getElementById('scheduleAddress');
+    const locationNameInput = document.getElementById('locationName');
+    const locationAddressInput = document.getElementById('locationAddress');
+    const locationCategoryInput = document.getElementById('locationCategory');
+    const expenseDateInput = document.getElementById('expenseDate');
+    const expenseCategoryInput = document.getElementById('expenseCategory');
+    const expenseAmountInput = document.getElementById('expenseAmount');
+    const expenseDescriptionInput = document.getElementById('expenseDescription');
+
+    // 탭 전환 기능
+    const navBtns = document.querySelectorAll('.nav-btn');
+    const tabContents = document.querySelectorAll('.tab-content');
+
+    navBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            const tabId = btn.getAttribute('data-tab');
+
+            navBtns.forEach(b => b.classList.remove('active'));
+            tabContents.forEach(c => c.classList.remove('active'));
+
+            btn.classList.add('active');
+            document.getElementById(tabId).classList.add('active');
+        });
+    });
+
+    // 페이지 로드 시 데이터 렌더링
+    function renderAll() {
+        renderDates();
+        renderLocations();
+        renderExpenses();
+        updateBudgetSummary();
+
+        // 날짜가 있을 경우 첫 번째 날짜 선택
+        if (travelData.dates.length > 0) {
+            selectDate(travelData.dates[0].id);
+        }
+    }
+
+    // 날짜 목록 렌더링
+    function renderDates() {
+        dateSelector.innerHTML = '';
+
+        if (travelData.dates.length === 0) {
+            addScheduleBtn.style.display = 'none';
+            emptySchedule.style.display = 'block';
+            return;
+        }
+
+        emptySchedule.style.display = 'none';
+
+        travelData.dates.sort((a, b) => new Date(a.date) - new Date(b.date));
+
+        travelData.dates.forEach(date => {
+            const dateBtn = document.createElement('button');
+            dateBtn.className = 'date-btn';
+            dateBtn.setAttribute('data-id', date.id);
+
+            const dateParts = date.date.split('-');
+            const formattedDate = `${dateParts[1]}/${dateParts[2]}`;
+
+            dateBtn.innerHTML = `
+            <div>${date.title}</div>
+            <div style="font-size: 0.8rem; opacity: 0.7;">${formattedDate}</div>
+        `;
+
+            dateBtn.addEventListener('click', () => selectDate(date.id));
+            dateSelector.appendChild(dateBtn);
+        });
+    }
+
+    // 날짜 선택
+    function selectDate(dateId) {
+        currentDate = dateId;
+
+        // 버튼 스타일 업데이트
+        document.querySelectorAll('.date-btn').forEach(btn => {
+            if (btn.getAttribute('data-id') === dateId) {
+                btn.classList.add('active');
+            } else {
+                btn.classList.remove('active');
+            }
+        });
+
+        // 일정 렌더링
+        renderSchedules(dateId);
+
+        // 일정 추가 버튼 표시
+        addScheduleBtn.style.display = 'block';
+    }
+
+    // 일정 렌더링
+    function renderSchedules(dateId) {
+        timeline.innerHTML = '';
+
+        if (!travelData.schedules[dateId] || travelData.schedules[dateId].length === 0) {
+            const emptyMessage = document.createElement('div');
+            emptyMessage.className = 'empty-state';
+            emptyMessage.innerHTML = '<p>이 날짜에는 일정이 없습니다. 새 일정을 추가해보세요!</p>';
+            timeline.appendChild(emptyMessage);
+            return;
+        }
+
+        // 시간 순으로 정렬
+        const schedules = travelData.schedules[dateId].sort((a, b) => {
+            return a.time.localeCompare(b.time);
+        });
+
+        // 현재 시간 (데모용)
+        const now = new Date();
+        const currentHour = now.getHours();
+        const currentMinute = now.getMinutes();
+
+        schedules.forEach((schedule, index) => {
+            const timeItem = document.createElement('div');
+            timeItem.className = 'timeline-item animate-in';
+            timeItem.style.animationDelay = `${index * 100}ms`;
+
+            // 현재 시간과 비교 (데모용)
+            const [scheduleHour, scheduleMinute] = schedule.time.split(':').map(Number);
+
+            // 현재 시간과 일정 시간이 가까우면 활성화 표시
+            if (Math.abs(scheduleHour - currentHour) <= 1 && Math.abs(scheduleMinute - currentMinute) <= 30) {
+                timeItem.classList.add('active-now');
+            }
+
+            const naverMapUrl = `https://map.naver.com/p/search/${encodeURIComponent(schedule.location + ' ' + schedule.address)}`;
+
+            timeItem.innerHTML = `
+            <div class="timeline-time">${formatTime(schedule.time)}</div>
+            <div class="timeline-content">${schedule.activity}</div>
+            <div class="timeline-location">
+                <a href="${naverMapUrl}" target="_blank">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"></path>
+                        <circle cx="12" cy="9" r="2.5"></circle>
+                    </svg>
+                    ${schedule.location}
+                </a>
+            </div>
+        `;
+
+            timeline.appendChild(timeItem);
+        });
+    }
+
+    // 위치 정보 렌더링
+    function renderLocations() {
+        locationGrid.innerHTML = '';
+
+        if (travelData.locations.length === 0) {
+            emptyLocations.style.display = 'block';
+            return;
+        }
+
+        emptyLocations.style.display = 'none';
+
+        travelData.locations.forEach(location => {
+            const locationCard = document.createElement('div');
+            locationCard.className = 'location-card animate-in';
+
+            const naverMapUrl = `https://map.naver.com/p/search/${encodeURIComponent(location.name + ' ' + location.address)}`;
+
+            locationCard.innerHTML = `
+            <div class="location-image">
+                <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                    <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"></path>
+                    <circle cx="12" cy="9" r="2.5"></circle>
+                </svg>
+            </div>
+            <div class="location-details">
+                <div class="location-name">${location.name}</div>
+                <div class="location-address">${location.address}</div>
+                <div class="location-category">${location.category}</div>
+                <a href="${naverMapUrl}" target="_blank" class="location-link">지도에서 보기</a>
+            </div>
+        `;
+
+            locationGrid.appendChild(locationCard);
+        });
+    }
+
+    // 지출 내역 렌더링
+    function renderExpenses() {
+        expenseList.innerHTML = '';
+
+        if (travelData.expenses.length === 0) {
+            emptyExpenses.style.display = 'block';
+            return;
+        }
+
+        emptyExpenses.style.display = 'none';
+
+        // 날짜순으로 정렬
+        travelData.expenses.sort((a, b) => new Date(a.date) - new Date(b.date));
+
+        travelData.expenses.forEach((expense, index) => {
+            const row = document.createElement('tr');
+            row.className = 'animate-in';
+            row.style.animationDelay = `${index * 50}ms`;
+
+            const dateParts = expense.date.split('-');
+            const formattedDate = `${dateParts[1]}/${dateParts[2]}`;
+
+            row.innerHTML = `
+            <td>${formattedDate}</td>
+            <td>${expense.category}</td>
+            <td>${expense.description}</td>
+            <td>₩${Number(expense.amount).toLocaleString()}</td>
+            <td><button class="delete-btn" data-id="${expense.id}">삭제</button></td>
+        `;
+
+            expenseList.appendChild(row);
+        });
+
+        // 삭제 버튼 이벤트 추가
+        document.querySelectorAll('.delete-btn').forEach(btn => {
+            btn.addEventListener('click', () => deleteExpense(btn.getAttribute('data-id')));
+        });
+    }
+
+    // 예산 요약 업데이트
+    function updateBudgetSummary() {
+        // 총 지출액 계산
+        const totalExpense = travelData.expenses.reduce((sum, expense) => sum + Number(expense.amount), 0);
+        totalExpenseEl.textContent = `₩${totalExpense.toLocaleString()}`;
+
+        // 카테고리별 지출 계산
+        const categoryExpenses = {};
+        travelData.expenses.forEach(expense => {
+            if (!categoryExpenses[expense.category]) {
+                categoryExpenses[expense.category] = 0;
+            }
+            categoryExpenses[expense.category] += Number(expense.amount);
+        });
+
+        // 카테고리별 지출 표시
+        categoryExpensesEl.innerHTML = '';
+        for (const category in categoryExpenses) {
+            const categoryDiv = document.createElement('div');
+            categoryDiv.className = 'category-expense';
+            categoryDiv.innerHTML = `
+            <span>${category}</span>: 
+            <span>₩${categoryExpenses[category].toLocaleString()}</span>
+        `;
+            categoryExpensesEl.appendChild(categoryDiv);
+        }
+    }
+
+    // 날짜 추가 모달 이벤트
+    addDateBtn.addEventListener('click', () => {
+        // 오늘 날짜를 기본값으로 설정
+        const today = new Date();
+        const year = today.getFullYear();
+        const month = String(today.getMonth() + 1).padStart(2, '0');
+        const day = String(today.getDate()).padStart(2, '0');
+        newDateInput.value = `${year}-${month}-${day}`;
+
+        dateTitleInput.value = '';
+        dateModal.style.display = 'flex';
+    });
+
+    closeDateModal.addEventListener('click', () => {
+        dateModal.style.display = 'none';
+    });
+
+    saveDateBtn.addEventListener('click', () => {
+        const date = newDateInput.value;
+        const title = dateTitleInput.value.trim() || `여행 ${travelData.dates.length + 1}일차`;
+
+        if (!date) {
+            alert('날짜를 선택해주세요.');
+            return;
+        }
+
+        // 새 날짜 추가
+        const newDate = {
+            id: 'date_' + Date.now(),
+            date: date,
+            title: title
+        };
+
+        travelData.dates.push(newDate);
+        saveData();
+        renderDates();
+        selectDate(newDate.id);
+        dateModal.style.display = 'none';
+    });
+
+    // 일정 추가 모달 이벤트
+    addScheduleBtn.addEventListener('click', () => {
+        if (!currentDate) {
+            alert('먼저 날짜를 선택해주세요.');
+            return;
+        }
+
+        // 현재 시간을 기본값으로 설정
+        const now = new Date();
+        const hours = String(now.getHours()).padStart(2, '0');
+        const minutes = String(now.getMinutes()).padStart(2, '0');
+        scheduleTimeInput.value = `${hours}:${minutes}`;
+
+        scheduleActivityInput.value = '';
+        scheduleLocationInput.value = '';
+        scheduleAddressInput.value = '';
+        scheduleModal.style.display = 'flex';
+    });
+
+    closeScheduleModal.addEventListener('click', () => {
+        scheduleModal.style.display = 'none';
+    });
+
+    saveScheduleBtn.addEventListener('click', () => {
+        const time = scheduleTimeInput.value;
+        const activity = scheduleActivityInput.value.trim();
+        const location = scheduleLocationInput.value.trim();
+        const address = scheduleAddressInput.value.trim();
+
+        if (!time || !activity) {
+            alert('시간과 활동 내용을 입력해주세요.');
+            return;
+        }
+
+        // 일정 객체 생성
+        const newSchedule = {
+            id: 'schedule_' + Date.now(),
+            time: time,
+            activity: activity,
+            location: location || '지정된 장소 없음',
+            address: address || ''
+        };
+
+        // 위치 정보가 있으면 위치 목록에도 추가
+        if (location) {
+            const existingLocation = travelData.locations.find(loc =>
+                loc.name.toLowerCase() === location.toLowerCase() &&
+                loc.address.toLowerCase() === address.toLowerCase()
+            );
+
+            if (!existingLocation) {
+                travelData.locations.push({
+                    id: 'location_' + Date.now(),
+                    name: location,
+                    address: address,
+                    category: '일정에서 추가됨'
+                });
+            }
+        }
+
+        // 일정 추가
+        if (!travelData.schedules[currentDate]) {
+            travelData.schedules[currentDate] = [];
+        }
+        travelData.schedules[currentDate].push(newSchedule);
+
+        saveData();
+        renderSchedules(currentDate);
+        renderLocations();
+        scheduleModal.style.display = 'none';
+    });
+
+    // 위치 추가 모달 이벤트
+    addLocationBtn.addEventListener('click', () => {
+        locationNameInput.value = '';
+        locationAddressInput.value = '';
+        locationCategoryInput.value = '관광지';
+        locationModal.style.display = 'flex';
+    });
+
+    closeLocationModal.addEventListener('click', () => {
+        locationModal.style.display = 'none';
+    });
+
+    saveLocationBtn.addEventListener('click', () => {
+        const name = locationNameInput.value.trim();
+        const address = locationAddressInput.value.trim();
+        const category = locationCategoryInput.value;
+
+        if (!name) {
+            alert('장소 이름을 입력해주세요.');
+            return;
+        }
+
+        // 새 위치 추가
+        const newLocation = {
+            id: 'location_' + Date.now(),
+            name: name,
+            address: address,
+            category: category
+        };
+
+        travelData.locations.push(newLocation);
+        saveData();
+        renderLocations();
+        locationModal.style.display = 'none';
+    });
+
+    // 지출 추가 이벤트
+    addExpenseBtn.addEventListener('click', () => {
+        const date = expenseDateInput.value;
+        const category = expenseCategoryInput.value;
+        const amount = expenseAmountInput.value.trim();
+        const description = expenseDescriptionInput.value.trim();
+
+        if (!date || !amount || !description) {
+            alert('날짜, 금액, 내용을 모두 입력해주세요.');
+            return;
+        }
+
+        // 새 지출 추가
+        const newExpense = {
+            id: 'expense_' + Date.now(),
+            date: date,
+            category: category,
+            amount: Number(amount),
+            description: description
+        };
+
+        travelData.expenses.push(newExpense);
+        saveData();
+        renderExpenses();
+        updateBudgetSummary();
+
+        // 폼 초기화
+        expenseAmountInput.value = '';
+        expenseDescriptionInput.value = '';
+    });
+
+    // 지출 삭제
+    function deleteExpense(id) {
+        if (confirm('이 항목을 삭제하시겠습니까?')) {
+            travelData.expenses = travelData.expenses.filter(expense => expense.id !== id);
+            saveData();
+            renderExpenses();
+            updateBudgetSummary();
+        }
+    }
+
+    // 데이터 저장
+    function saveData() {
+        localStorage.setItem('travelData', JSON.stringify(travelData));
+    }
+
+    // 시간 포맷팅 함수
+    function formatTime(timeString) {
+        const [hours, minutes] = timeString.split(':');
+        const hour = parseInt(hours);
+        let period = '오전';
+        let formattedHour = hour;
+
+        if (hour >= 12) {
+            period = '오후';
+            if (hour > 12) {
+                formattedHour = hour - 12;
+            }
+        }
+
+        if (formattedHour === 0) {
+            formattedHour = 12;
+        }
+
+        return `${period} ${formattedHour}:${minutes}`;
+    }
+
+    // 모달 외부 클릭 시 닫기
+    window.addEventListener('click', (e) => {
+        if (e.target === dateModal) {
+            dateModal.style.display = 'none';
+        }
+        if (e.target === scheduleModal) {
+            scheduleModal.style.display = 'none';
+        }
+        if (e.target === locationModal) {
+            locationModal.style.display = 'none';
+        }
+    });
+
+    // 페이지 로드 시 초기화
+    document.addEventListener('DOMContentLoaded', () => {
+        // 오늘 날짜를 기본값으로 설정
+        const today = new Date();
+        const year = today.getFullYear();
+        const month = String(today.getMonth() + 1).padStart(2, '0');
+        const day = String(today.getDate()).padStart(2, '0');
+        expenseDateInput.value = `${year}-${month}-${day}`;
+
+        renderAll();
+    });
+</script>
+
+</html>
