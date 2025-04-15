@@ -9,20 +9,19 @@ function addTodo() {
     }
 
     // 스토리지 저장
-    let todo = {
-        content: inputText
-    }
+    let todo = { content: inputText }
     let todoId = upsertTodo(todo)
+    todo['todoId'] = todoId
 
     // 할 일 생성
-    createTodo(inputText, todoId)
+    createTodo(todo)
 
     // 입력창 초기화
     todoInput.value = ''
 }
 
 // 할 일 생성
-function createTodo(inputText, todoId) {
+function createTodo(todo) {
     // let todoInput = document.getElementById('todo-input')
     // let inputText = todoInput.value
 
@@ -35,7 +34,7 @@ function createTodo(inputText, todoId) {
     let newTodo = document.createElement('li')
 
     // 고유 id를 data 속성에 저장
-    newTodo.setAttribute('data-id', todoId)
+    newTodo.setAttribute('data-id', todo.id)
 
     // 체크박스 생성
     let checkbox = document.createElement('input')
@@ -45,10 +44,15 @@ function createTodo(inputText, todoId) {
     // div 생성
     let div = document.createElement('div')
 
+    if (todo.completed == true) {
+        checkbox.checked = true
+        div.classList.add('completed')
+    }
+
     // 할 일 텍스트 Span 생성
     let todoText = document.createElement('span')
     todoText.className = 'todo-text'
-    todoText.innerText = inputText
+    todoText.innerText = todo.content
 
     // 버튼 그룹 Span 생성
     let buttonGroup = document.createElement('span')
@@ -130,6 +134,10 @@ function toggleComplete(checkbox) {
     // 현재 요소의 다음 형제 요소를 가져와라
     let textDiv = checkbox.nextElementSibling
     textDiv.classList.toggle('completed', checkbox.checked)
+
+    // 스토리지애 업데이트
+    let li = checkbox.closest('li')
+    toggleCompleted(li.dataset.id)
 }
 
 // html에 todo 리스트 새로고침하는 함수
@@ -137,7 +145,7 @@ function renderTodoList() {
     let todoList = getTodoList()
 
     for (let i = 0; i < todoList.length; i++) {
-        createTodo(todoList[i].content, todoList[i].id)
+        createTodo(todoList[i])
     }
 }
 renderTodoList()
@@ -161,7 +169,7 @@ function getAllTodoList() {
 }
 
 function getTodoList() {
-    let todoList = getAllTodoList().filter(function(item) {
+    let todoList = getAllTodoList().filter(function (item) {
         return item.deleted != true
     })
     return todoList
@@ -205,6 +213,7 @@ function upsertTodo(todo) {
     } else { // 같은 id가 없는 경우 생성(insert)
         todo['id'] = id
         todo['deleted'] = false
+        todo['completed'] = false
         todoList.push(todo);
     }
 
@@ -220,7 +229,7 @@ function upsertTodo(todo) {
     return id
 }
 
-// storage에서 todo 삭제
+// storage에서 특정 todo를 삭제 처리하는 함수
 function deleteTodo(todoId) {
     let todoList = getAllTodoList()
     let todoIndex = todoList.findIndex(function (item) {
@@ -232,8 +241,22 @@ function deleteTodo(todoId) {
     setTodoList(todoList)
 }
 
-// storage에 저장된 데이터 삭제
+// storage에 저장된 데이터 전부 삭제하는 함수
 function removeAllTodoList() {
     localStorage.removeItem('todoList');
     localStorage.removeItem('lastId');
+}
+
+// storage에 완료 상태값 업데이트하는 함수
+function toggleCompleted(todoId) {
+    let todoList = getAllTodoList()
+    let todoIndex = todoList.findIndex(function (item) {
+        return item.id == todoId
+    })
+
+    if (todoIndex > -1) {
+        // 앞에 !를 붙이면 true => false로, false => true로 반전
+        todoList[todoIndex].completed = !todoList[todoIndex].completed
+    }
+    setTodoList(todoList)
 }
