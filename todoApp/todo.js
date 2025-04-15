@@ -16,6 +16,9 @@ function addTodo() {
 
     // 할 일 생성
     createTodo(inputText, todoId)
+
+    // 입력창 초기화
+    todoInput.value = ''
 }
 
 // 할 일 생성
@@ -76,9 +79,6 @@ function createTodo(inputText, todoId) {
 
     // 리스트에 추가
     todoList.appendChild(newTodo)
-
-    // 입력창 초기화
-    // todoInput.value = ''
 }
 
 // 할 일 삭제
@@ -110,6 +110,13 @@ function editItem(button) {
     }
     textSpan.textContent = newText.trim()
 
+    // 스토리지애 업데이트
+    let todo = {
+        id: li.dataset.id,
+        content: newText.trim()
+    }
+    upsertTodo(todo)
+
     // if (newText != null && newText.trim() != '') {
     //     textSpan.textContent = newText.trim()
     // } else {
@@ -130,7 +137,7 @@ function renderTodoList() {
     let todoList = getTodoList()
 
     for (let i = 0; i < todoList.length; i++) {
-        createTodo(todoList[i].content)
+        createTodo(todoList[i].content, todoList[i].id)
     }
 }
 renderTodoList()
@@ -154,12 +161,9 @@ function getAllTodoList() {
 }
 
 function getTodoList() {
-    let todoList = getAllTodoList()
-    for (let i = 0; i < todoList.length; i++) {
-        if (todoList[i].deleted == true) {
-            todoList.splice(i, 1)
-        }
-    }
+    let todoList = getAllTodoList().filter(function(item) {
+        return item.deleted != true
+    })
     return todoList
 }
 
@@ -179,8 +183,9 @@ function getLastId() {
 
 // todo를 storage에 insert 하거나 update 하는 함수 : insert + update = upsert
 function upsertTodo(todo) {
+
     // 각각의 todo에 고유한 id를 부여하기 위해 생성할 때마다 +1을 해준다
-    let id = getLastId() + 1;
+    let id = Number(getLastId()) + 1;
 
     // 만약 todo에 이미 id 값이 있다면 그 값으로 대체
     if (todo['id'] != '' && todo['id'] != undefined) {
@@ -196,18 +201,19 @@ function upsertTodo(todo) {
     })
 
     if (todoIndex > -1) { // 같은 id가 이미 존재하는 경우 수정(update)
-        todoList[todoIndex] = todo;
+        todoList[todoIndex].content = todo.content;
     } else { // 같은 id가 없는 경우 생성(insert)
         todo['id'] = id
         todo['deleted'] = false
         todoList.push(todo);
     }
 
+
     // 수정된 todo 리스트를 storage에 반영
     setTodoList(todoList);
 
     // 새롭게 생성일 경우에만, 생성이 성공적으로 완료 되었다면 현시점의 lastId를 저장 해준다.
-    if (todoIndex > -1) {
+    if (todoIndex < 0) {
         setLastId(id)
     }
 
@@ -226,7 +232,7 @@ function deleteTodo(todoId) {
     setTodoList(todoList)
 }
 
-// storage에 저장된 리스트 삭제
+// storage에 저장된 데이터 삭제
 function removeAllTodoList() {
     localStorage.removeItem('todoList');
     localStorage.removeItem('lastId');
