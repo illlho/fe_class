@@ -119,6 +119,16 @@ function toggleComplete(checkbox) {
     textDiv.classList.toggle('completed', checkbox.checked)
 }
 
+// html에 todo 리스트 새로고침하는 함수
+function renderTodoList() {
+    let todoList = getAllTodoList()
+
+    for (let i = 0; i < todoList.length; i++) {
+        createTodo(todoList[i].content)
+    }
+}
+renderTodoList()
+
 /** 
  * 
  * storage 관련 함수들
