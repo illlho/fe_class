@@ -12,14 +12,14 @@ function addTodo() {
     let todo = {
         content: inputText
     }
-    upsertTodo(todo)
+    let todoId = upsertTodo(todo)
 
     // 할 일 생성
-    createTodo(inputText)
+    createTodo(inputText, todoId)
 }
 
 // 할 일 생성
-function createTodo(inputText) {
+function createTodo(inputText, todoId) {
     // let todoInput = document.getElementById('todo-input')
     // let inputText = todoInput.value
 
@@ -30,6 +30,9 @@ function createTodo(inputText) {
 
     let todoList = document.getElementById('todo-list')
     let newTodo = document.createElement('li')
+
+    // 고유 id를 data 속성에 저장
+    newTodo.setAttribute('data-id', todoId)
 
     // 체크박스 생성
     let checkbox = document.createElement('input')
@@ -83,6 +86,9 @@ function deleteItem(button) {
     // closest : 부모 방향으로 거슬러 올라가며 매개변수로 전달한 'li' 태그를 찾는다. 가장 먼저 발견된 항목 하나를 반환한다.
     let li = button.closest('li')
     li.remove()
+
+    // stroage의 todo 삭제처리
+    deleteTodo(li.dataset.id)
 }
 
 // 할 일 수정
@@ -121,7 +127,7 @@ function toggleComplete(checkbox) {
 
 // html에 todo 리스트 새로고침하는 함수
 function renderTodoList() {
-    let todoList = getAllTodoList()
+    let todoList = getTodoList()
 
     for (let i = 0; i < todoList.length; i++) {
         createTodo(todoList[i].content)
@@ -145,6 +151,16 @@ function getAllTodoList() {
     } else {
         return JSON.parse(localStorage.getItem('todoList'))
     }
+}
+
+function getTodoList() {
+    let todoList = getAllTodoList()
+    for (let i = 0; i < todoList.length; i++) {
+        if (todoList[i].deleted == true) {
+            todoList.splice(i, 1)
+        }
+    }
+    return todoList
 }
 
 // todo의 마지막 고유 id를 기록하는 함수
@@ -175,21 +191,43 @@ function upsertTodo(todo) {
     let todoList = getAllTodoList();
 
     // 기존 todo 리스트에 같은 id를 가진 todo 가 존재한다면 새로 생성(insert)하는 것이 아닌 수정(update)을 진행
-    let todoIndex = todoList.findIndex(item => item.id == id);
+    let todoIndex = todoList.findIndex(function (item) {
+        return item.id == id
+    })
 
     if (todoIndex > -1) { // 같은 id가 이미 존재하는 경우 수정(update)
         todoList[todoIndex] = todo;
     } else { // 같은 id가 없는 경우 생성(insert)
         todo['id'] = id
+        todo['deleted'] = false
         todoList.push(todo);
     }
 
     // 수정된 todo 리스트를 storage에 반영
     setTodoList(todoList);
 
-
     // 새롭게 생성일 경우에만, 생성이 성공적으로 완료 되었다면 현시점의 lastId를 저장 해준다.
     if (todoIndex > -1) {
         setLastId(id)
     }
+
+    return id
+}
+
+// storage에서 todo 삭제
+function deleteTodo(todoId) {
+    let todoList = getAllTodoList()
+    let todoIndex = todoList.findIndex(function (item) {
+        return item.id == todoId
+    })
+    if (todoIndex > -1) {
+        todoList[todoIndex].deleted = true
+    }
+    setTodoList(todoList)
+}
+
+// storage에 저장된 리스트 삭제
+function removeAllTodoList() {
+    localStorage.removeItem('todoList');
+    localStorage.removeItem('lastId');
 }
