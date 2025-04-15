@@ -169,8 +169,6 @@ function upsertTodo(todo) {
     // 만약 todo에 이미 id 값이 있다면 그 값으로 대체
     if (todo['id'] != '' && todo['id'] != undefined) {
         id = todo['id']
-    } else {
-
     }
 
     // 전체 todo 리스트를 가져옴
