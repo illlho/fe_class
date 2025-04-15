@@ -154,10 +154,10 @@ function setLastId(lastId) {
 
 // todo의 마지막 고유 id를 가져오는 함수
 function getLastId() {
-    if (localStorage.getItem('lastId') == null) {
+    if (localStorage.getItem('lastId') == undefined) {
         return 0
     } else {
-        JSON.parse(localStorage.getItem('lastId'))
+        return localStorage.getItem('lastId')
     }
 }
 
@@ -167,7 +167,7 @@ function upsertTodo(todo) {
     let id = getLastId() + 1;
 
     // 만약 todo에 이미 id 값이 있다면 그 값으로 대체
-    if (todo['id'] != '') {
+    if (todo['id'] != '' && todo['id'] != undefined) {
         id = todo['id']
     } else {
 
@@ -188,6 +188,7 @@ function upsertTodo(todo) {
 
     // 수정된 todo 리스트를 storage에 반영
     setTodoList(todoList);
+
 
     // 새롭게 생성일 경우에만, 생성이 성공적으로 완료 되었다면 현시점의 lastId를 저장 해준다.
     if (todoIndex > -1) {
