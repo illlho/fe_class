@@ -858,6 +858,237 @@
                 font-size: 1.2rem;
             }
         }
+
+        /* hero 수정 사항 덮어쓰기 */
+        .hero {
+            position: relative;
+            height: 100vh;
+            /* 전체 높이로 확장 */
+            overflow: hidden;
+        }
+
+        .hero-slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            transition: opacity 1s ease;
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: center;
+        }
+
+        .hero-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to right, rgba(0, 0, 0, 0.7) 0%, rgba(0, 0, 0, 0.4) 50%, rgba(0, 0, 0, 0.1) 100%);
+        }
+
+        .hero-slide.active {
+            opacity: 1;
+        }
+
+        .hero-content {
+            position: relative;
+            left: 10%;
+            max-width: 600px;
+            background-color: rgba(255, 255, 255, 0.9);
+            padding: 40px;
+            border-radius: 8px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+            animation: fadeInUp 1s ease both;
+            border-left: 5px solid var(--accent-color);
+            z-index: 2;
+        }
+
+        .hero-badge {
+            display: inline-block;
+            background-color: var(--accent-color);
+            color: white;
+            padding: 5px 15px;
+            border-radius: 30px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            margin-bottom: 15px;
+            letter-spacing: 1px;
+        }
+
+        .hero-title {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            color: var(--dark-color);
+            line-height: 1.2;
+            font-weight: 700;
+        }
+
+        .hero-desc {
+            font-size: 1.1rem;
+            color: var(--gray-color);
+            margin-bottom: 30px;
+            line-height: 1.8;
+        }
+
+        .hero-btn {
+            display: inline-block;
+            background-color: var(--accent-color);
+            color: white;
+            padding: 15px 30px;
+            border-radius: 30px;
+            font-weight: 600;
+            transition: var(--transition);
+            letter-spacing: 1px;
+            font-size: 1.1rem;
+        }
+
+        .hero-btn i {
+            margin-left: 8px;
+            transition: transform 0.3s ease;
+        }
+
+        .hero-btn:hover {
+            background-color: var(--primary-color);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .hero-btn:hover i {
+            transform: translateX(5px);
+        }
+
+        .hero-controls {
+            position: absolute;
+            bottom: 50px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            align-items: center;
+            z-index: 3;
+        }
+
+        .hero-control {
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .hero-control:hover {
+            background: var(--accent-color);
+        }
+
+        .hero-dots {
+            display: flex;
+            align-items: center;
+            margin: 0 20px;
+        }
+
+        .hero-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.5);
+            margin: 0 5px;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .hero-dot.active {
+            background: white;
+            transform: scale(1.3);
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @media (max-width: 991px) {
+            .hero-content {
+                left: 5%;
+                max-width: 90%;
+                padding: 30px;
+            }
+
+            .hero-title {
+                font-size: 2.5rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hero {
+                height: 80vh;
+            }
+
+            .hero-content {
+                padding: 25px;
+            }
+
+            .hero-title {
+                font-size: 2rem;
+            }
+
+            .hero-desc {
+                font-size: 1rem;
+            }
+
+            .hero-btn {
+                padding: 12px 25px;
+                font-size: 1rem;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .hero {
+                height: 70vh;
+            }
+
+            .hero-content {
+                padding: 20px;
+            }
+
+            .hero-badge {
+                font-size: 0.8rem;
+            }
+
+            .hero-title {
+                font-size: 1.8rem;
+                margin-bottom: 15px;
+            }
+
+            .hero-desc {
+                font-size: 0.9rem;
+                margin-bottom: 20px;
+            }
+
+            .hero-btn {
+                padding: 10px 20px;
+                font-size: 0.9rem;
+            }
+
+            .hero-controls {
+                bottom: 30px;
+            }
+        }
     </style>
 </head>
 
@@ -887,25 +1118,42 @@
 
     <section class="hero">
         <div class="hero-slide active" style="background-image: url('/api/placeholder/1600/900')">
+            <div class="hero-overlay"></div>
             <div class="hero-content">
+                <span class="hero-badge">국보 제83호</span>
                 <h1 class="hero-title">금동 미륵보살 반가사유상</h1>
-                <p class="hero-desc">국보 제83호, 삼국시대. 한국 불교미술의 최고 걸작으로 꼽히는 작품으로, 깊은 사색에 잠긴 미륵보살의 모습을 표현하고 있습니다.</p>
-                <a href="#" class="hero-btn">자세히 보기</a>
+                <p class="hero-desc">삼국시대 불교미술의 최고 걸작으로, 정교한 세공과 심오한 정신성이 조화된 작품입니다. 깊은 사색에 잠긴 미륵보살의 초월적 아름다움을 감상해보세요.
+                </p>
+                <a href="#" class="hero-btn">유물 탐험하기 <i class="fas fa-arrow-right"></i></a>
             </div>
         </div>
         <div class="hero-slide" style="background-image: url('/api/placeholder/1600/900')">
+            <div class="hero-overlay"></div>
             <div class="hero-content">
+                <span class="hero-badge">국보 제70호</span>
                 <h1 class="hero-title">훈민정음 해례본</h1>
-                <p class="hero-desc">국보 제70호, 조선시대. 세종대왕이 창제한 한글의 제작 원리와 사용법을 설명한 책으로, 유네스코 세계기록유산으로 등재되었습니다.</p>
-                <a href="#" class="hero-btn">자세히 보기</a>
+                <p class="hero-desc">세종대왕의 위대한 문화유산으로, 한글 창제의 원리와 철학이 담긴 인류의 보물입니다. 유네스코 세계기록유산으로 등재된 이 소중한 유물을 만나보세요.
+                </p>
+                <a href="#" class="hero-btn">유물 탐험하기 <i class="fas fa-arrow-right"></i></a>
             </div>
         </div>
         <div class="hero-slide" style="background-image: url('/api/placeholder/1600/900')">
+            <div class="hero-overlay"></div>
             <div class="hero-content">
+                <span class="hero-badge">국보 제68호</span>
                 <h1 class="hero-title">청자 상감운학문 매병</h1>
-                <p class="hero-desc">국보 제68호, 고려시대. 구름과 학을 상감기법으로 장식한 고려청자의 대표작으로, 우아한 곡선과 푸른빛이 특징입니다.</p>
-                <a href="#" class="hero-btn">자세히 보기</a>
+                <p class="hero-desc">고려 청자의 최고 경지를 보여주는 걸작으로, 신비로운 비취색 바탕에 구름과 학을 상감기법으로 장식하여 천상의 아름다움을 담아냈습니다.</p>
+                <a href="#" class="hero-btn">유물 탐험하기 <i class="fas fa-arrow-right"></i></a>
             </div>
+        </div>
+        <div class="hero-controls">
+            <button class="hero-control prev"><i class="fas fa-chevron-left"></i></button>
+            <div class="hero-dots">
+                <span class="hero-dot active"></span>
+                <span class="hero-dot"></span>
+                <span class="hero-dot"></span>
+            </div>
+            <button class="hero-control next"><i class="fas fa-chevron-right"></i></button>
         </div>
     </section>
 
@@ -1340,6 +1588,48 @@
             alert('이메일 주소를 입력해 주세요.');
         }
     });
+
+    // hero 신규 레이아웃 관련 소스코드
+    // 히어로 슬라이드 컨트롤
+    const prevBtn = document.querySelector('.hero-control.prev');
+    const nextBtn = document.querySelector('.hero-control.next');
+    const dots = document.querySelectorAll('.hero-dot');
+
+    prevBtn.addEventListener('click', () => {
+        currentSlide = (currentSlide - 1 + slides.length) % slides.length;
+        showSlide(currentSlide);
+        updateDots();
+    });
+
+    nextBtn.addEventListener('click', () => {
+        currentSlide = (currentSlide + 1) % slides.length;
+        showSlide(currentSlide);
+        updateDots();
+    });
+
+    dots.forEach((dot, index) => {
+        dot.addEventListener('click', () => {
+            currentSlide = index;
+            showSlide(currentSlide);
+            updateDots();
+        });
+    });
+
+    function updateDots() {
+        dots.forEach((dot, index) => {
+            if (index === currentSlide) {
+                dot.classList.add('active');
+            } else {
+                dot.classList.remove('active');
+            }
+        });
+    }
+
+    function nextSlide() {
+        currentSlide = (currentSlide + 1) % slides.length;
+        showSlide(currentSlide);
+        updateDots();
+    }
 </script>
 
 </html>
