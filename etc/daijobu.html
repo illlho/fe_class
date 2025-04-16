@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>이자카야 소개</title>
+    <style>
+        /* styles.css */
+
+        body {
+            margin: 0;
+            font-family: 'Noto Sans KR', sans-serif;
+            line-height: 1.6;
+            background-color: #fffaf5;
+            color: #333;
+        }
+
+        .header {
+            background-color: #2c2c2c;
+            color: white;
+            padding: 1rem;
+            text-align: center;
+        }
+
+        .nav-menu {
+            list-style: none;
+            display: flex;
+            justify-content: center;
+            padding: 0;
+            margin-top: 0.5rem;
+        }
+
+        .nav-menu li {
+            margin: 0 1rem;
+        }
+
+        .nav-menu a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .nav-menu a:hover,
+        .nav-menu a:focus {
+            text-decoration: underline;
+        }
+
+        .hero {
+            padding: 4rem 1rem;
+            background-image: url('images/izakaya-bg.jpg');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            text-align: center;
+        }
+
+        .gallery {
+            padding: 2rem 1rem;
+            background-color: #fefefe;
+            text-align: center;
+        }
+
+        .gallery-grid {
+            display: grid;
+            gap: 1rem;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            margin-top: 1rem;
+        }
+
+        figure {
+            margin: 0;
+            border-radius: 0.5rem;
+            overflow: hidden;
+            transition: transform 0.3s;
+            background-color: #fff;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        figure:hover,
+        figure:focus {
+            transform: scale(1.03);
+        }
+
+        figure img {
+            width: 100%;
+            display: block;
+        }
+
+        figcaption {
+            padding: 0.5rem;
+            font-size: 1rem;
+        }
+
+        .contact {
+            padding: 2rem 1rem;
+            background-color: #f0f0f0;
+        }
+
+        .contact form {
+            max-width: 500px;
+            margin: 0 auto;
+            display: grid;
+            gap: 1rem;
+        }
+
+        label {
+            display: block;
+            font-weight: bold;
+        }
+
+        input,
+        textarea {
+            width: 100%;
+            padding: 0.5rem;
+            border: 1px solid #ccc;
+            border-radius: 0.25rem;
+            font-size: 1rem;
+        }
+
+        button {
+            background-color: #2c2c2c;
+            color: white;
+            padding: 0.75rem;
+            border: none;
+            border-radius: 0.25rem;
+            font-size: 1rem;
+            cursor: pointer;
+        }
+
+        button:hover,
+        button:focus {
+            background-color: #444;
+        }
+
+        .footer {
+            background-color: #2c2c2c;
+            color: white;
+            text-align: center;
+            padding: 1rem;
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+
+<body>
+    <header class="header" role="banner">
+        <h1 tabindex="0">정통 이자카야에 오신 것을 환영합니다</h1>
+        <nav role="navigation" aria-label="주 메뉴">
+            <ul class="nav-menu">
+                <li><a href="#intro">소개</a></li>
+                <li><a href="#menu">메뉴</a></li>
+                <li><a href="#contact">문의</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main role="main">
+        <section id="intro" class="hero" aria-labelledby="intro-heading">
+            <h2 id="intro-heading">일본의 정취를 그대로</h2>
+            <p>도심 속 작은 일본, 이자카야에서 진정한 맛을 경험하세요.</p>
+        </section>
+
+        <section id="menu" class="gallery" aria-labelledby="menu-heading">
+            <h2 id="menu-heading">추천 메뉴</h2>
+            <div class="gallery-grid">
+                <figure tabindex="0">
+                    <img src="images/sashimi.jpg" alt="신선한 사시미 접시" />
+                    <figcaption>신선한 사시미</figcaption>
+                </figure>
+                <figure tabindex="0">
+                    <img src="images/yakitori.jpg" alt="맛있게 구운 야키토리" />
+                    <figcaption>야키토리</figcaption>
+                </figure>
+                <figure tabindex="0">
+                    <img src="images/tempura.jpg" alt="바삭한 텐푸라" />
+                    <figcaption>바삭한 텐푸라</figcaption>
+                </figure>
+            </div>
+        </section>
+
+        <section id="contact" class="contact" aria-labelledby="contact-heading">
+            <h2 id="contact-heading">문의하기</h2>
+            <form>
+                <label for="name">이름:</label>
+                <input type="text" id="name" name="name" required />
+
+                <label for="email">이메일:</label>
+                <input type="email" id="email" name="email" required />
+
+                <label for="message">메시지:</label>
+                <textarea id="message" name="message" rows="5" required></textarea>
+
+                <button type="submit">보내기</button>
+            </form>
+        </section>
+    </main>
+
+    <footer class="footer" role="contentinfo">
+        <p>&copy; 2025 이자카야. 모두의 권리를 보호합니다.</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+
+<script>
+    // script.js
+
+    document.addEventListener("DOMContentLoaded", () => {
+        const figures = document.querySelectorAll("figure");
+
+        figures.forEach((figure) => {
+            figure.addEventListener("keypress", (e) => {
+                if (e.key === "Enter") {
+                    figure.classList.toggle("zoomed");
+                }
+            });
+        });
+    });
+</script>
+
+</html>
