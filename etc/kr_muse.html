@@ -1,0 +1,1345 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>국립중앙박물관 - 한국의 문화유산을 만나다</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #34495e;
+            --accent-color: #e74c3c;
+            --light-color: #f8f9fa;
+            --dark-color: #2c3e50;
+            --gray-color: #7f8c8d;
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Noto Sans KR', sans-serif;
+        }
+
+        body {
+            background-color: var(--light-color);
+            color: var(--dark-color);
+            line-height: 1.6;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .skip-nav {
+            position: absolute;
+            left: -9999px;
+            top: auto;
+            width: 1px;
+            height: 1px;
+            overflow: hidden;
+        }
+
+        .skip-nav:focus {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: auto;
+            padding: 15px;
+            background: var(--primary-color);
+            color: white;
+            text-align: center;
+            z-index: 1000;
+        }
+
+        header {
+            background-color: white;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 5%;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            display: flex;
+            align-items: center;
+        }
+
+        .logo img {
+            height: 40px;
+            margin-right: 10px;
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+        }
+
+        .nav-item {
+            margin-left: 30px;
+            position: relative;
+        }
+
+        .nav-item a {
+            font-weight: 500;
+            transition: var(--transition);
+        }
+
+        .nav-item a:hover {
+            color: var(--accent-color);
+        }
+
+        .hamburger {
+            display: none;
+            cursor: pointer;
+            font-size: 1.5rem;
+        }
+
+        .hero {
+            position: relative;
+            height: 80vh;
+            overflow: hidden;
+        }
+
+        .hero-slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            transition: opacity 1s ease;
+            background-size: cover;
+            background-position: center;
+        }
+
+        .hero-slide.active {
+            opacity: 1;
+        }
+
+        .hero-content {
+            position: absolute;
+            bottom: 100px;
+            left: 10%;
+            background-color: rgba(255, 255, 255, 0.9);
+            padding: 30px;
+            max-width: 500px;
+            border-radius: 8px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .hero-title {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+            color: var(--dark-color);
+        }
+
+        .hero-desc {
+            font-size: 1rem;
+            color: var(--gray-color);
+            margin-bottom: 20px;
+        }
+
+        .hero-btn {
+            display: inline-block;
+            background-color: var(--accent-color);
+            color: white;
+            padding: 12px 25px;
+            border-radius: 30px;
+            font-weight: 500;
+            transition: var(--transition);
+        }
+
+        .hero-btn:hover {
+            background-color: var(--primary-color);
+        }
+
+        .featured {
+            padding: 80px 5%;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2rem;
+            margin-bottom: 50px;
+            position: relative;
+            color: var(--dark-color);
+        }
+
+        .section-title::after {
+            content: "";
+            position: absolute;
+            width: 60px;
+            height: 3px;
+            background-color: var(--accent-color);
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .artifacts-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .artifact-card {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05);
+            transition: var(--transition);
+            position: relative;
+        }
+
+        .artifact-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .artifact-img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+        }
+
+        .artifact-info {
+            padding: 20px;
+        }
+
+        .artifact-title {
+            font-size: 1.3rem;
+            margin-bottom: 10px;
+        }
+
+        .artifact-desc {
+            color: var(--gray-color);
+            font-size: 0.9rem;
+            margin-bottom: 15px;
+        }
+
+        .artifact-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.8rem;
+            color: var(--gray-color);
+        }
+
+        .artifact-period {
+            font-weight: 500;
+        }
+
+        .artifact-like {
+            display: flex;
+            align-items: center;
+        }
+
+        .artifact-like i {
+            color: var(--accent-color);
+            margin-right: 5px;
+        }
+
+        .event-section {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 80px 5%;
+        }
+
+        .event-container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .event-title {
+            color: white;
+        }
+
+        .event-title::after {
+            background-color: white;
+        }
+
+        .events-slider {
+            display: flex;
+            overflow-x: auto;
+            gap: 20px;
+            padding: 20px 0;
+            scrollbar-width: none;
+            /* Firefox */
+        }
+
+        .events-slider::-webkit-scrollbar {
+            display: none;
+            /* Safari and Chrome */
+        }
+
+        .event-card {
+            flex: 0 0 auto;
+            width: 300px;
+            background: white;
+            color: var(--dark-color);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .event-img {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+        }
+
+        .event-info {
+            padding: 20px;
+        }
+
+        .event-date {
+            color: var(--accent-color);
+            font-weight: 500;
+            font-size: 0.9rem;
+            margin-bottom: 10px;
+        }
+
+        .event-name {
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+        }
+
+        .event-brief {
+            font-size: 0.9rem;
+            color: var(--gray-color);
+        }
+
+        .visitor-info {
+            padding: 80px 5%;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .info-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 30px;
+        }
+
+        .info-card {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05);
+            text-align: center;
+        }
+
+        .info-icon {
+            font-size: 2.5rem;
+            color: var(--accent-color);
+            margin-bottom: 20px;
+        }
+
+        .info-title {
+            font-size: 1.2rem;
+            margin-bottom: 15px;
+        }
+
+        .info-text {
+            color: var(--gray-color);
+            font-size: 0.9rem;
+        }
+
+        .sns-section {
+            background-color: #f1f2f6;
+            padding: 80px 5%;
+        }
+
+        .sns-container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .sns-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 15px;
+        }
+
+        .sns-post {
+            position: relative;
+            overflow: hidden;
+            border-radius: 10px;
+        }
+
+        .sns-post img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            transition: var(--transition);
+        }
+
+        .sns-post:hover img {
+            transform: scale(1.05);
+        }
+
+        .sns-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(transparent, rgba(0, 0, 0, 0.7));
+            padding: 15px;
+            color: white;
+            font-size: 0.9rem;
+        }
+
+        .sns-icon {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            color: white;
+            background-color: rgba(0, 0, 0, 0.5);
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .newsletter {
+            padding: 60px 5%;
+            background-color: white;
+        }
+
+        .newsletter-container {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .newsletter-title {
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+        }
+
+        .newsletter-desc {
+            color: var(--gray-color);
+            margin-bottom: 30px;
+        }
+
+        .newsletter-form {
+            display: flex;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        .newsletter-input {
+            flex: 1;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 30px 0 0 30px;
+            font-size: 1rem;
+            outline: none;
+        }
+
+        .newsletter-btn {
+            background-color: var(--accent-color);
+            color: white;
+            border: none;
+            padding: 0 25px;
+            border-radius: 0 30px 30px 0;
+            cursor: pointer;
+            font-weight: 500;
+            transition: var(--transition);
+        }
+
+        .newsletter-btn:hover {
+            background-color: var(--primary-color);
+        }
+
+        .virtual-tour {
+            padding: 80px 5%;
+            background-color: var(--light-color);
+        }
+
+        .virtual-container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .virtual-content {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 40px;
+            align-items: center;
+        }
+
+        .virtual-image {
+            flex: 1 1 500px;
+            position: relative;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .virtual-image img {
+            width: 100%;
+            display: block;
+        }
+
+        .virtual-play {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: rgba(255, 255, 255, 0.9);
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            color: var(--accent-color);
+            transition: var(--transition);
+        }
+
+        .virtual-play:hover {
+            background-color: var(--accent-color);
+            color: white;
+        }
+
+        .virtual-info {
+            flex: 1 1 400px;
+        }
+
+        .virtual-title {
+            font-size: 2rem;
+            margin-bottom: 20px;
+        }
+
+        .virtual-desc {
+            margin-bottom: 30px;
+            color: var(--gray-color);
+        }
+
+        .virtual-features {
+            list-style: none;
+            margin-bottom: 30px;
+        }
+
+        .virtual-feature {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .virtual-feature i {
+            color: var(--accent-color);
+            margin-right: 10px;
+        }
+
+        .mobile-app {
+            padding: 80px 5%;
+            background-color: white;
+        }
+
+        .app-container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .app-content {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 40px;
+            align-items: center;
+        }
+
+        .app-info {
+            flex: 1 1 500px;
+        }
+
+        .app-title {
+            font-size: 2rem;
+            margin-bottom: 20px;
+        }
+
+        .app-desc {
+            margin-bottom: 30px;
+            color: var(--gray-color);
+        }
+
+        .app-buttons {
+            display: flex;
+            gap: 15px;
+        }
+
+        .app-button {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background-color: var(--dark-color);
+            color: white;
+            padding: 12px 20px;
+            border-radius: 8px;
+            transition: var(--transition);
+        }
+
+        .app-button:hover {
+            background-color: var(--accent-color);
+        }
+
+        .app-button i {
+            font-size: 1.5rem;
+        }
+
+        .app-text {
+            text-align: left;
+        }
+
+        .app-store {
+            font-size: 0.7rem;
+        }
+
+        .app-name {
+            font-size: 1rem;
+            font-weight: 500;
+        }
+
+        .app-image {
+            flex: 1 1 400px;
+            text-align: center;
+        }
+
+        .app-image img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 20px;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        footer {
+            background-color: var(--dark-color);
+            color: white;
+            padding: 50px 5% 20px;
+        }
+
+        .footer-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+        }
+
+        .footer-logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+        }
+
+        .footer-desc {
+            color: #bdc3c7;
+            margin-bottom: 20px;
+            font-size: 0.9rem;
+        }
+
+        .footer-social {
+            display: flex;
+            gap: 15px;
+        }
+
+        .footer-social a {
+            color: white;
+            font-size: 1.2rem;
+            transition: var(--transition);
+        }
+
+        .footer-social a:hover {
+            color: var(--accent-color);
+        }
+
+        .footer-title {
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+            position: relative;
+            padding-bottom: 10px;
+        }
+
+        .footer-title::after {
+            content: "";
+            position: absolute;
+            width: 40px;
+            height: 2px;
+            background-color: var(--accent-color);
+            bottom: 0;
+            left: 0;
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-link {
+            margin-bottom: 10px;
+        }
+
+        .footer-link a {
+            color: #bdc3c7;
+            transition: var(--transition);
+        }
+
+        .footer-link a:hover {
+            color: white;
+            padding-left: 5px;
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 30px;
+            margin-top: 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: #bdc3c7;
+            font-size: 0.9rem;
+        }
+
+        /* 반응형 디자인 */
+        @media (max-width: 991px) {
+            .hero-content {
+                left: 5%;
+                max-width: 90%;
+            }
+
+            .hero-title {
+                font-size: 2rem;
+            }
+
+            .section-title {
+                font-size: 1.8rem;
+            }
+
+            .virtual-play {
+                width: 60px;
+                height: 60px;
+                font-size: 1.5rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-menu {
+                position: fixed;
+                left: -100%;
+                top: 80px;
+                flex-direction: column;
+                background-color: white;
+                width: 100%;
+                text-align: center;
+                transition: 0.3s;
+                box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+                padding: 20px 0;
+            }
+
+            .nav-menu.active {
+                left: 0;
+            }
+
+            .nav-item {
+                margin: 15px 0;
+            }
+
+            .hamburger {
+                display: block;
+            }
+
+            .hero {
+                height: 60vh;
+            }
+
+            .hero-content {
+                bottom: 50px;
+                padding: 20px;
+            }
+
+            .hero-title {
+                font-size: 1.5rem;
+            }
+
+            .hero-desc {
+                font-size: 0.9rem;
+            }
+
+            .featured,
+            .visitor-info,
+            .sns-section,
+            .virtual-tour,
+            .mobile-app {
+                padding: 50px 5%;
+            }
+
+            .event-section {
+                padding: 50px 5%;
+            }
+
+            .newsletter-form {
+                flex-direction: column;
+            }
+
+            .newsletter-input {
+                border-radius: 30px;
+                margin-bottom: 10px;
+            }
+
+            .newsletter-btn {
+                border-radius: 30px;
+                padding: 15px 25px;
+            }
+
+            .app-buttons {
+                flex-direction: column;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .hero {
+                height: 50vh;
+            }
+
+            .hero-content {
+                bottom: 30px;
+                padding: 15px;
+            }
+
+            .hero-title {
+                font-size: 1.3rem;
+                margin-bottom: 10px;
+            }
+
+            .hero-desc {
+                margin-bottom: 15px;
+            }
+
+            .hero-btn {
+                padding: 10px 20px;
+                font-size: 0.9rem;
+            }
+
+            .section-title {
+                font-size: 1.5rem;
+                margin-bottom: 30px;
+            }
+
+            .artifacts-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-container {
+                grid-template-columns: 1fr;
+            }
+
+            .virtual-play {
+                width: 50px;
+                height: 50px;
+                font-size: 1.2rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <a href="#main-content" class="skip-nav">본문으로 바로가기</a>
+
+    <header>
+        <nav class="navbar">
+            <a href="#" class="logo">
+                <img src="/api/placeholder/40/40" alt="국립중앙박물관 로고">
+                국립중앙박물관
+            </a>
+
+            <ul class="nav-menu">
+                <li class="nav-item"><a href="#">전시</a></li>
+                <li class="nav-item"><a href="#">소장품</a></li>
+                <li class="nav-item"><a href="#">교육•행사</a></li>
+                <li class="nav-item"><a href="#">관람정보</a></li>
+                <li class="nav-item"><a href="#">박물관 소개</a></li>
+            </ul>
+
+            <div class="hamburger">
+                <i class="fas fa-bars"></i>
+            </div>
+        </nav>
+    </header>
+
+    <section class="hero">
+        <div class="hero-slide active" style="background-image: url('/api/placeholder/1600/900')">
+            <div class="hero-content">
+                <h1 class="hero-title">금동 미륵보살 반가사유상</h1>
+                <p class="hero-desc">국보 제83호, 삼국시대. 한국 불교미술의 최고 걸작으로 꼽히는 작품으로, 깊은 사색에 잠긴 미륵보살의 모습을 표현하고 있습니다.</p>
+                <a href="#" class="hero-btn">자세히 보기</a>
+            </div>
+        </div>
+        <div class="hero-slide" style="background-image: url('/api/placeholder/1600/900')">
+            <div class="hero-content">
+                <h1 class="hero-title">훈민정음 해례본</h1>
+                <p class="hero-desc">국보 제70호, 조선시대. 세종대왕이 창제한 한글의 제작 원리와 사용법을 설명한 책으로, 유네스코 세계기록유산으로 등재되었습니다.</p>
+                <a href="#" class="hero-btn">자세히 보기</a>
+            </div>
+        </div>
+        <div class="hero-slide" style="background-image: url('/api/placeholder/1600/900')">
+            <div class="hero-content">
+                <h1 class="hero-title">청자 상감운학문 매병</h1>
+                <p class="hero-desc">국보 제68호, 고려시대. 구름과 학을 상감기법으로 장식한 고려청자의 대표작으로, 우아한 곡선과 푸른빛이 특징입니다.</p>
+                <a href="#" class="hero-btn">자세히 보기</a>
+            </div>
+        </div>
+    </section>
+
+    <main id="main-content">
+        <section class="featured">
+            <h2 class="section-title">대표 소장품</h2>
+
+            <div class="artifacts-grid">
+                <div class="artifact-card">
+                    <img src="/api/placeholder/300/250" alt="금동 미륵보살 반가사유상" class="artifact-img">
+                    <div class="artifact-info">
+                        <h3 class="artifact-title">금동 미륵보살 반가사유상</h3>
+                        <p class="artifact-desc">깊은 사색에 잠긴 미륵보살의 모습을 표현한 삼국시대 불교미술의 최고 걸작</p>
+                        <div class="artifact-meta">
+                            <span class="artifact-period">삼국시대</span>
+                            <span class="artifact-like"><i class="fas fa-heart"></i> 2,341</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="artifact-card">
+                    <img src="/api/placeholder/300/250" alt="훈민정음 해례본" class="artifact-img">
+                    <div class="artifact-info">
+                        <h3 class="artifact-title">훈민정음 해례본</h3>
+                        <p class="artifact-desc">세종대왕이 창제한 한글의 제작 원리와 사용법을 설명한 유네스코 세계기록유산</p>
+                        <div class="artifact-meta">
+                            <span class="artifact-period">조선시대</span>
+                            <span class="artifact-like"><i class="fas fa-heart"></i> 1,982</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="artifact-card">
+                    <img src="/api/placeholder/300/250" alt="청자 상감운학문 매병" class="artifact-img">
+                    <div class="artifact-info">
+                        <h3 class="artifact-title">청자 상감운학문 매병</h3>
+                        <p class="artifact-desc">구름과 학을 상감기법으로 장식한 고려청자의 대표작</p>
+                        <div class="artifact-meta">
+                            <span class="artifact-period">고려시대</span>
+                            <span class="artifact-like"><i class="fas fa-heart"></i> 1,756</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="artifact-card">
+                    <img src="/api/placeholder/300/250" alt="신라 금관" class="artifact-img">
+                    <div class="artifact-info">
+                        <h3 class="artifact-title">신라 금관</h3>
+                        <p class="artifact-desc">화려한 장식과 정교한 세공기술이 돋보이는 신라시대 왕권의 상징</p>
+                        <div class="artifact-meta">
+                            <span class="artifact-period">신라시대</span>
+                            <span class="artifact-like"><i class="fas fa-heart"></i> 2,105</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="event-section">
+            <div class="event-container">
+                <h2 class="section-title event-title">전시 및 행사</h2>
+
+                <div class="events-slider">
+                    <div class="event-card">
+                        <img src="/api/placeholder/300/180" alt="조선시대 도자기 특별전" class="event-img">
+                        <div class="event-info">
+                            <p class="event-date">2025.04.01 - 2025.06.30</p>
+                            <h3 class="event-name">조선시대 도자기 특별전</h3>
+                            <p class="event-brief">조선시대 도자기의 아름다움과 제작 기술을 소개하는 특별전시</p>
+                        </div>
+                    </div>
+
+                    <div class="event-card">
+                        <img src="/api/placeholder/300/180" alt="고대 왕국의 보물" class="event-img">
+                        <div class="event-info">
+                            <p class="event-date">2025.03.15 - 2025.05.20</p>
+                            <h3 class="event-name">고대 왕국의 보물</h3>
+                            <p class="event-brief">삼국시대 고분에서 출토된 귀중한 유물들을 한자리에</p>
+                        </div>
+                    </div>
+
+                    <div class="event-card">
+                        <img src="/api/placeholder/300/180" alt="한국 전통 음악 공연" class="event-img">
+                        <div class="event-info">
+                            <p class="event-date">2025.04.15 - 2025.04.30</p>
+                            <h3 class="event-name">한국 전통 음악 공연</h3>
+                            <p class="event-brief">국악의 아름다움을 경험할 수 있는 특별 공연 프로그램</p>
+                        </div>
+                    </div>
+
+                    <div class="event-card">
+                        <img src="/api/placeholder/300/180" alt="어린이 문화 체험" class="event-img">
+                        <div class="event-info">
+                            <p class="event-date">2025.05.05 - 2025.05.10</p>
+                            <h3 class="event-name">어린이 문화 체험</h3>
+                            <p class="event-brief">어린이날 맞이 한국 전통문화 체험 프로그램</p>
+                        </div>
+                    </div>
+
+                    <div class="event-card">
+                        <img src="/api/placeholder/300/180" alt="세계문화유산 특별전" class="event-img">
+                        <div class="event-info">
+                            <p class="event-date">2025.06.10 - 2025.08.31</p>
+                            <h3 class="event-name">세계문화유산 특별전</h3>
+                            <p class="event-brief">유네스코 지정 한국의 세계문화유산을 한눈에</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="visitor-info">
+            <h2 class="section-title">관람 안내</h2>
+
+            <div class="info-cards">
+                <div class="info-card">
+                    <div class="info-icon">
+                        <i class="far fa-clock"></i>
+                    </div>
+                    <h3 class="info-title">관람 시간</h3>
+                    <p class="info-text">화요일-일요일: 10:00 - 18:00<br>토요일: 10:00 - 21:00<br>매주 월요일: 휴관</p>
+                </div>
+
+                <div class="info-card">
+                    <div class="info-icon">
+                        <i class="fas fa-ticket-alt"></i>
+                    </div>
+                    <h3 class="info-title">입장료</h3>
+                    <p class="info-text">상설전시: 무료<br>특별전시: 성인 5,000원<br>학생 및 어린이: 3,000원</p>
+                </div>
+
+                <div class="info-card">
+                    <div class="info-icon">
+                        <i class="fas fa-map-marker-alt"></i>
+                    </div>
+                    <h3 class="info-title">오시는 길</h3>
+                    <p class="info-text">서울특별시 용산구 서빙고로 137<br>지하철 4호선 이촌역 2번 출구</p>
+                </div>
+
+                <div class="info-card">
+                    <div class="info-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <h3 class="info-title">단체 관람</h3>
+                    <p class="info-text">20명 이상 단체는 사전 예약 필수<br>전화: 02-1234-5678</p>
+                </div>
+            </div>
+        </section>
+
+
+        <section class="sns-section">
+            <div class="sns-container">
+                <h2 class="section-title">SNS 갤러리</h2>
+
+                <div class="sns-grid">
+                    <div class="sns-post">
+                        <img src="/api/placeholder/200/200" alt="인스타그램 포스트">
+                        <div class="sns-overlay">조선 백자의 아름다움</div>
+                        <div class="sns-icon"><i class="fab fa-instagram"></i></div>
+                    </div>
+
+                    <div class="sns-post">
+                        <img src="/api/placeholder/200/200" alt="인스타그램 포스트">
+                        <div class="sns-overlay">특별 야간 개장 행사</div>
+                        <div class="sns-icon"><i class="fab fa-instagram"></i></div>
+                    </div>
+
+                    <div class="sns-post">
+                        <img src="/api/placeholder/200/200" alt="페이스북 포스트">
+                        <div class="sns-overlay">전통 공예 체험 행사</div>
+                        <div class="sns-icon"><i class="fab fa-facebook-f"></i></div>
+                    </div>
+
+                    <div class="sns-post">
+                        <img src="/api/placeholder/200/200" alt="인스타그램 포스트">
+                        <div class="sns-overlay">불교미술 특별전</div>
+                        <div class="sns-icon"><i class="fab fa-instagram"></i></div>
+                    </div>
+
+                    <div class="sns-post">
+                        <img src="/api/placeholder/200/200" alt="트위터 포스트">
+                        <div class="sns-overlay">어린이날 이벤트</div>
+                        <div class="sns-icon"><i class="fab fa-twitter"></i></div>
+                    </div>
+
+                    <div class="sns-post">
+                        <img src="/api/placeholder/200/200" alt="인스타그램 포스트">
+                        <div class="sns-overlay">신라 금관 전시</div>
+                        <div class="sns-icon"><i class="fab fa-instagram"></i></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="newsletter">
+            <div class="newsletter-container">
+                <h2 class="newsletter-title">소식 구독하기</h2>
+                <p class="newsletter-desc">박물관의 최신 전시, 행사, 교육 프로그램 소식을 이메일로 받아보세요.</p>
+                <form class="newsletter-form">
+                    <input type="email" class="newsletter-input" placeholder="이메일 주소를 입력하세요">
+                    <button type="submit" class="newsletter-btn">구독하기</button>
+                </form>
+            </div>
+        </section>
+
+        <section class="virtual-tour">
+            <div class="virtual-container">
+                <h2 class="section-title">가상 박물관 투어</h2>
+
+                <div class="virtual-content">
+                    <div class="virtual-image">
+                        <img src="/api/placeholder/600/400" alt="가상 박물관 투어">
+                        <a href="#" class="virtual-play">
+                            <i class="fas fa-play"></i>
+                        </a>
+                    </div>
+
+                    <div class="virtual-info">
+                        <h3 class="virtual-title">집에서 즐기는 박물관</h3>
+                        <p class="virtual-desc">국립중앙박물관의 대표 전시실을 온라인으로 둘러보세요. 360도 파노라마 뷰와 상세한 작품 설명으로 실제 관람과 같은 경험을
+                            제공합니다.</p>
+
+                        <ul class="virtual-features">
+                            <li class="virtual-feature">
+                                <i class="fas fa-check-circle"></i>
+                                <span>360도 고해상도 파노라마 뷰</span>
+                            </li>
+                            <li class="virtual-feature">
+                                <i class="fas fa-check-circle"></i>
+                                <span>주요 소장품 상세 해설</span>
+                            </li>
+                            <li class="virtual-feature">
+                                <i class="fas fa-check-circle"></i>
+                                <span>오디오 가이드 지원</span>
+                            </li>
+                            <li class="virtual-feature">
+                                <i class="fas fa-check-circle"></i>
+                                <span>모바일 기기 호환</span>
+                            </li>
+                        </ul>
+
+                        <a href="#" class="hero-btn">가상 투어 시작하기</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="mobile-app">
+            <div class="app-container">
+                <div class="app-content">
+                    <div class="app-info">
+                        <h2 class="app-title">모바일 앱 다운로드</h2>
+                        <p class="app-desc">국립중앙박물관 모바일 앱으로 더욱 편리하게 박물관을 경험하세요. 전시 정보, 오디오 가이드, 관람 경로 추천, 소장품 검색 등 다양한
+                            기능을 제공합니다.</p>
+
+                        <div class="app-buttons">
+                            <a href="#" class="app-button">
+                                <i class="fab fa-google-play"></i>
+                                <div class="app-text">
+                                    <span class="app-store">GET IT ON</span>
+                                    <span class="app-name">Google Play</span>
+                                </div>
+                            </a>
+
+                            <a href="#" class="app-button">
+                                <i class="fab fa-apple"></i>
+                                <div class="app-text">
+                                    <span class="app-store">Download on the</span>
+                                    <span class="app-name">App Store</span>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="app-image">
+                        <img src="/api/placeholder/300/600" alt="박물관 모바일 앱 화면">
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-container">
+            <div>
+                <div class="footer-logo">국립중앙박물관</div>
+                <p class="footer-desc">한국의 역사와 문화유산을 수집, 보존, 연구, 전시하여 우리 문화의 우수성을 널리 알리고 있습니다.</p>
+                <div class="footer-social">
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-youtube"></i></a>
+                </div>
+            </div>
+
+            <div>
+                <h3 class="footer-title">바로가기</h3>
+                <ul class="footer-links">
+                    <li class="footer-link"><a href="#">소장품 검색</a></li>
+                    <li class="footer-link"><a href="#">전시 일정</a></li>
+                    <li class="footer-link"><a href="#">교육 프로그램</a></li>
+                    <li class="footer-link"><a href="#">자원봉사</a></li>
+                    <li class="footer-link"><a href="#">후원 안내</a></li>
+                </ul>
+            </div>
+
+            <div>
+                <h3 class="footer-title">관람 안내</h3>
+                <ul class="footer-links">
+                    <li class="footer-link"><a href="#">관람 시간</a></li>
+                    <li class="footer-link"><a href="#">관람료</a></li>
+                    <li class="footer-link"><a href="#">오시는 길</a></li>
+                    <li class="footer-link"><a href="#">단체 관람</a></li>
+                    <li class="footer-link"><a href="#">편의 시설</a></li>
+                </ul>
+            </div>
+
+            <div>
+                <h3 class="footer-title">연락처</h3>
+                <ul class="footer-links">
+                    <li class="footer-link">서울특별시 용산구 서빙고로 137</li>
+                    <li class="footer-link">대표전화: 02-1234-5678</li>
+                    <li class="footer-link">팩스: 02-1234-5679</li>
+                    <li class="footer-link">이메일: info@museum.go.kr</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="copyright">
+            Copyright © 2025 국립중앙박물관. All rights reserved.
+        </div>
+    </footer>
+
+</body>
+
+<script>
+    // 햄버거 메뉴
+    const hamburger = document.querySelector('.hamburger');
+    const navMenu = document.querySelector('.nav-menu');
+
+    hamburger.addEventListener('click', () => {
+        navMenu.classList.toggle('active');
+    });
+
+    // 히어로 슬라이드
+    const slides = document.querySelectorAll('.hero-slide');
+    let currentSlide = 0;
+
+    function showSlide(n) {
+        slides.forEach(slide => slide.classList.remove('active'));
+        slides[n].classList.add('active');
+    }
+
+    function nextSlide() {
+        currentSlide = (currentSlide + 1) % slides.length;
+        showSlide(currentSlide);
+    }
+
+    // 5초마다 슬라이드 변경
+    setInterval(nextSlide, 5000);
+
+    // 스크롤 시 헤더 스타일 변경
+    window.addEventListener('scroll', () => {
+        const header = document.querySelector('header');
+        if (window.scrollY > 50) {
+            header.style.boxShadow = '0 2px 10px rgba(0,0,0,0.1)';
+        } else {
+            header.style.boxShadow = 'none';
+        }
+    });
+
+    // 이벤트 슬라이더 모바일 드래그 기능
+    const slider = document.querySelector('.events-slider');
+    let isDown = false;
+    let startX;
+    let scrollLeft;
+
+    slider.addEventListener('mousedown', (e) => {
+        isDown = true;
+        slider.classList.add('active');
+        startX = e.pageX - slider.offsetLeft;
+        scrollLeft = slider.scrollLeft;
+    });
+
+    slider.addEventListener('mouseleave', () => {
+        isDown = false;
+        slider.classList.remove('active');
+    });
+
+    slider.addEventListener('mouseup', () => {
+        isDown = false;
+        slider.classList.remove('active');
+    });
+
+    slider.addEventListener('mousemove', (e) => {
+        if (!isDown) return;
+        e.preventDefault();
+        const x = e.pageX - slider.offsetLeft;
+        const walk = (x - startX) * 2;
+        slider.scrollLeft = scrollLeft - walk;
+    });
+
+    // 터치 디바이스 지원
+    slider.addEventListener('touchstart', (e) => {
+        isDown = true;
+        startX = e.touches[0].pageX - slider.offsetLeft;
+        scrollLeft = slider.scrollLeft;
+    });
+
+    slider.addEventListener('touchend', () => {
+        isDown = false;
+    });
+
+    slider.addEventListener('touchmove', (e) => {
+        if (!isDown) return;
+        const x = e.touches[0].pageX - slider.offsetLeft;
+        const walk = (x - startX) * 2;
+        slider.scrollLeft = scrollLeft - walk;
+    });
+
+    // 뉴스레터 폼 제출
+    const newsletterForm = document.querySelector('.newsletter-form');
+
+    newsletterForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const email = document.querySelector('.newsletter-input').value;
+
+        if (email) {
+            alert('구독해 주셔서 감사합니다! ' + email + ' 주소로 확인 메일이 발송되었습니다.');
+            newsletterForm.reset();
+        } else {
+            alert('이메일 주소를 입력해 주세요.');
+        }
+    });
+</script>
+
+</html>
