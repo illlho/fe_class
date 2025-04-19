@@ -1,4 +1,4 @@
-// 할 일 추가 (new)
+// 할 일 추가 (new) : 할 일 데이터를 생성 > 스토리지 저장(DB) > 할 일 화면 생성
 function addTodo() {
     let todoInput = document.getElementById('todo-input')
     let inputText = todoInput.value
@@ -9,11 +9,11 @@ function addTodo() {
     }
 
     // 스토리지 저장
-    let todo = { content: inputText }
+    let todo = { 'content': inputText }
     let todoId = upsertTodo(todo)
     todo['todoId'] = todoId
 
-    // 할 일 생성
+    // 할 일 화면 생성
     createTodo(todo)
 
     // 입력창 초기화
@@ -114,7 +114,7 @@ function editItem(button) {
     }
     textSpan.textContent = newText.trim()
 
-    // 스토리지애 업데이트
+    // 스토리지에 업데이트
     let todo = {
         id: li.dataset.id,
         content: newText.trim()
@@ -190,6 +190,7 @@ function getLastId() {
 }
 
 // todo를 storage에 insert 하거나 update 하는 함수 : insert + update = upsert
+// CRUD : Create(생성:insert) Read(읽기) Update(수정) Delete(삭제)
 function upsertTodo(todo) {
 
     // 각각의 todo에 고유한 id를 부여하기 위해 생성할 때마다 +1을 해준다
@@ -204,8 +205,8 @@ function upsertTodo(todo) {
     let todoList = getAllTodoList();
 
     // 기존 todo 리스트에 같은 id를 가진 todo 가 존재한다면 새로 생성(insert)하는 것이 아닌 수정(update)을 진행
-    let todoIndex = todoList.findIndex(function (item) {
-        return item.id == id
+    let todoIndex = todoList.findIndex(function (todo_) {
+        return todo_.id == id
     })
 
     if (todoIndex > -1) { // 같은 id가 이미 존재하는 경우 수정(update)
@@ -214,9 +215,8 @@ function upsertTodo(todo) {
         todo['id'] = id
         todo['deleted'] = false
         todo['completed'] = false
-        todoList.push(todo);
+        todoList.push(todo)
     }
-
 
     // 수정된 todo 리스트를 storage에 반영
     setTodoList(todoList);
