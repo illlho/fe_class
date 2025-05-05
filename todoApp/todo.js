@@ -9,7 +9,12 @@ function addTodo() {
     }
 
     // 스토리지 저장
+    // 객체는 key 값과 value 값이 하나의 쌍을 이룬다.
+    // 암호(key)를 입력하면 
+    // 암호(key)에 일치하는 물건(value)이 나온다.
     let todo = { 'content': inputText }
+
+    // 새로운 할 일을 스토리지(DB)에 저장
     let todoId = upsertTodo(todo)
     todo['todoId'] = todoId
 
@@ -197,6 +202,8 @@ function upsertTodo(todo) {
     let id = Number(getLastId()) + 1;
 
     // 만약 todo에 이미 id 값이 있다면 그 값으로 대체
+    // || : 거나 (or)
+    // && : 그리고 (and)
     if (todo['id'] != '' && todo['id'] != undefined) {
         id = todo['id']
     }
@@ -205,6 +212,11 @@ function upsertTodo(todo) {
     let todoList = getAllTodoList();
 
     // 기존 todo 리스트에 같은 id를 가진 todo 가 존재한다면 새로 생성(insert)하는 것이 아닌 수정(update)을 진행
+    // index : 0 => 1 (최대 index => 4)
+    // length (길이) : 5
+    // 새로 생성한 id 값이 todoList에 존재하는지 검토
+    
+    // 250505 생성 로직 설명 중 여기까지 완료
     let todoIndex = todoList.findIndex(function (todo_) {
         return todo_.id == id
     })
