@@ -102,6 +102,7 @@ function deleteItem(button) {
 
 // 할 일 수정
 function editItem(button) {
+    // 250506 editItem은 다음회차 복습 용도
     let li = button.closest('li')
 
     // querySelector : css 선택자 문법으로 HTML 요소를 '하나' 찾아주는 함수
