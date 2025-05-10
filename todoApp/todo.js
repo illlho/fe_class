@@ -125,7 +125,7 @@ function editItem(button) {
         id: li.dataset.id,
         content: newText.trim()
     }
-    upsertTodo(todo)
+    upsertTodo(todo) // 250510 editItem 복습 완료
 
     // if (newText != null && newText.trim() != '') {
     //     textSpan.textContent = newText.trim()
