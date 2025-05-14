@@ -90,16 +90,6 @@ function createTodo(todo) {
     todoList.appendChild(newTodo)
 }
 
-// 할 일 삭제
-function deleteItem(button) {
-    // closest : 부모 방향으로 거슬러 올라가며 매개변수로 전달한 'li' 태그를 찾는다. 가장 먼저 발견된 항목 하나를 반환한다.
-    let li = button.closest('li')
-    li.remove()
-
-    // stroage의 todo 삭제처리
-    deleteTodo(li.dataset.id)
-}
-
 // 할 일 수정
 function editItem(button) {
     // 250506 editItem은 다음회차 복습 용도
@@ -240,6 +230,16 @@ function upsertTodo(todo) {
     }
 
     return id
+}
+
+// 할 일 삭제
+function deleteItem(button) {
+    // closest : 부모 방향으로 거슬러 올라가며 매개변수로 전달한 'li' 태그를 찾는다. 가장 먼저 발견된 항목 하나를 반환한다.
+    let li = button.closest('li')
+    li.remove()
+
+    // stroage의 todo 삭제처리
+    deleteTodo(li.dataset.id)
 }
 
 // storage에서 특정 todo를 삭제 처리하는 함수
